@@ -9,7 +9,7 @@ const Header = () => {
     >
       <div className='flex items-center gap-7'>
         <Image
-          src='/assets/logo2.png'
+          src='/assets/logo.png'
           alt='AIkya logo'
           width={62}
           height={80}
