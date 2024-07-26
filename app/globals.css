@@ -30,6 +30,6 @@ body {
 }
 
 .bgGradient {
-  background: rgb(198, 225, 220);
-  background: linear-gradient(106deg, rgba(198, 225, 220, 1) 0%, rgba(245, 247, 234, 1) 50%, rgba(255, 210, 191, 1) 100%);
+  background: rgb(140,196,196);
+background: linear-gradient(106deg, rgba(140,196,196,1) 0%, rgba(245,247,234,1) 52%, rgba(252,217,195,1) 100%);
 }
