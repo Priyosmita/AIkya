@@ -81,3 +81,67 @@ background: linear-gradient(106deg, rgba(140,196,196,1) 0%, rgba(245,247,234,1) 
 .animate-expand {
   animation: expandText 1.5s ease-out forwards;
 }
+
+/* all properties of all */
+.image-container {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: 20px;
+  overflow: visible; /* Allow overflow to show text below */
+  text-align: center; /* Center the text below the image */
+}
+
+/* image expand animation */
+.image-container img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+/* for paragraph */
+.image-container p {
+  position: relative;
+  top: 0;
+  margin: 0;
+  padding: 10px;
+  background: transparent;
+  color: #537979; /* Adjust color as needed */
+  font-size: larger;
+  text-align: center;
+  transform: translateY(-20px); /* Start slightly above */
+  opacity: 0; /* Initially invisible */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.image-container:hover img {
+  transform: scale(1.05);
+}
+
+/* paragraph hover effect */
+.image-container:hover p {
+  transform: translateY(20px); /* Move below the image */
+  opacity: 1; /* Make text visible */
+}
+
+/* button animation */
+@keyframes fadeInFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeInFromBottom {
+  animation: fadeInFromBottom 1s ease-out forwards;
+}
+
+.reset-animation {
+  animation: none;
+}
+
