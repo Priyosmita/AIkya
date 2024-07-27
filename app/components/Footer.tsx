@@ -1,22 +1,37 @@
 import Image from 'next/image'
 import React from 'react'
 import Link from 'next/link'
+import { IoLogoInstagram, IoLogoFacebook, IoLogoLinkedin } from "react-icons/io5";
+import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
     <footer className='-100 bg-[#7ebaba] w-full flex'>
       <Link href="/" className='mt-12 mb-12 ml-16'><Image
-            src='/assets/logo.png'
-            alt='AIkya logo'
-            width={400}
-            height={400}
-            className="cursor-pointer transform duration-300 hover:scale-110 mt-2 mb-2 ml-5"
-          /></Link>
+        src='/assets/logo.png'
+        alt='AIkya logo'
+        width={400}
+        height={400}
+        className="cursor-pointer transform duration-300 hover:scale-110 mt-2 mb-2 ml-5"
+      /></Link>
       <div className='h flex flex-row justify-end items-center ml-48'>
         <div className='h-64 w-60'>
-          <div>
-            mfhdgfgf
-          </div>
+          <div className='text-3xl cursor-default'>Socials</div>
+          <Link href="https://www.instagram.com/pritae03/">
+            <IoLogoInstagram className='mt-6 transform transition duration-300 hover:scale-150' style={{ width: '2.5em', height: '2.5em' }}/>
+          </Link>
+
+          <Link href="https://www.facebook.com/rijuraj.datta.5?mibextid=ZbWKwL">
+            <IoLogoFacebook className='mt-6 transform transition duration-300 hover:scale-150' style={{ width: '2.5em', height: '2.5em' }}/>
+          </Link>
+
+          <Link href="https://x.com/RijurajDatta?t=VF2vFUFynxnSe4t37PpBUg&s=09">
+            <FaXTwitter className='mt-6 transform transition duration-300 hover:scale-150' style={{ width: '2.5em', height: '2.5em' }}/>
+            </Link>
+
+          <Link href="https://www.linkedin.com/in/priyosmita-das">
+            <IoLogoLinkedin className='mt-6 transform transition duration-300 hover:scale-150' style={{ width: '2.5em', height: '2.5em' }}/>
+            </Link>
         </div>
 
         <div className='h-64 w-80'>
@@ -29,7 +44,7 @@ const Footer = () => {
         </div>
 
         <div className='h-64 w-80 mr-11'>
-        <Link href="/" legacyBehavior>
+          <Link href="/" legacyBehavior>
             <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer'>Terms and Conditions</p>
           </Link>
           <Link href="/" legacyBehavior>
@@ -37,7 +52,7 @@ const Footer = () => {
           </Link>
         </div>
       </div>
-      
+
     </footer>
   )
 }
