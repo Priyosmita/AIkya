@@ -1,11 +1,33 @@
+'use client'
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useState, useEffect } from 'react'
 
 const Header = () => {
+
+  const [hidden, setHidden] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > scrollY) {
+        setHidden(true);
+      } else {
+        setHidden(false);
+      }
+      setScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [scrollY]);
+
   return (
     <header
-      className='bg-white w-full flex flex-row justify-between'
+      className={`bg-[#ffffff] w-full flex flex-row justify-between top-0 z-10 fixed transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div className='flex items-center gap-7'>
         <Image
@@ -28,10 +50,10 @@ const Header = () => {
             <h2 className='cursor-pointer text-black text-2xl font-semibold transform transition duration-300 hover:scale-110'>About</h2>
           </Link>
           <nav className='flex items-center space-x-6'>
-          <Link href="/" legacyBehavior>
-            <h2 className='cursor-pointer text-black text-2xl font-semibold transform transition duration-300 hover:scale-110 mr-7'>Pro</h2>
-          </Link>
-        </nav>
+            <Link href="/" legacyBehavior>
+              <h2 className='cursor-pointer text-black text-2xl font-semibold transform transition duration-300 hover:scale-110 mr-7'>Pro</h2>
+            </Link>
+          </nav>
         </nav>
       </div>
     </header>

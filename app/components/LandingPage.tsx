@@ -3,6 +3,7 @@ import React from 'react';
 import "../globals.css";
 import Image from 'next/image';
 import { SignIn, SignInButton, SignUpButton } from '@clerk/nextjs';
+import Link from 'next/link';
 
 const LandingPage = () => {
   return (
@@ -21,7 +22,10 @@ const LandingPage = () => {
       </div>
       <div className="flex justify-center gap-x-101 mt-28 p-20">
         <button type="button" className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-5xl px-5 py-2.5 text-center me-2 mb-2 transform trasition duration-300 hover:scale-110">Sign Up</button>
+        
+        <Link href="/pages/auth/signin">
         <button type="button" className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-5xl px-5 py-2.5 text-center me-2 mb-2 transform trasition duration-300 hover:scale-110">Sign In</button>
+        </Link>
       </div>
     </div>
   );
