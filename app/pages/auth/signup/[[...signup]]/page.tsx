@@ -1,11 +1,11 @@
 import React from 'react';
 import "../../../../globals.css";
-import { SignIn } from '@clerk/nextjs';
+import { SignUp } from '@clerk/nextjs';
 
 const Page = () => {
   return (
     <div className='min-h-screen bgGradient flex justify-center items-center'>
-      <SignIn
+      <SignUp
         appearance={{
           elements: {
             button: 'bg-[#7ebaba] text-black hover:scale-105 transform transition duration-300 hover:bg-[#fde9d1]',
