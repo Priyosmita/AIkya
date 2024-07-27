@@ -40,7 +40,7 @@ const Header = () => {
           className="cursor-pointer transform duration-300 hover:scale-110 mt-2 mb-2 ml-5"
         />
         {/* span is an alternative to div. Unlike div span only takes the place where it is located */}
-        <span className='cursor-default text-black text-2xl font-semibold transform transition duration-300 hover:scale-110'>
+        <span className='cursor-default text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 hover:text-[#f8b891]'>
           AIkya
         </span>
       </div>
@@ -49,7 +49,7 @@ const Header = () => {
         {/* all options are kept under nav for SEO purposes */}
         <nav className='flex items-center space-x-6'>
           <Link href="/" legacyBehavior>
-            <h2 className='cursor-pointer text-black text-2xl font-semibold transform transition duration-300 hover:scale-110 mr-8'>About</h2>
+            <h2 className='cursor-pointer text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 mr-8 hover:text-[#f8b891]'>About</h2>
           </Link>
           <nav className='flex items-center'>
             <div className="user-button-wrapper mr-10 mt-2 scale-150 transform transition duration-300 hover:scale-201">

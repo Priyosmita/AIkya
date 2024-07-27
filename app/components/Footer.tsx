@@ -18,37 +18,37 @@ const Footer = () => {
         <div className='h-64 w-60'>
           <div className='text-3xl cursor-default'>Socials</div>
           <Link href="https://www.instagram.com/pritae03/">
-            <IoLogoInstagram className='mt-6 transform transition duration-300 hover:scale-150' style={{ width: '2.5em', height: '2.5em' }}/>
+            <IoLogoInstagram className='mt-6 transform transition duration-300 hover:scale-150 hover:text-[#ffd9c1]' style={{ width: '2.5em', height: '2.5em' }}/>
           </Link>
 
           <Link href="https://www.facebook.com/rijuraj.datta.5?mibextid=ZbWKwL">
-            <IoLogoFacebook className='mt-6 transform transition duration-300 hover:scale-150' style={{ width: '2.5em', height: '2.5em' }}/>
+            <IoLogoFacebook className='mt-6 transform transition duration-300 hover:scale-150 hover:text-[#ffd9c1]' style={{ width: '2.5em', height: '2.5em' }}/>
           </Link>
 
           <Link href="https://x.com/RijurajDatta?t=VF2vFUFynxnSe4t37PpBUg&s=09">
-            <FaXTwitter className='mt-6 transform transition duration-300 hover:scale-150' style={{ width: '2.5em', height: '2.5em' }}/>
+            <FaXTwitter className='mt-6 transform transition duration-300 hover:scale-150 hover:text-[#ffd9c1]' style={{ width: '2.5em', height: '2.5em' }}/>
             </Link>
 
           <Link href="https://www.linkedin.com/in/priyosmita-das">
-            <IoLogoLinkedin className='mt-6 transform transition duration-300 hover:scale-150' style={{ width: '2.5em', height: '2.5em' }}/>
+            <IoLogoLinkedin className='mt-6 transform transition duration-300 hover:scale-150 hover:text-[#ffd9c1]' style={{ width: '2.5em', height: '2.5em' }}/>
             </Link>
         </div>
 
         <div className='h-64 w-80'>
           <Link href="/" legacyBehavior>
-            <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer'>About Us</p>
+            <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer hover:text-[#ffd9c1]'>About Us</p>
           </Link>
           <Link href="/" legacyBehavior>
-            <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer mt-24'>Contact Us</p>
+            <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer mt-24 hover:text-[#ffd9c1]'>Contact Us</p>
           </Link>
         </div>
 
         <div className='h-64 w-80 mr-11'>
           <Link href="/" legacyBehavior>
-            <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer'>Terms and Conditions</p>
+            <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer hover:text-[#ffd9c1]'>Terms and Conditions</p>
           </Link>
           <Link href="/" legacyBehavior>
-            <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer mt-11'>Privacy Policy</p>
+            <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer mt-24 hover:text-[#ffd9c1]'>Privacy Policy</p>
           </Link>
         </div>
       </div>
