@@ -14,6 +14,10 @@ const config: Config = {
       },
       height: {
         '100': '400px',
+        '101': '783px',
+      },
+      width: {
+        '65': '1326px',
       },
       fontSize: {
         '11xl': '300px',
