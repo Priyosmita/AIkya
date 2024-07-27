@@ -10,8 +10,9 @@ const LandingPage = () => {
     <div className="min-h-screen bgGradient">
       {/* if we put relative, we need absolute. this ensures that no matter what the div elements with relative and absolute will not move what so ever */}
       <div className="relative flex flex-col items-center">
-        <span className="absolute top-0 text-white text-11xl text-shadow-lg">AIkya</span>
-        <div className="mt-96">
+        <span className="absolute top-0 mt-10 text-white text-11xl text-shadow-lg cursor-default">AIkya</span>
+        <span className="absolute mt-65 text-white text-5xl text-shadow-lg cursor-default">From Ideas To Impact</span>
+        <div className="mt-66">
           <Image
             width={900}
             height={900}

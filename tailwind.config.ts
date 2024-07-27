@@ -29,7 +29,11 @@ const config: Config = {
       },
       scale: {
         '201': '2'
-      }
+      },
+      margin: {
+        '65': '450px',
+        '66': '450px'
+      },
     },
   },
   plugins: [
