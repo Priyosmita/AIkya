@@ -2,36 +2,38 @@
 import React from 'react';
 import "../globals.css";
 import Image from 'next/image';
-import { SignIn, SignInButton, SignUpButton } from '@clerk/nextjs';
 import Link from 'next/link';
+
 
 const LandingPage = () => {
   return (
     <div className="min-h-screen bgGradient">
-      {/* if we put relative, we need absolute. this ensures that no matter what the div elements with relative and absolute will not move what so ever */}
       <div className="relative flex flex-col items-center">
         <span className="absolute top-0 mt-10 text-white text-11xl text-shadow-lg cursor-default">AIkya</span>
-        <span className="absolute mt-65 text-white text-5xl text-shadow-lg cursor-default">From Ideas To Impact</span>
-        <div className="mt-66">
+        <span className="absolute mt-65 text-white text-5xl text-shadow-lg cursor-default animate-expand">From Ideas To Impact</span>
+        <div className="mt-66 animate-handFadeIn">
           <Image
             width={900}
             height={900}
             src="/assets/hand.png"
             alt="hand"
+            className="hand-image"
           />
         </div>
       </div>
       <div className="flex justify-center gap-x-101 mt-28 p-20">
         <Link href="/pages/auth/signup">
-          <button type="button" className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-5xl px-5 py-2.5 text-center me-2 mb-2 transform trasition duration-300 hover:scale-110">Sign Up</button>
+          <button type="button" className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-5xl px-5 py-2.5 text-center me-2 mb-2 transform transition duration-300 hover:scale-110">Sign Up</button>
         </Link>
 
+
         <Link href="/pages/auth/signin">
-          <button type="button" className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-5xl px-5 py-2.5 text-center me-2 mb-2 transform trasition duration-300 hover:scale-110">Sign In</button>
+          <button type="button" className="text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-5xl px-5 py-2.5 text-center me-2 mb-2 transform transition duration-300 hover:scale-110">Sign In</button>
         </Link>
       </div>
     </div>
   );
 };
+
 
 export default LandingPage;

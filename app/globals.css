@@ -36,3 +36,48 @@ body {
   background: rgb(140,196,196);
 background: linear-gradient(106deg, rgba(140,196,196,1) 0%, rgba(245,247,234,1) 52%, rgba(252,217,195,1) 100%);
 }
+
+@keyframes fadeInFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-handFadeIn {
+  animation: fadeInFromBottom 2s ease-out forwards;
+}
+
+@keyframes fadeInFromBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-handFadeIn {
+  animation: fadeInFromBottom 2s ease-out forwards;
+}
+
+@keyframes expandText {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-expand {
+  animation: expandText 1.5s ease-out forwards;
+}
