@@ -3,6 +3,8 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { SignOutButton, UserButton } from '@clerk/nextjs';
+import { useAuth } from '@clerk/nextjs';
 
 const Header = () => {
 
@@ -47,12 +49,12 @@ const Header = () => {
         {/* all options are kept under nav for SEO purposes */}
         <nav className='flex items-center space-x-6'>
           <Link href="/" legacyBehavior>
-            <h2 className='cursor-pointer text-black text-2xl font-semibold transform transition duration-300 hover:scale-110'>About</h2>
+            <h2 className='cursor-pointer text-black text-2xl font-semibold transform transition duration-300 hover:scale-110 mr-8'>About</h2>
           </Link>
-          <nav className='flex items-center space-x-6'>
-            <Link href="/" legacyBehavior>
-              <h2 className='cursor-pointer text-black text-2xl font-semibold transform transition duration-300 hover:scale-110 mr-7'>Pro</h2>
-            </Link>
+          <nav className='flex items-center'>
+            <div className="user-button-wrapper mr-10 mt-2 scale-150 transform transition duration-300 hover:scale-201">
+              <UserButton />
+            </div>
           </nav>
         </nav>
       </div>

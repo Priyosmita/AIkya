@@ -27,6 +27,9 @@ const config: Config = {
       spacing: {
         '101': '500px',
       },
+      scale: {
+        '201': '2'
+      }
     },
   },
   plugins: [

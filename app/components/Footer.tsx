@@ -5,7 +5,7 @@ import Link from 'next/link'
 const Footer = () => {
   return (
     <footer className='-100 bg-[#7ebaba] w-full flex'>
-      <Link href="/" className='mt-20 mb-20 ml-16'><Image
+      <Link href="/" className='mt-12 mb-12 ml-16'><Image
             src='/assets/logo.png'
             alt='AIkya logo'
             width={400}
@@ -21,19 +21,19 @@ const Footer = () => {
 
         <div className='h-64 w-80'>
           <Link href="/" legacyBehavior>
-            <p className='text-5xl transform transition duration-300 hover:scale-110 cursor-pointer'>About Us</p>
+            <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer'>About Us</p>
           </Link>
           <Link href="/" legacyBehavior>
-            <p className='text-5xl transform transition duration-300 hover:scale-110 cursor-pointer mt-24'>Contact Us</p>
+            <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer mt-24'>Contact Us</p>
           </Link>
         </div>
 
         <div className='h-64 w-80 mr-11'>
         <Link href="/" legacyBehavior>
-            <p className='text-5xl transform transition duration-300 hover:scale-110 cursor-pointer'>Terms and Conditions</p>
+            <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer'>Terms and Conditions</p>
           </Link>
           <Link href="/" legacyBehavior>
-            <p className='text-5xl transform transition duration-300 hover:scale-110 cursor-pointer mt-11'>Privacy Policy</p>
+            <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer mt-11'>Privacy Policy</p>
           </Link>
         </div>
       </div>
