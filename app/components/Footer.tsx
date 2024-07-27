@@ -6,7 +6,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className='-100 bg-[#7ebaba] w-full flex'>
+    <footer className='-100 bg-[#7ebaba] w-full flex overflow-hidden'>
       <Link href="/" className='mt-12 mb-12 ml-16'><Image
         src='/assets/logo.png'
         alt='AIkya logo'
@@ -14,7 +14,7 @@ const Footer = () => {
         height={400}
         className="cursor-pointer transform duration-300 hover:scale-110 mt-2 mb-2 ml-5"
       /></Link>
-      <div className='h flex flex-row justify-end items-center ml-48'>
+      <span className='h flex flex-row justify-end items-center ml-48'>
         <div className='h-64 w-60'>
           <div className='text-3xl cursor-default'>Socials</div>
           <Link href="https://www.instagram.com/pritae03/">
@@ -34,16 +34,16 @@ const Footer = () => {
             </Link>
         </div>
 
-        <div className='h-64 w-80'>
+        <span className='h-64 w-60 text-center'>
           <Link href="/" legacyBehavior>
             <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer hover:text-[#ffd9c1]'>About Us</p>
           </Link>
           <Link href="/" legacyBehavior>
             <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer mt-24 hover:text-[#ffd9c1]'>Contact Us</p>
           </Link>
-        </div>
+        </span>
 
-        <div className='h-64 w-80 mr-11'>
+        <div className='h-64 w-80 ml-32 mr-8  text-center'>
           <Link href="/" legacyBehavior>
             <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer hover:text-[#ffd9c1]'>Terms and Conditions</p>
           </Link>
@@ -51,7 +51,7 @@ const Footer = () => {
             <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer mt-24 hover:text-[#ffd9c1]'>Privacy Policy</p>
           </Link>
         </div>
-      </div>
+      </span>
 
     </footer>
   )
