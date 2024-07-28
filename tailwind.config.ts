@@ -14,7 +14,7 @@ const config: Config = {
       },
       height: {
         '100': '400px',
-        '101': '783px',
+        '101': '900px',
       },
       width: {
         '65': '1326px',
