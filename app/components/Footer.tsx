@@ -35,10 +35,10 @@ const Footer = () => {
         </div>
 
         <span className='h-64 w-60 text-center'>
-          <Link href="/" legacyBehavior>
+          <Link href="/pages/about" legacyBehavior>
             <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer hover:text-[#ffd9c1]'>About Us</p>
           </Link>
-          <Link href="/" legacyBehavior>
+          <Link href="/pages/contactus" legacyBehavior>
             <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer mt-24 hover:text-[#ffd9c1]'>Contact Us</p>
           </Link>
         </span>

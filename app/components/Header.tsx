@@ -42,16 +42,19 @@ const Header = () => {
         />
         </Link>
         {/* span is an alternative to div. Unlike div span only takes the place where it is located */}
-        <span className='cursor-default text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 hover:text-[#f8b891]'>
+        <span className='cursor-default text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:text-[#f8b891]'>
           AIkya
         </span>
       </div>
 
       <div className='flex justify-end'>
         {/* all options are kept under nav for SEO purposes */}
-        <nav className='flex items-center space-x-6'>
-          <Link href="/" legacyBehavior>
-            <h2 className='cursor-pointer text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 mr-8 hover:text-[#f8b891]'>About</h2>
+        <nav className='flex items-center space-x-12'>
+        <Link href="/pages/dashboard" legacyBehavior>
+            <h2 className='cursor-pointer text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 hover:text-[#f8b891]'>Dashboard</h2>
+          </Link>
+          <Link href="/pages/about" legacyBehavior>
+            <h2 className='cursor-pointer text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 hover:text-[#f8b891]'>About</h2>
           </Link>
           <nav className='flex items-center'>
             <div className="user-button-wrapper mr-10 mt-2 scale-150 transform transition duration-300 hover:scale-201">
