@@ -17,7 +17,7 @@ const config: Config = {
         '101': '900px',
       },
       width: {
-        '65': '1326px',
+        '65': '1150px',
       },
       fontSize: {
         '11xl': '300px',

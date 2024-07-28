@@ -50,7 +50,7 @@ const Header = () => {
       <div className='flex justify-end'>
         {/* all options are kept under nav for SEO purposes */}
         <nav className='flex items-center space-x-6'>
-          <Link href="/" legacyBehavior>
+          <Link href="/pages/about/" legacyBehavior>
             <h2 className='cursor-pointer text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 mr-8 hover:text-[#f8b891]'>About</h2>
           </Link>
           <nav className='flex items-center'>

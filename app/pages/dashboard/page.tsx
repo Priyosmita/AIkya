@@ -10,7 +10,7 @@ const page = () => {
   return (
     <>
       <Header />
-      <div className='min-h-screen bgGradient flex flex-row '>
+      <div className='min-h-screen bgGradient flex flex-row overflow-hidden '>
         <div className='pt-24 pl-4'><LeftSidebar/></div>
         <div className='pt-24 pl-4'><Window/></div>
       </div>
