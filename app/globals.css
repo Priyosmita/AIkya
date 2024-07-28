@@ -33,8 +33,7 @@ body {
 }
 
 .bgGradient {
-  background: rgb(140,196,196);
-background: linear-gradient(106deg, rgba(140,196,196,1) 0%, rgba(245,247,234,1) 52%, rgba(252,217,195,1) 100%);
+  background: linear-gradient(106deg, rgba(140, 196, 196, 1) 0%, rgba(245, 247, 234, 1) 52%, rgba(252, 217, 195, 1) 100%);
 }
 
 @keyframes fadeInFromBottom {
@@ -42,6 +41,7 @@ background: linear-gradient(106deg, rgba(140,196,196,1) 0%, rgba(245,247,234,1) 
     opacity: 0;
     transform: translateY(50px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -57,6 +57,7 @@ background: linear-gradient(106deg, rgba(140,196,196,1) 0%, rgba(245,247,234,1) 
     opacity: 0;
     transform: translateY(50px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -72,6 +73,7 @@ background: linear-gradient(106deg, rgba(140,196,196,1) 0%, rgba(245,247,234,1) 
     transform: scale(0.8);
     opacity: 0;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
@@ -88,8 +90,10 @@ background: linear-gradient(106deg, rgba(140,196,196,1) 0%, rgba(245,247,234,1) 
   width: 250px;
   height: 250px;
   margin: 20px;
-  overflow: visible; /* Allow overflow to show text below */
-  text-align: center; /* Center the text below the image */
+  overflow: visible;
+  /* Allow overflow to show text below */
+  text-align: center;
+  /* Center the text below the image */
 }
 
 /* image expand animation */
@@ -107,11 +111,14 @@ background: linear-gradient(106deg, rgba(140,196,196,1) 0%, rgba(245,247,234,1) 
   margin: 0;
   padding: 10px;
   background: transparent;
-  color: #537979; /* Adjust color as needed */
+  color: #537979;
+  /* Adjust color as needed */
   font-size: larger;
   text-align: center;
-  transform: translateY(-20px); /* Start slightly above */
-  opacity: 0; /* Initially invisible */
+  transform: translateY(-20px);
+  /* Start slightly above */
+  opacity: 0;
+  /* Initially invisible */
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
@@ -121,8 +128,10 @@ background: linear-gradient(106deg, rgba(140,196,196,1) 0%, rgba(245,247,234,1) 
 
 /* paragraph hover effect */
 .image-container:hover p {
-  transform: translateY(20px); /* Move below the image */
-  opacity: 1; /* Make text visible */
+  transform: translateY(20px);
+  /* Move below the image */
+  opacity: 1;
+  /* Make text visible */
 }
 
 /* button animation */
@@ -131,6 +140,7 @@ background: linear-gradient(106deg, rgba(140,196,196,1) 0%, rgba(245,247,234,1) 
     opacity: 0;
     transform: translateY(20px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -144,4 +154,3 @@ background: linear-gradient(106deg, rgba(140,196,196,1) 0%, rgba(245,247,234,1) 
 .reset-animation {
   animation: none;
 }
-

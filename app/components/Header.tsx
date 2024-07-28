@@ -32,6 +32,7 @@ const Header = () => {
       className={`bg-[#ffffff] w-full flex flex-row justify-between top-0 z-10 fixed transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
     >
       <div className='flex items-center gap-7'>
+        <Link href='/'>
         <Image
           src='/assets/logo.png'
           alt='AIkya logo'
@@ -39,6 +40,7 @@ const Header = () => {
           height={80}
           className="cursor-pointer transform duration-300 hover:scale-110 mt-2 mb-2 ml-5"
         />
+        </Link>
         {/* span is an alternative to div. Unlike div span only takes the place where it is located */}
         <span className='cursor-default text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 hover:text-[#f8b891]'>
           AIkya

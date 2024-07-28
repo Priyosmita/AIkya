@@ -8,10 +8,16 @@ const LeftSidebar = () => {
     return (
         <div className='w-80 bg-white p-4 rounded-2xl h-101 bg-opacity-50'>
             <nav className='flex flex-col space-y-4'>
-                <div className='z-20 mt-10 flex flex-row'>
-                    <MdOutlineSearch className='text-[#7ebaba] transform transition duration-300 hover:scale-150 hover:text-[#dbbaa3]'style={{ width: '2.5em', height: '2.5em' }}>
-                    Search
-                    </MdOutlineSearch>
+                <div className='z-20 mt-10 ml-6 flex flex-row'>
+                    <button className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-150 hover:text-[#dbbaa3]'>
+                        <MdOutlineSearch style={{ width: '2.5em', height: '2.5em' }}/><h1 className='text-3xl ml-2'>Search</h1>
+                    </button>
+                </div>
+
+                <div className='z-20 mt-10 ml-6 flex flex-row'>
+                    <button className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-150 hover:text-[#dbbaa3]'>
+                        <MdOutlineSearch style={{ width: '2.5em', height: '2.5em' }}/><h1 className='text-3xl ml-2'>Search</h1>
+                    </button>
                 </div>
             </nav>
         </div>
