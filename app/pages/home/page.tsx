@@ -95,7 +95,7 @@ const Home: React.FC = () => {
                     {features.map(({ src, alt, text }, index) => (
                         <div key={index} className="image-container">
                             <Image height={250} width={250} src={src} alt={alt} />
-                            <p>{text}</p>
+                            <p className='cursor-default'>{text}</p>
                         </div>
                     ))}
                 </div>
