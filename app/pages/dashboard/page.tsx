@@ -12,10 +12,6 @@ const DashboardPage: React.FC = () => {
   const searchParams = useSearchParams();
   const userType = searchParams.get('userType');
 
-  if (userType !== 'Entrepreneur' && userType !== 'Investor') {
-    return <p>Invalid user type</p>;
-  }
-
   return (
     <>
       <Header />
