@@ -10,7 +10,7 @@ const page = () => {
     <>
       <Header />
       <div className='min-h-screen bgGradient flex flex-col items-center mt-10 pb-10'>
-        <div className='max-w-4xl mt-20 p-8 bg-white bg-opacity-50 rounded-2xl shadow-md'>
+        <div className='max-w-4xl mt-20 p-8 bg-white bg-opacity-30 rounded-2xl shadow-md'>
           <h1 className='text-5xl text-[#7ebaba] font-semibold text-center mb-8'>About AIkya</h1>
           <p className='text-2xl text-black text-center mb-8'>
             AIkya is a revolutionary platform designed to connect visionary entrepreneurs with the ideal investors and resources they need to turn their ideas into impactful realities.
