@@ -1,15 +1,15 @@
 'use client'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
-import { SignOutButton, UserButton } from '@clerk/nextjs';
+import { UserButton } from '@clerk/nextjs';
 import { useAuth } from '@clerk/nextjs';
 
-const Header = () => {
-
+const Header: React.FC = () => {
   const [hidden, setHidden] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const { isSignedIn } = useAuth();
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -33,34 +33,36 @@ const Header = () => {
     >
       <div className='flex items-center gap-7'>
         <Link href='/'>
-        <Image
-          src='/assets/logo.png'
-          alt='AIkya logo'
-          width={62}
-          height={80}
-          className="cursor-pointer transform duration-300 hover:scale-110 mt-2 mb-2 ml-5"
-        />
+          <Image
+            src='/assets/logo.png'
+            alt='AIkya logo'
+            width={62}
+            height={80}
+            className="cursor-pointer transform duration-300 hover:scale-110 mt-2 mb-2 ml-5"
+          />
         </Link>
-        {/* span is an alternative to div. Unlike div span only takes the place where it is located */}
         <span className='cursor-default text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:text-[#f8b891]'>
           AIkya
         </span>
       </div>
 
       <div className='flex justify-end'>
-        {/* all options are kept under nav for SEO purposes */}
-        <nav className='flex items-center space-x-12'>
-        <Link href="/pages/dashboard" legacyBehavior>
-            <h2 className='cursor-pointer text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 hover:text-[#f8b891]'>Dashboard</h2>
-          </Link>
+        <nav className='flex items-center space-x-12 mr-10'>
+          {isSignedIn && (
+            <Link href="/pages/dashboard" legacyBehavior>
+              <h2 className='cursor-pointer text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 hover:text-[#f8b891]'>
+                Dashboard
+              </h2>
+            </Link>
+          )}
           <Link href="/pages/about" legacyBehavior>
-            <h2 className='cursor-pointer text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 hover:text-[#f8b891]'>About</h2>
+            <h2 className='cursor-pointer text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 hover:text-[#f8b891]'>
+              About
+            </h2>
           </Link>
-          <nav className='flex items-center'>
-            <div className="user-button-wrapper mr-10 mt-2 scale-150 transform transition duration-300 hover:scale-201">
-              <UserButton />
-            </div>
-          </nav>
+          <div className="user-button-wrapper mt-2 scale-150 transform transition duration-300 hover:scale-201">
+            <UserButton />
+          </div>
         </nav>
       </div>
     </header>

@@ -1,11 +1,13 @@
 'use client';
 
+
 import React, { useEffect, useRef, useState } from 'react';
 import "../../globals.css";
 import Image from 'next/image';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import Link from 'next/link';
+
 
 // Define the type for feature items
 interface Feature {
@@ -14,9 +16,11 @@ interface Feature {
   text: string;
 }
 
+
 const Home: React.FC = () => {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const buttonRef = useRef<HTMLButtonElement | null>(null);
+
 
     useEffect(() => {
         const handleIntersection = ([entry]: IntersectionObserverEntry[]) => {
@@ -28,13 +32,16 @@ const Home: React.FC = () => {
             }
         };
 
+
         const observer = new IntersectionObserver(handleIntersection, {
             threshold: 0.1 // Adjust the threshold as needed
         });
 
+
         if (buttonRef.current) {
             observer.observe(buttonRef.current);
         }
+
 
         return () => {
             if (buttonRef.current) {
@@ -42,6 +49,7 @@ const Home: React.FC = () => {
             }
         };
     }, []);
+
 
     // Feature data
     const features: Feature[] = [
@@ -51,6 +59,7 @@ const Home: React.FC = () => {
         { src: "/assets/social media.png", alt: "Social Media", text: "Showcase, Engage, and Connect - A Social Media Hub for Entrepreneurs and Investors" },
         { src: "/assets/market analysis.png", alt: "Market Analysis", text: "Real-Time Market Insights for Smarter Strategies and Informed Decisions" }
     ];
+
 
     return (
         <>
@@ -70,7 +79,7 @@ const Home: React.FC = () => {
                     </div>
                 </div>
                 <div className='flex justify-center items-center mt-40'>
-                    <Link href="/pages/dashboard">
+                    <Link href="/pages/choice">
                         <button
                             ref={buttonRef}
                             type="button"
@@ -80,6 +89,7 @@ const Home: React.FC = () => {
                         </button>
                     </Link>
                 </div>
+
 
                 <div className="flex flex-row justify-center items-center gap-x-20 mt-40 pb-64 text-shadow-lg">
                     {features.map(({ src, alt, text }, index) => (
@@ -94,5 +104,6 @@ const Home: React.FC = () => {
         </>
     );
 };
+
 
 export default Home;
