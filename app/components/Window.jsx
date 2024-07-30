@@ -1,4 +1,3 @@
-
 'use client';
 
 
@@ -46,6 +45,7 @@ const Window = ({ isMarketAnalysis }) => {
               apikey: API_KEY,
             },
           });
+          console.log('API response:', response.data);  // Log API response
           setCompanyData(response.data);
         } catch (err) {
           console.error('Error fetching data:', err);
@@ -57,11 +57,13 @@ const Window = ({ isMarketAnalysis }) => {
 
 
   const handleCategoryChange = (category) => {
+    console.log('Selected category:', category);  // Log selected category
     setSelectedCategory(category);
   };
 
 
   const handleCompanyClick = (company) => {
+    console.log('Selected company:', company);  // Log selected company
     setSelectedCompany(company);
   };
 
@@ -123,6 +125,7 @@ const Window = ({ isMarketAnalysis }) => {
                   {getCompanyInfo()}
                 </div>
               )}
+              {!selectedCompany && <p>Please select a company to view data.</p>}
             </div>
           </div>
         </div>
