@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import '../../globals.css';
@@ -14,17 +14,8 @@ const ProfileDetailsPage = () => {
     experience: '',
     certifications: '',
     skills: '',
-    profilePicture: null,
+    profilePicture: '',
   });
-
-  const handleSubmit = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/api/profile', formData);
-      console.log(response.data);
-    } catch (error) {
-      console.error('There was an error!', error);
-    }
-  };
 
   const [projects, setProjects] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -39,6 +30,32 @@ const ProfileDetailsPage = () => {
     details: '',
     images: null,
   });
+
+  useEffect(() => {
+    const fetchProfileAndProjects = async () => {
+      try {
+        const profileResponse = await axios.get('http://localhost:5000/api/profile');
+        if (profileResponse.data) {
+          setFormData(profileResponse.data);
+        }
+        const projectResponse = await axios.get('http://localhost:5000/api/projects');
+        setProjects(projectResponse.data);
+      } catch (error) {
+        console.error('There was an error fetching profile and projects!', error);
+      }
+    };
+    fetchProfileAndProjects();
+  }, []);
+
+  const handleProfileSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/api/profile', formData);
+      console.log(response.data);
+    } catch (error) {
+      console.error('There was an error!', error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -72,20 +89,12 @@ const ProfileDetailsPage = () => {
     }
   };
 
-  // Modify handleProjectSubmit to send project data to the backend
   const handleProjectSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:5000/api/project', projectData);
       const project = response.data;
-      if (isEditing) {
-        const updatedProjects = [...projects];
-        updatedProjects[editIndex] = project;
-        setProjects(updatedProjects);
-        setIsEditing(false);
-      } else {
-        setProjects((prevProjects) => [...prevProjects, project]);
-      }
+      setProjects((prevProjects) => [...prevProjects, project]);
       setProjectData({
         name: '',
         website: '',
@@ -99,7 +108,7 @@ const ProfileDetailsPage = () => {
       console.error('There was an error!', error);
     }
   };
-  
+
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => {
     setModalIsOpen(false);
@@ -122,10 +131,16 @@ const ProfileDetailsPage = () => {
     setDropdownIndex(null);
   };
 
-  const handleDeleteProject = (index) => {
-    const updatedProjects = projects.filter((_, i) => i !== index);
-    setProjects(updatedProjects);
-    setDropdownIndex(null);
+  const handleDeleteProject = async (index) => {
+    try {
+      const projectId = projects[index]._id;
+      await axios.delete(`http://localhost:5000/api/project/${projectId}`);
+      const updatedProjects = projects.filter((_, i) => i !== index);
+      setProjects(updatedProjects);
+      setDropdownIndex(null);
+    } catch (error) {
+      console.error('There was an error!', error);
+    }
   };
 
   const toggleDropdown = (index) => {
@@ -138,28 +153,23 @@ const ProfileDetailsPage = () => {
       <div className="min-h-screen bgGradient flex flex-col items-center py-10">
         <div className="bg-white bg-opacity-0 rounded-2xl p-8 w-3/4 pt-32 gap-y-7">
           <h2 className="text-[#7ebaba] text-5xl mb-6 text-center">Profile Details</h2>
-          <form className="space-y-8">
-            <div className="flex justify-start mb-8">
-              <div className="relative w-40 h-40 rounded-full border-4 border-gray-300 flex items-center justify-center overflow-hidden">
-                {formData.profilePicture ? (
-                  <img
-                    src={formData.profilePicture}
-                    alt="Profile Preview"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <label className="flex flex-col items-center justify-center cursor-pointer">
-                    <span className="text-4xl text-gray-500">+</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleProfilePictureUpload}
-                      className="absolute inset-0 opacity-0 cursor-pointer"
-                    />
-                  </label>
-                )}
-              </div>
-            </div>
+          <form className="space-y-8" onSubmit={handleProfileSubmit}>
+          <div className="flex justify-start mb-8">
+  <div className="relative w-40 h-40 rounded-full border-2 border-[#6a9696] flex items-center justify-center overflow-hidden">
+    
+      <label className="flex flex-col items-center justify-center cursor-pointer">
+        <span className="text-4xl text-[#6a9696]">+</span>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleProfilePictureUpload}
+          className="absolute inset-0 opacity-0 cursor-pointer"
+        />
+      </label>
+    
+  </div>
+</div>
+
             <div>
               <label className="block text-[#6a9696] text-2xl">Name</label>
               <input
@@ -170,7 +180,6 @@ const ProfileDetailsPage = () => {
                 className="w-full p-2 border rounded text-black"
               />
             </div>
-
             <div>
               <label className="block text-[#6a9696] text-2xl">About</label>
               <textarea
@@ -207,37 +216,51 @@ const ProfileDetailsPage = () => {
                 className="w-full p-2 border rounded text-black"
               ></textarea>
             </div>
+            <button
+              type="submit"
+              className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded"
+            >
+              Save Changes
+            </button>
           </form>
-          <h3 className="text-[#6a9696] text-2xl mt-10 mb-4">Projects</h3>
-          <div className="flex flex-wrap gap-4">
+
+          <h2 className="text-[#7ebaba] text-4xl mt-12 mb-6">Projects</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {projects.map((project, index) => (
-              <div key={index} className="w-40 h-40 bg-white bg-opacity-30 rounded-lg shadow-md p-4 relative">
-                <h4 className="text-lg font-bold text-[#6a9696]">{project.name}</h4>
-                <p className="text-lg font-bold text-[#6a9696]">{project.type}</p>
-                {project.images && (
-                  <img src={project.images} alt={project.name} className="w-full h-20 object-cover rounded mt-2" />
-                )}
-                <button
+              <div key={index} className="relative bg-white bg-opacity-30 rounded-lg shadow-md p-4">
+                <div
+                  className="absolute top-2 right-2 cursor-pointer text-3xl text-[#6a9696]"
                   onClick={() => toggleDropdown(index)}
-                  className="absolute top-2 right-2 bg-opacity-0 text-[#6a9696] text-3xl p-1 rounded"
                 >
                   &#x22EE;
-                </button>
+                </div>
                 {dropdownIndex === index && (
-                  <div className="absolute top-8 right-2 bg-white shadow-md rounded z-10">
-                    <button
+                  <div className="absolute top-8 right-2 bg-white shadow-md rounded">
+                    <div
+                      className="p-2 cursor-pointer hover:bg-gray-200 text-black"
                       onClick={() => handleEditProject(index)}
-                      className="block w-full text-left p-2 hover:bg-gray-200 text-black"
                     >
                       Edit
-                    </button>
-                    <button
+                    </div>
+                    <div
+                      className="p-2 cursor-pointer hover:bg-gray-200 text-black"
                       onClick={() => handleDeleteProject(index)}
-                      className="block w-full text-left p-2 hover:bg-gray-200 text-black"
                     >
                       Delete
-                    </button>
+                    </div>
                   </div>
+                )}
+                <h3 className="text-2xl text-[#7ebaba] mb-2">{project.name}</h3>
+                <p className="text-[#6a9696]">{project.website}</p>
+                <p className="text-[#6a9696]">{project.type}</p>
+                <p className="text-[#6a9696]">{project.industry}</p>
+                <p className="text-[#6a9696]">{project.details}</p>
+                {project.images && (
+                  <img
+                    src={project.images}
+                    alt="Project"
+                    className="w-full h-32 object-cover mt-2 rounded"
+                  />
                 )}
               </div>
             ))}
@@ -245,92 +268,83 @@ const ProfileDetailsPage = () => {
               className="w-40 h-40 bg-white bg-opacity-30 rounded-lg shadow-md flex items-center justify-center cursor-pointer"
               onClick={openModal}
             >
-              <span className="text-5xl text-[#6a9696]">+</span>
+              <span className="text-3xl text-[#6a9696]">+</span>
             </div>
           </div>
-          <button
-            type="button"
-            className={`text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-full text-2xl px-5 py-2.5 text-center me-2 transform transition duration-300 hover:scale-110 h-14 w-32 mt-10`}
-          >
-            <SignOutButton />
-          </button>
         </div>
+        <SignOutButton>
+          <button className="mt-4 bg-[#7ebaba] text-white font-bold py-2 px-4 rounded">
+            Sign Out
+          </button>
+        </SignOutButton>
       </div>
       <Footer />
       <CustomModal isOpen={modalIsOpen} onClose={closeModal}>
-        <h2 className="text-3xl mb-4">{isEditing ? 'Edit Project' : 'Add Project'}</h2>
-        <form onSubmit={handleProjectSubmit} className="space-y-4">
+        <form onSubmit={handleProjectSubmit}>
           <div>
-            <label className="block text-gray-700">Project Name</label>
+            <label className="block text-[#6a9696] text-xl">Project Name</label>
             <input
               type="text"
               name="name"
-
               value={projectData.name}
               onChange={handleProjectChange}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded text-black"
             />
           </div>
           <div>
-            <label className="block text-gray-700">Website</label>
+            <label className="block text-[#6a9696] text-xl">Project Website</label>
             <input
               type="text"
               name="website"
               value={projectData.website}
               onChange={handleProjectChange}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded text-black"
             />
           </div>
           <div>
-            <label className="block text-gray-700">Type</label>
+            <label className="block text-[#6a9696] text-xl">Project Type</label>
             <input
               type="text"
               name="type"
               value={projectData.type}
               onChange={handleProjectChange}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded text-black"
             />
           </div>
           <div>
-            <label className="block text-gray-700">Industry</label>
+            <label className="block text-[#6a9696] text-xl">Industry</label>
             <input
               type="text"
               name="industry"
               value={projectData.industry}
               onChange={handleProjectChange}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded text-black"
             />
           </div>
           <div>
-            <label className="block text-gray-700">Details</label>
+            <label className="block text-[#6a9696] text-xl">Project Details</label>
             <textarea
               name="details"
               value={projectData.details}
               onChange={handleProjectChange}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded text-black"
             ></textarea>
           </div>
           <div>
-            <label className="block text-gray-700">Images</label>
+            <label className="block text-[#6a9696] text-xl">Upload Images</label>
             <input
               type="file"
-              name="images"
               accept="image/*"
               onChange={handleImageUpload}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded text-black"
             />
-            {projectData.images && (
-              <img src={projectData.images} alt="Preview" className="w-full h-40 object-cover rounded mt-2" />
-            )}
           </div>
-          <div className="flex justify-between">
-            <button
-              type="submit"
-              className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded"
-            >
-              {isEditing ? 'Save Changes' : 'Add Project'}
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded mt-4"
+          >
+            Save Project
+          </button>
         </form>
       </CustomModal>
     </>
