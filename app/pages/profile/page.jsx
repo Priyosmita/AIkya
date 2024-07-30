@@ -5,6 +5,7 @@ import Footer from '@/app/components/Footer';
 import '../../globals.css';
 import CustomModal from '@/app/components/CustomModal';
 import { SignOutButton } from '@clerk/nextjs';
+import axios from 'axios';
 
 const ProfileDetailsPage = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,15 @@ const ProfileDetailsPage = () => {
     skills: '',
     profilePicture: null,
   });
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/profile', formData);
+      console.log(response.data);
+    } catch (error) {
+      console.error('There was an error!', error);
+    }
+  };
 
   const [projects, setProjects] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -62,27 +72,34 @@ const ProfileDetailsPage = () => {
     }
   };
 
-  const handleProjectSubmit = (e) => {
+  // Modify handleProjectSubmit to send project data to the backend
+  const handleProjectSubmit = async (e) => {
     e.preventDefault();
-    if (isEditing) {
-      const updatedProjects = [...projects];
-      updatedProjects[editIndex] = projectData;
-      setProjects(updatedProjects);
-      setIsEditing(false);
-    } else {
-      setProjects((prevProjects) => [...prevProjects, projectData]);
+    try {
+      const response = await axios.post('http://localhost:5000/api/project', projectData);
+      const project = response.data;
+      if (isEditing) {
+        const updatedProjects = [...projects];
+        updatedProjects[editIndex] = project;
+        setProjects(updatedProjects);
+        setIsEditing(false);
+      } else {
+        setProjects((prevProjects) => [...prevProjects, project]);
+      }
+      setProjectData({
+        name: '',
+        website: '',
+        type: '',
+        industry: '',
+        details: '',
+        images: null,
+      });
+      setModalIsOpen(false);
+    } catch (error) {
+      console.error('There was an error!', error);
     }
-    setProjectData({
-      name: '',
-      website: '',
-      type: '',
-      industry: '',
-      details: '',
-      images: null,
-    });
-    setModalIsOpen(false);
   };
-
+  
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => {
     setModalIsOpen(false);
@@ -122,27 +139,27 @@ const ProfileDetailsPage = () => {
         <div className="bg-white bg-opacity-0 rounded-2xl p-8 w-3/4 pt-32 gap-y-7">
           <h2 className="text-[#7ebaba] text-5xl mb-6 text-center">Profile Details</h2>
           <form className="space-y-8">
-          <div className="flex justify-start mb-8">
-            <div className="relative w-40 h-40 rounded-full border-4 border-gray-300 flex items-center justify-center overflow-hidden">
-              {formData.profilePicture ? (
-                <img
-                  src={formData.profilePicture}
-                  alt="Profile Preview"
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <label className="flex flex-col items-center justify-center cursor-pointer">
-                  <span className="text-4xl text-gray-500">+</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleProfilePictureUpload}
-                    className="absolute inset-0 opacity-0 cursor-pointer"
+            <div className="flex justify-start mb-8">
+              <div className="relative w-40 h-40 rounded-full border-4 border-gray-300 flex items-center justify-center overflow-hidden">
+                {formData.profilePicture ? (
+                  <img
+                    src={formData.profilePicture}
+                    alt="Profile Preview"
+                    className="w-full h-full object-cover"
                   />
-                </label>
-              )}
+                ) : (
+                  <label className="flex flex-col items-center justify-center cursor-pointer">
+                    <span className="text-4xl text-gray-500">+</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleProfilePictureUpload}
+                      className="absolute inset-0 opacity-0 cursor-pointer"
+                    />
+                  </label>
+                )}
+              </div>
             </div>
-          </div>
             <div>
               <label className="block text-[#6a9696] text-2xl">Name</label>
               <input
@@ -153,7 +170,7 @@ const ProfileDetailsPage = () => {
                 className="w-full p-2 border rounded text-black"
               />
             </div>
-            
+
             <div>
               <label className="block text-[#6a9696] text-2xl">About</label>
               <textarea
@@ -248,7 +265,7 @@ const ProfileDetailsPage = () => {
             <input
               type="text"
               name="name"
-             
+
               value={projectData.name}
               onChange={handleProjectChange}
               className="w-full p-2 border rounded"
