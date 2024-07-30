@@ -45,7 +45,6 @@ const Window = ({ isMarketAnalysis }) => {
               apikey: API_KEY,
             },
           });
-          console.log('API response:', response.data);  // Log API response
           setCompanyData(response.data);
         } catch (err) {
           console.error('Error fetching data:', err);
@@ -57,13 +56,11 @@ const Window = ({ isMarketAnalysis }) => {
 
 
   const handleCategoryChange = (category) => {
-    console.log('Selected category:', category);  // Log selected category
     setSelectedCategory(category);
   };
 
 
   const handleCompanyClick = (company) => {
-    console.log('Selected company:', company);  // Log selected company
     setSelectedCompany(company);
   };
 
@@ -73,7 +70,7 @@ const Window = ({ isMarketAnalysis }) => {
 
 
     const latestDate = Object.keys(companyData['Time Series (Daily)'])[0];
-    const latestData = (companyData['Time Series (Daily)'])[latestDate];
+    const latestData = companyData['Time Series (Daily)'][latestDate];
 
 
     return (
@@ -90,9 +87,9 @@ const Window = ({ isMarketAnalysis }) => {
 
 
   return (
-    <div className='w-65 bg-white rounded-2xl h-101 opacity-50 mb-6 mr-4 mt-24'>
+    <div className='w-65 bg-white rounded-2xl h-101 opacity-50 mb-6 mr-4 mt-24 p-4'>
       {isMarketAnalysis && (
-        <div className='p-4'>
+        <div>
           <div className='flex justify-around mb-4'>
             {Object.keys(SYMBOLS_BY_CATEGORY).map(category => (
               <button
@@ -120,9 +117,11 @@ const Window = ({ isMarketAnalysis }) => {
             </div>
             <div className='w-3/4 p-4'>
               {selectedCompany && companyData && companyData['Time Series (Daily)'] && (
-                <div>
-                  <h3 className='text-xl font-bold mb-2'>{selectedCompany}</h3>
-                  {getCompanyInfo()}
+                <div className='flex justify-center'>
+                  <div>
+                    <h3 className='text-xl font-bold mb-2'>{selectedCompany}</h3>
+                    {getCompanyInfo()}
+                  </div>
                 </div>
               )}
               {!selectedCompany && <p>Please select a company to view data.</p>}

@@ -17,7 +17,7 @@ const DashboardPage: React.FC = () => {
   return (
     <>
       <Header />
-      <div className='min-h-screen bgGradient flex flex-row'>
+      <div className='min-h-screen bg-black flex flex-row'>
         <LeftSidebar onMarketAnalysisClick={handleMarketAnalysisClick} />
         <div className='flex-grow'>
           <Window isMarketAnalysis={isMarketAnalysis} />
