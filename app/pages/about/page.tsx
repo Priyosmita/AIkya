@@ -12,19 +12,19 @@ const page = () => {
       <div className='min-h-screen bgGradient flex flex-col items-center mt-16 pt-9 pb-10'>
 
         <div className='flex flex-row mt-32 gap-x-7'>
-          <h1 className='cursor-default text-8xl text-[#7ebaba] font-semibold text-center mb-8 mt-24'>About AIkya</h1>
+          <h1 className='cursor-default text-8xl text-[#7ebaba] font-semibold text-center mb-8 mt-24 text-shadow-md'>About AIkya</h1>
           <div className="flex flex-col items-center md:items-end mt-20 md:mt-0">
             <div className='flex flex-row justify-center'>
               <div className="relative flex items-center justify-center">
                 <img src='/assets/priyosabout.png' className='aboutPriyosImg transform duration-300 hover:scale-110' />
-                <div className="hover-text absolute MarginImg top-[-12%] left-1/2 transform -translate-x-1/2 text-white text-center text-2xl"><p>Priyosmita Das</p>B.Tech, CSE</div>
+                <div className="hover-text absolute MarginImg top-[-12%] left-1/2 transform -translate-x-3/4 text-[#7ebaba] text-center text-2xl"><p>Priyosmita Das</p>B.Tech, CSE</div>
               </div>
               <div className="relative flex items-center justify-center">
                 <img src='/assets/rijuabout.png' className='aboutRijurajImg transform duration-300 hover:scale-110' />
-                <div className="hover-text absolute top-[-32%] MarginImg transform -translate-x-1/2 text-white text-center p-2 text-2xl rijumarginLeft"><p>Rijuraj Datta</p>B.Tech, CSE</div>
+                <div className="hover-text absolute top-[-20%] MarginImg transform -translate-x-1/2 text-[#7ebaba] text-center p-2 text-2xl rijumarginLeft"><p>Rijuraj Datta</p>B.Tech, CSE</div>
               </div>
             </div>
-            <img className='relative -mt-40 scale-150 mr-52' src='/assets/about banner.png' />
+            <img className='relative -mt-40 scale-150 mr-52' src='/assets/banner.png' />
           </div>
         </div>
 
