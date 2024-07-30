@@ -1,22 +1,20 @@
 'use client'
 
 import React from 'react';
-import Link from 'next/link';
 import { MdOutlineSearch } from "react-icons/md";
 import { FaEarthAmericas } from "react-icons/fa6";
 import { BsChatSquareDots } from "react-icons/bs";
-import { SlUserFollowing } from "react-icons/sl";
-import { SlUserFollow } from "react-icons/sl";
+import { SlUserFollowing, SlUserFollow } from "react-icons/sl";
 import { TbDeviceDesktopAnalytics } from "react-icons/tb";
-import { GiReceiveMoney } from "react-icons/gi";
+import { GiReceiveMoney, GiPayMoney } from "react-icons/gi";
 import { FaRegHandshake } from "react-icons/fa";
-import { GiPayMoney } from "react-icons/gi";
 
 interface LeftSidebarProps {
-    userType: 'Entrepreneur' | 'Investor';
+    userType?: 'Entrepreneur' | 'Investor';
+    onMarketAnalysisClick: () => void;
 }
 
-const LeftSidebar: React.FC<LeftSidebarProps> = ({ userType }) => {
+const LeftSidebar: React.FC<LeftSidebarProps> = ({ userType, onMarketAnalysisClick }) => {
     return (
         <div className='w-80 bg-white rounded-2xl h-101 bg-opacity-50 mb-6 mr-4 mt-24 ml-3'>
             <nav className='flex flex-col gap-y-14'>
@@ -51,7 +49,10 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ userType }) => {
                     </button>
                 </div>
                 <div className='ml-6 flex flex-row'>
-                    <button className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]'>
+                    <button
+                        className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]'
+                        onClick={onMarketAnalysisClick}
+                    >
                         <TbDeviceDesktopAnalytics style={{ width: '2.5em', height: '2.5em' }}/><h1 className='text-3xl ml-2'>Market Analysis</h1>
                     </button>
                 </div>

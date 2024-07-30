@@ -1,7 +1,6 @@
 'use client'
 
-import React from 'react';
-import { useSearchParams } from 'next/navigation';
+import React, { useState } from 'react';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
 import '../../globals.css';
@@ -9,16 +8,19 @@ import Window from '@/app/components/Window';
 import LeftSidebar from '@/app/components/LeftSidebar';
 
 const DashboardPage: React.FC = () => {
-  const searchParams = useSearchParams();
-  const userType = searchParams.get('userType');
+  const [isMarketAnalysis, setIsMarketAnalysis] = useState(false);
+
+  const handleMarketAnalysisClick = () => {
+    setIsMarketAnalysis(true);
+  };
 
   return (
     <>
       <Header />
       <div className='min-h-screen bgGradient flex flex-row'>
-        <LeftSidebar userType={userType as 'Entrepreneur' | 'Investor'} />
+        <LeftSidebar onMarketAnalysisClick={handleMarketAnalysisClick} />
         <div className='flex-grow'>
-          <Window />
+          <Window isMarketAnalysis={isMarketAnalysis} />
         </div>
       </div>
       <Footer />

@@ -1,55 +1,49 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_KEY = 'W9FFWWWFBHNB1RRL'; // Replace with your Vantage API key
-const SYMBOL = 'MSFT'; // Example stock symbol
+// Replace with your Vantage API key
+const API_KEY = 'W9FFWWWFBHNB1RRL'; 
 
-export const Market = () => {
-  const [stockData, setStockData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+// Expanded symbols for tech, food, and beauty industries
+const TECH_SYMBOLS = [
+  'MSFT', 'AAPL', 'GOOGL', 'AMZN', 'META', 'TSLA', 'NVDA', 'AMD', 'INTC', 'IBM', 
+  'CSCO', 'ORCL', 'SAP', 'ADBE', 'CRM', 'TWTR', 'UBER', 'PFE', 'QUALCOMM', 'VMW'
+]; 
 
-  useEffect(() => {
-    const fetchStockData = async () => {
-      try {
-        const response = await axios.get(`https://www.alphavantage.co/query`, {
-          params: {
-            function: 'TIME_SERIES_DAILY',
-            symbol: SYMBOL,
-            apikey: API_KEY,
-          },
-        });
-        setStockData(response.data);
-        setLoading(false);
-      } catch (err) {
-        setError(err);
-        setLoading(false);
-      }
-    };
+const FOOD_SYMBOLS = [
+  'KO', 'PEP', 'MDLZ', 'GIS', 'CPB', 'K', 'NSRGY', 'CAG', 'SJM', 'BGS', 
+  'FDP', 'BUD', 'DEO', 'HEIAF', 'WMT', 'PWR', 'SAB', 'SYY', 'STZ', 'BRFS'
+]; 
 
-    fetchStockData();
-  }, []);
+const BEAUTY_SYMBOLS = [
+  'EL', 'CL', 'COTY', 'PG', 'LB', 'AMZN', 'BE', 'TGT', 'M', 'ESTE', 
+  'LUX', 'LVMUY', 'CHIC', 'SHS', 'AVP', 'KMB', 'ULTA', 'HGG', 'JCP', 'BAX'
+]; 
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching data</div>;
+const ALL_SYMBOLS = [...TECH_SYMBOLS, ...FOOD_SYMBOLS, ...BEAUTY_SYMBOLS];
 
-  return (
-    <div>
-      <h1>Stock Market Data for {SYMBOL}</h1>
-      {stockData && (
-        <div>
-          <h2>Time Series (Daily)</h2>
-          <ul>
-            {Object.entries(stockData['Time Series (Daily)']).map(([date, data]) => (
-              <li key={date}>
-                <strong>{date}</strong>: Open: {data['1. open']}, High: {data['2. high']}, Low: {data['3. low']}, Close: {data['4. close']}, Volume: {data['5. volume']}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
-  );
+const fetchStockData = async () => {
+  try {
+    const requests = ALL_SYMBOLS.map(symbol =>
+      axios.get(`https://www.alphavantage.co/query`, {
+        params: {
+          function: 'TIME_SERIES_DAILY',
+          symbol: symbol,
+          apikey: API_KEY,
+        },
+      })
+    );
+    const responses = await Promise.all(requests);
+    const data = responses.reduce((acc, response) => {
+      acc[response.config.params.symbol] = response.data;
+      return acc;
+    }, {});
+    
+    // Process the data as needed
+    console.log('Fetched stock data:', data);
+
+  } catch (err) {
+    console.error('Error fetching data:', err);
+  }
 };
 
-export default Market;
+fetchStockData();
