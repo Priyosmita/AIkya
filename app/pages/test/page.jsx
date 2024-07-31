@@ -1,10 +1,10 @@
 import React from 'react'
 // import SocialMedia from "../../components/options/SmartMatch"
-import Chats from '../../components/options/Chats'
+import Donations from '../../components/options/Donations'
 
 const page = () => {
   return (
-    <div><Chats/></div>
+    <div><Donations/></div>
   )
 }
 

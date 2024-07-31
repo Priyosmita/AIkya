@@ -17,9 +17,10 @@ interface LeftSidebarProps {
     onFollowersClick: () => void; // Added this prop
     onFollowingClick: () => void; // Added this prop
     onChatsClick: () => void; // Added this prop
+    onDonationsClick: () => void; // Added this prop
 }
 
-const LeftSidebar: React.FC<LeftSidebarProps> = ({ userType, onMarketAnalysisClick, onSocialMediaClick, onSmartMatchClick, onFollowersClick, onFollowingClick, onChatsClick }) => {
+const LeftSidebar: React.FC<LeftSidebarProps> = ({ userType, onMarketAnalysisClick, onSocialMediaClick, onSmartMatchClick, onFollowersClick, onFollowingClick, onChatsClick, onDonationsClick }) => {
     return (
         <div className='w-80 bg-white rounded-2xl h-101 bg-opacity-50 mb-6 mr-4 mt-24 ml-3'>
             <nav className='flex flex-col gap-y-14'>
@@ -78,7 +79,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({ userType, onMarketAnalysisCli
                     </div>
                 )}
                 <div className='mb-14 ml-6 flex flex-row'>
-                    <button className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]'>
+                    <button className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]' onClick={onDonationsClick}>
                         <GiPayMoney style={{ width: '2.5em', height: '2.5em' }} /><h1 className='text-3xl ml-2'>Donations</h1>
                     </button>
                 </div>
