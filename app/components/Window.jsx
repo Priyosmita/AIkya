@@ -1,16 +1,23 @@
 'use client';
 
 import React from 'react';
-// import MarketAnalysis from './MarketAnalysis';
-import MarketAnalysis from './options/MarketAnalysis'
-import SocialMedia from './options/SocialMedia'
+import MarketAnalysis from './options/MarketAnalysis';
+import SocialMedia from './options/SocialMedia';
+import SmartMatch from './options/SmartMatch';
+import Followers from './options/Followers'
+import Following from './options/Following'
+import Chats from './options/Chats'
 
-
-const Window = ({ isMarketAnalysis, isSocialMedia }) => {
+const Window = ({ isMarketAnalysis, isSocialMedia, isSmartMatch, isFollowers, isFollowing, isChats }) => {
   return (
-    <div className='w-65 bg-white rounded-2xl h-101 opacity-50 mb-6 mr-4 mt-24 p-4'>
+    <div className='w-65 bg-white rounded-2xl h-101 bg-opacity-50 mb-6 mr-4 mt-24 p-4 '>
       {isMarketAnalysis && <MarketAnalysis />}
-      {/* {isSocialMedia && <SocialMedia />} */}
+      <div className='flex justify-center'>
+      {isSocialMedia && <SocialMedia />}</div>
+      {isSmartMatch && <SmartMatch />}
+      {isFollowers && <Followers />}
+      {isFollowing && <Following />}
+      {isChats && <Chats />}
     </div>
   );
 };
