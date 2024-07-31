@@ -9,15 +9,17 @@ import LeftSidebar from '@/app/components/LeftSidebar';
 
 const DashboardPage: React.FC = () => {
   const [isMarketAnalysis, setIsMarketAnalysis] = useState(false);
+  // const [isSocialMedia, setIsSocialMedia] = useState(false)
 
   const handleMarketAnalysisClick = () => {
     setIsMarketAnalysis(true);
   };
+ 
 
   return (
     <>
       <Header />
-      <div className='min-h-screen bg-black flex flex-row'>
+      <div className='min-h-screen bgGradient flex flex-row'>
         <LeftSidebar onMarketAnalysisClick={handleMarketAnalysisClick} />
         <div className='flex-grow'>
           <Window isMarketAnalysis={isMarketAnalysis} />

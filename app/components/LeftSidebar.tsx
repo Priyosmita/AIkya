@@ -12,6 +12,7 @@ import { FaRegHandshake } from "react-icons/fa";
 interface LeftSidebarProps {
     userType?: 'Entrepreneur' | 'Investor';
     onMarketAnalysisClick: () => void;
+    // onSocialMediaClick: () => void;
 }
 
 const LeftSidebar: React.FC<LeftSidebarProps> = ({ userType, onMarketAnalysisClick }) => {

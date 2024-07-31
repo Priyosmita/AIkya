@@ -1,3 +1,5 @@
+// function that fetches data from alpha vantage api
+
 import axios from 'axios';
 
 // Replace with your Vantage API key
