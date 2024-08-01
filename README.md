@@ -62,5 +62,6 @@ Micro and nano entrepreneurs drive growth and innovation but struggle with fundi
  
 ## 💫 In a nutshell
 AIkya transforms the entrepreneurial landscape by connecting entrepreneurs with investors using cutting-edge smart AI matchmaking. With seamless chat, crowd funding, and real-time market insights, AIkya boosts access to funding, expertise, and community support, fueling innovation and economic growth.<br/> AIkya, with its name reflecting unity and innovation, is your gateway to unlocking potential and driving success in the entrepreneurial world.
-
-
+<br/>
+<br/>
+### [Backend Link](https://github.com/Priyosmita/AIkya-Backend)
