@@ -21,6 +21,10 @@ Micro and nano entrepreneurs drive growth and innovation but struggle with fundi
 - <b>Real-Time Market Analysis</b>: Delivers actionable insights to help entrepreneurs refine strategies and boost success.
 - <b>Efficient Bridge</b>: Simplifies the funding process and supports business growth by connecting entrepreneurs with investors.
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/4ecb9c1c-6eb6-4f6b-8988-397b5cc9991f" alt="AIkya ss">
+</div>
+
 ## 🛠 System Architecture
 <div align="center">
   <img src="https://github.com/user-attachments/assets/05961428-4b20-4077-b933-26c751dd4eb9" alt="system architecture">
@@ -36,3 +40,5 @@ Micro and nano entrepreneurs drive growth and innovation but struggle with fundi
  
 ## 💫 In a nutshell
 AIkya transforms the entrepreneurial landscape by connecting entrepreneurs with investors using cutting-edge smart AI matchmaking. With seamless chat, crowd funding, and real-time market insights, AIkya boosts access to funding, expertise, and community support, fueling innovation and economic growth.<br/> AIkya, with its name reflecting unity and innovation, is your gateway to unlocking potential and driving success in the entrepreneurial world.
+
+
