@@ -2,5 +2,21 @@
     position: relative;
     height: 500px;
     width: 100%;
+    /* margin-right: 90px; */
   }
+  .donations-container {
+    max-width: 100%;
+    max-height: 100vh;
+    overflow: auto;
+  }
+  
+  .grid {
+    overflow: auto; /* Ensure grid itself is scrollable if needed */
+  }
+  
+  .modal-content {
+    max-height: 80vh; /* Adjust as necessary */
+    overflow-y: auto; /* Scroll if content overflows */
+  }
+  
   

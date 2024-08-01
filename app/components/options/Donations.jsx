@@ -2,12 +2,13 @@
 
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import "./options.css"
 
 // Sample data for startups
 const startupsData = [
   {
     id: 1,
-    image: 'https://via.placeholder.com/150',
+    image: 'https://img.freepik.com/premium-photo/tech-devices-icons-connected-digital-planet-earth_117023-449.jpg',
     name: 'Tech Innovators',
     industry: 'Technology',
     details: 'Tech Innovators is working on cutting-edge AI solutions.',
@@ -15,7 +16,7 @@ const startupsData = [
   },
   {
     id: 2,
-    image: 'https://via.placeholder.com/150',
+    image: 'https://www.srepublic.in/uploads/images/2023/12/image_750x_656b1892b0b4f.jpg',
     name: 'Green Ventures',
     industry: 'Environmental',
     details: 'Green Ventures focuses on sustainable energy solutions.',
@@ -23,7 +24,7 @@ const startupsData = [
   },
   {
     id: 3,
-    image: 'https://via.placeholder.com/150',
+    image: 'https://www.mytechmag.com/wp-content/uploads/2022/07/healthcare-startups-1200x675.jpg',
     name: 'HealthNext',
     industry: 'Healthcare',
     details: 'HealthNext develops innovative health tech products.',
@@ -31,7 +32,7 @@ const startupsData = [
   },
   {
     id: 4,
-    image: 'https://via.placeholder.com/150',
+    image: 'https://www.avanse.com/blogs/images/10feb-blog-2023.jpg',
     name: 'EduTech',
     industry: 'Education',
     details: 'EduTech offers advanced e-learning solutions.',
@@ -39,7 +40,7 @@ const startupsData = [
   },
   {
     id: 5,
-    image: 'https://via.placeholder.com/150',
+    image: 'https://www.eatingwell.com/thmb/m5xUzIOmhWSoXZnY-oZcO9SdArQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/article_291139_the-top-10-healthiest-foods-for-kids_-02-4b745e57928c4786a61b47d8ba920058.jpg',
     name: 'FoodFuture',
     industry: 'Food',
     details: 'FoodFuture is creating sustainable food production technologies.',
@@ -84,7 +85,7 @@ const Donations = () => {
   };
 
   return (
-    <div className='p-4 text-black'>
+    <div className='donations-container p-4 text-black'>
       <input
         type="text"
         placeholder="Search startups..."
@@ -93,20 +94,20 @@ const Donations = () => {
         className="mb-4 p-2 border rounded w-full"
       />
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-auto">
         {filteredStartups.map(startup => (
-          <div key={startup.id} className="p-4 bg-white shadow rounded-lg">
-            <img src={startup.image} alt={startup.name} className="w-full h-40 object-cover mb-2 rounded" />
+          <div key={startup.id} className="p-4 bg-white shadow-lg rounded-lg bg-opacity-30">
+            <img src={startup.image} alt={startup.name} className="w-full h-80 object-cover mb-2 rounded" />
             <h3 className="text-xl font-semibold mb-2">{startup.name}</h3>
             <p className="mb-2 text-gray-600">{startup.industry}</p>
             <button
-              className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+              className="bg-[#7ebaba] hover:scale-110 transition duration-300 text-white px-4 py-2 rounded-full mr-2"
               onClick={() => openDonatePopup(startup)}
             >
               Donate
             </button>
             <button
-              className="bg-green-500 text-white px-4 py-2 rounded"
+              className="bg-[#f8b891] hover:scale-110 transition duration-300 text-white px-4 py-2 rounded-full"
               onClick={() => openDetailsModal(startup)}
             >
               View Details
@@ -124,7 +125,7 @@ const Donations = () => {
           className="fixed inset-0 flex flex-col items-center justify-center p-4 text-black"
           overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50"
         >
-          <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-md relative">
+          <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-md relative max-h-[80vh] overflow-auto">
             <button
               className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
               onClick={closeDetailsModal}
@@ -155,7 +156,7 @@ const Donations = () => {
           className="fixed inset-0 flex flex-col items-center justify-center p-4 text-black"
           overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50"
         >
-          <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-md relative">
+          <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-md relative max-h-[80vh] overflow-auto">
             <button
               className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
               onClick={closeDonatePopup}
@@ -174,7 +175,7 @@ const Donations = () => {
             />
             <button
               onClick={handleDonate}
-              className="bg-blue-500 text-white px-4 py-2 rounded"
+              className="bg-[#7ebaba] hover:scale-110 transition duration-300 text-white px-4 py-2 rounded"
             >
               Donate
             </button>

@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
-import './options.css'
+import './options.css';
 
-const API_KEY = 'W9FFWWWFBHNB1RRL';
+const API_KEY = 'cqkil61r01qjqssgdq00cqkil61r01qjqssgdq0g';
 
 const TECH_SYMBOLS = ['MSFT', 'AAPL', 'GOOGL', 'AMZN', 'META', 'TSLA', 'NVDA', 'AMD', 'INTC', 'IBM'];
 const FOOD_SYMBOLS = ['KO', 'PEP', 'MDLZ', 'GIS', 'CPB', 'K', 'NSRGY', 'CAG', 'SJM', 'BGS'];
@@ -39,11 +39,10 @@ const MarketAnalysis = () => {
         setLoading(true);
         setError(null);
         try {
-          const response = await axios.get(`https://www.alphavantage.co/query`, {
+          const response = await axios.get(`https://finnhub.io/api/v1/quote`, {
             params: {
-              function: 'TIME_SERIES_DAILY',
               symbol: selectedCompany,
-              apikey: API_KEY,
+              token: API_KEY,
             },
           });
           setCompanyData(response.data);
@@ -66,10 +65,15 @@ const MarketAnalysis = () => {
   };
 
   const transformDataForChart = () => {
-    if (!companyData || !companyData['Time Series (Daily)']) return null;
+    if (!companyData) return null;
 
-    const dates = Object.keys(companyData['Time Series (Daily)']).slice(0, 30).reverse();
-    const prices = dates.map(date => parseFloat(companyData['Time Series (Daily)'][date]['4. close']));
+    const dates = Array.from({ length: 30 }, (_, i) => {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      return date.toISOString().split('T')[0];
+    }).reverse();
+
+    const prices = Array.from({ length: 30 }, () => companyData.c);
 
     return {
       labels: dates,
@@ -78,33 +82,34 @@ const MarketAnalysis = () => {
           label: `${selectedCompany} Stock Price`,
           data: prices,
           borderColor: 'rgba(75,192,192,1)',
-          fill: false,
+          backgroundColor: 'rgba(75,192,192,0.2)',
+          fill: true,
         },
       ],
     };
   };
 
   return (
-    <div>
-      <div className='flex justify-around mb-4'>
+    <div className='p-10'>
+      <div className='flex justify-around mb-4 ml-32'>
         {Object.keys(SYMBOLS_BY_CATEGORY).map(category => (
           <button
             key={category}
             onClick={() => handleCategoryChange(category)}
-            className={`px-4 py-2 rounded ${selectedCategory === category ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+            className={`px-4 hover:scale-110 transition duration-300 py-2 rounded-xl w-44 text-3xl text-center justify-center items-center  ${selectedCategory === category ? 'bg-[#f8b891] text-white' : 'bg-[#7ebaba]'}`}
           >
             {category}
           </button>
         ))}
       </div>
-      <div className='flex'>
+      <div className='flex mt-20'>
         <div className='w-1/4 p-4'>
           <ul>
             {companies.map(company => (
               <li
                 key={company}
                 onClick={() => handleCompanyClick(company)}
-                className={`cursor-pointer mb-2 p-2 rounded ${selectedCompany === company ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+                className={`cursor-pointer mb-4 p-2 rounded-full w-36 text-center hover:scale-110 transition duration-300 ${selectedCompany === company ? 'bg-[#f8b891] text-white' : 'bg-[#7ebaba]'}`}
               >
                 {company}
               </li>
@@ -114,7 +119,7 @@ const MarketAnalysis = () => {
         <div className='w-3/4 p-4'>
           {loading && <p>Loading...</p>}
           {error && <p>{error}</p>}
-          {selectedCompany && companyData && companyData['Time Series (Daily)'] && !loading && (
+          {selectedCompany && companyData && !loading && (
             <div className='flex justify-start'>
               <div className='w-full'>
                 <h3 className='text-xl font-bold mb-2'>{selectedCompany}</h3>

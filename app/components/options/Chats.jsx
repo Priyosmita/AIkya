@@ -3,27 +3,51 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 
-// Sample static chat data
+// Sample static chat data with demo messages
 const chatsData = [
   {
     id: 1,
-    name: 'Alice Johnson',
+    name: 'Rijuraj Datta',
     profilePic: 'https://ashallendesign.ams3.cdn.digitaloceanspaces.com/rMbsGOyK6i1KjNkbXff8qLohzM1nWQA8HNGwHF0J.png',
+    messages: [
+      { text: 'Hello! How are you?', sender: 'user' },
+      { text: 'Hi there! I am good, thanks for asking. How about you?', sender: 'Rijuraj Datta' },
+      { text: 'I am doing well too. Just wanted to discuss our project.', sender: 'user' },
+      { text: 'Sure, let’s go over the details.', sender: 'Rijuraj Datta' }
+    ]
   },
   {
     id: 2,
     name: 'Bob Brown',
-    profilePic: 'profile-pic-url-2.jpg'
+    profilePic: 'https://cambridgesmiles.ca/wp-content/uploads/2016/10/dentalia-demo-deoctor-3-1-750x750-1.jpg',
+    messages: [
+      { text: 'Good morning! Did you receive my email?', sender: 'user' },
+      { text: 'Good morning! Yes, I received it. I will review it today.', sender: 'Bob Brown' },
+      { text: 'Great! Let me know if you have any questions.', sender: 'user' },
+      { text: 'Will do. Thanks!', sender: 'Bob Brown' }
+    ]
   },
   {
     id: 3,
     name: 'Carol White',
-    profilePic: 'profile-pic-url-3.jpg'
+    profilePic: 'https://img.freepik.com/photos-gratuite/gros-plan-belle-jeune-femme-brune-habillee-haut-raye-se-detendre-dans-pepiniere-pendant-journee-profiter-air-frais-concept-personnes-nature-verdure-agriculture-jardinage-fraicheur_343059-209.jpghttps://img.freepik.com/free-photo/portrait-happy-young-woman-looking-camera_23-2147892777.jpg',
+    messages: [
+      { text: 'Hi Carol, can we schedule a call?', sender: 'user' },
+      { text: 'Hello! Yes, we can. What time works for you?', sender: 'Carol White' },
+      { text: 'How about 3 PM today?', sender: 'user' },
+      { text: 'That works for me. I will send you a calendar invite.', sender: 'Carol White' }
+    ]
   },
   {
     id: 4,
     name: 'David Green',
-    profilePic: 'profile-pic-url-4.jpg'
+    profilePic: 'https://www.qtrainers.com/upload/profile/160/2020/02/profile_35405e4683b309238.jpg',
+    messages: [
+      { text: 'Hi David, just following up on our last discussion.', sender: 'user' },
+      { text: 'Hello! I’ve made some progress. Let’s discuss it.', sender: 'David Green' },
+      { text: 'Looking forward to it. When would be a good time?', sender: 'user' },
+      { text: 'How about tomorrow morning?', sender: 'David Green' }
+    ]
   }
 ];
 
@@ -35,7 +59,7 @@ const Chats = () => {
 
   const openChat = (chat) => {
     setSelectedChat(chat);
-    setMessages([]);
+    setMessages(chat.messages);
   };
 
   const closeChat = () => {
@@ -56,8 +80,7 @@ const Chats = () => {
   );
 
   return (
-    <div className='text-black'>
-      <h1 className='text-3xl mb-4'>Chats</h1>
+    <div className='text-black p-10'>
 
       {/* Search Bar */}
       <input
@@ -65,12 +88,12 @@ const Chats = () => {
         placeholder="Search chats..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="border border-gray-300 p-2 rounded-lg mb-4 w-full"
+        className="border border-gray-300 p-2 rounded-xl mb-4 w-full"
       />
 
       <ul className='space-y-4'>
         {filteredChats.map(chat => (
-          <li key={chat.id} className='flex items-center justify-between p-4 bg-white shadow rounded-lg'>
+          <li key={chat.id} className='flex items-center justify-between p-4 bg-white bg-opacity-50 shadow-lg rounded-lg'>
             <div className='flex items-center'>
               <img src={chat.profilePic} alt={`${chat.name}'s profile`} className='w-12 h-12 rounded-full' />
               <div className='ml-4'>
@@ -78,7 +101,7 @@ const Chats = () => {
               </div>
             </div>
             <button
-              className='bg-blue-500 text-white px-4 py-2 rounded'
+              className='bg-[#7ebaba] hover:bg-[#f8b891] font-bold hover:scale-110 transition duration-300 text-white px-4 py-2 rounded'
               onClick={() => openChat(chat)}
             >
               Chat
@@ -96,7 +119,7 @@ const Chats = () => {
           className="fixed inset-0 flex flex-col items-center justify-center p-4 text-black"
           overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50"
         >
-          <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-md relative">
+          <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-xl h-[80vh] flex flex-col relative">
             <button
               className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
               onClick={closeChat}
@@ -106,15 +129,15 @@ const Chats = () => {
               </svg>
             </button>
             <div className="flex items-center mb-4">
-              <img src={selectedChat.profilePic} alt={`${selectedChat.name}'s profile`} className="w-12 h-12 rounded-full" />
+              <img src={selectedChat.profilePic} alt={`${selectedChat.name}'s profile`} className="w-16 h-16 rounded-full" />
               <div className="ml-4">
-                <p className="text-xl font-semibold">{selectedChat.name}</p>
+                <p className="text-2xl font-semibold">{selectedChat.name}</p>
               </div>
             </div>
-            <div className="flex flex-col h-64 overflow-y-auto mb-4 border-b border-gray-200">
+            <div className="flex flex-col flex-grow overflow-y-auto mb-4 border-b border-gray-200">
               {messages.map((msg, index) => (
                 <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} mb-2`}>
-                  <div className={`p-2 rounded-lg ${msg.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
+                  <div className={`p-3 rounded-lg ${msg.sender === 'user' ? 'bg-[#7ebaba] text-white' : 'bg-gray-200'}`}>
                     {msg.text}
                   </div>
                 </div>
@@ -126,11 +149,11 @@ const Chats = () => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Type a message..."
-                className="border border-gray-300 p-2 rounded-l-lg flex-grow text-black"
+                className="border border-gray-300 p-2 rounded-l-xl flex-grow text-black"
               />
               <button
                 onClick={handleSendMessage}
-                className="bg-blue-500 text-white p-2 rounded-r-lg"
+                className="bg-[#7ebaba] text-white p-2 rounded-r-lg"
               >
                 Send
               </button>

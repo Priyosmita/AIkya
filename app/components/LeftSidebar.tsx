@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { MdOutlineSearch } from "react-icons/md";
 import { FaEarthAmericas } from "react-icons/fa6";
 import { BsChatSquareDots } from "react-icons/bs";
@@ -14,73 +14,115 @@ interface LeftSidebarProps {
     onMarketAnalysisClick: () => void;
     onSocialMediaClick: () => void;
     onSmartMatchClick: () => void;
-    onFollowersClick: () => void; // Added this prop
-    onFollowingClick: () => void; // Added this prop
-    onChatsClick: () => void; // Added this prop
-    onDonationsClick: () => void; // Added this prop
+    onFollowersClick: () => void;
+    onFollowingClick: () => void;
+    onChatsClick: () => void;
+    onDonationsClick: () => void;
+    onFundingClick: () => void;
+    onSearchClick: () => void;
 }
 
-const LeftSidebar: React.FC<LeftSidebarProps> = ({ userType, onMarketAnalysisClick, onSocialMediaClick, onSmartMatchClick, onFollowersClick, onFollowingClick, onChatsClick, onDonationsClick }) => {
+const LeftSidebar: React.FC<LeftSidebarProps> = ({
+    userType,
+    onMarketAnalysisClick,
+    onSocialMediaClick,
+    onSmartMatchClick,
+    onFollowersClick,
+    onFollowingClick,
+    onChatsClick,
+    onDonationsClick,
+    onFundingClick,
+    onSearchClick,
+}) => {
+    const [selected, setSelected] = useState<string>('');
+
+    const handleClick = (option: string, callback: () => void) => {
+        setSelected(option);
+        callback();
+    };
+
     return (
         <div className='w-80 bg-white rounded-2xl h-101 bg-opacity-50 mb-6 mr-4 mt-24 ml-3'>
             <nav className='flex flex-col gap-y-14'>
                 <div className='mt-12 ml-6 flex flex-row'>
-                    <button className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]'>
-                        <MdOutlineSearch style={{ width: '2.6em', height: '2.6em' }} /><h1 className='text-3xl ml-1'>Search</h1>
+                    <button
+                        className={`flex flex-row transform transition duration-300 ${selected === 'search' ? 'text-[#e8b693]' : 'text-[#7ebaba]'} hover:scale-110`}
+                        onClick={() => handleClick('search', onSearchClick)}
+                    >
+                        <MdOutlineSearch style={{ width: '2.6em', height: '2.6em' }} />
+                        <h1 className='text-3xl ml-1'>Search</h1>
                     </button>
                 </div>
                 <div className='ml-6 flex flex-row'>
                     <button
-                        className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]'
-                        onClick={onSocialMediaClick}
+                        className={`flex flex-row transform transition duration-300 ${selected === 'social' ? 'text-[#e8b693]' : 'text-[#7ebaba]'} hover:scale-110`}
+                        onClick={() => handleClick('social', onSocialMediaClick)}
                     >
-                        <FaEarthAmericas style={{ width: '2.1em', height: '2.1em' }} /><h1 className='text-3xl ml-3'>Social</h1>
-                    </button>
-                </div>
-                <div className='ml-6 flex flex-row'>
-                    <button className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]' onClick={onChatsClick}>
-                        <BsChatSquareDots style={{ width: '2.3em', height: '2.3em' }} /><h1 className='text-3xl ml-2'>Chats</h1>
-                    </button>
-                </div>
-                <div className='ml-6 flex flex-row'>
-                    <button className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]'onClick={onFollowingClick}>
-                        <SlUserFollowing style={{ width: '2.4em', height: '2.4em' }} /><h1 className='text-3xl ml-2'>Following</h1>
+                        <FaEarthAmericas style={{ width: '2.1em', height: '2.1em' }} />
+                        <h1 className='text-3xl ml-3'>Social</h1>
                     </button>
                 </div>
                 <div className='ml-6 flex flex-row'>
                     <button
-                        className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]'
-                        onClick={onFollowersClick} // Added onClick event
+                        className={`flex flex-row transform transition duration-300 ${selected === 'chats' ? 'text-[#e8b693]' : 'text-[#7ebaba]'} hover:scale-110`}
+                        onClick={() => handleClick('chats', onChatsClick)}
                     >
-                        <SlUserFollow style={{ width: '2.4em', height: '2.5em' }} /><h1 className='text-3xl ml-2'>Followers</h1>
+                        <BsChatSquareDots style={{ width: '2.3em', height: '2.3em' }} />
+                        <h1 className='text-3xl ml-2'>Chats</h1>
                     </button>
                 </div>
                 <div className='ml-6 flex flex-row'>
                     <button
-                        className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]'
-                        onClick={onSmartMatchClick}
+                        className={`flex flex-row transform transition duration-300 ${selected === 'following' ? 'text-[#e8b693]' : 'text-[#7ebaba]'} hover:scale-110`}
+                        onClick={() => handleClick('following', onFollowingClick)}
                     >
-                        <FaRegHandshake style={{ width: '2.5em', height: '2.5em' }} /><h1 className='text-3xl ml-2'>Smart Match</h1>
+                        <SlUserFollowing style={{ width: '2.4em', height: '2.4em' }} />
+                        <h1 className='text-3xl ml-2'>Following</h1>
                     </button>
                 </div>
                 <div className='ml-6 flex flex-row'>
                     <button
-                        className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]'
-                        onClick={onMarketAnalysisClick}
+                        className={`flex flex-row transform transition duration-300 ${selected === 'followers' ? 'text-[#e8b693]' : 'text-[#7ebaba]'} hover:scale-110`}
+                        onClick={() => handleClick('followers', onFollowersClick)}
                     >
-                        <TbDeviceDesktopAnalytics style={{ width: '2.5em', height: '2.5em' }} /><h1 className='text-3xl ml-2'>Market Analysis</h1>
+                        <SlUserFollow style={{ width: '2.4em', height: '2.5em' }} />
+                        <h1 className='text-3xl ml-2'>Followers</h1>
                     </button>
                 </div>
-                {userType === 'Entrepreneur' && (
-                    <div className='ml-6 flex flex-row'>
-                        <button className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]'>
-                            <GiReceiveMoney style={{ width: '2.5em', height: '2.5em' }} /><h1 className='text-3xl ml-2'>Funding</h1>
-                        </button>
-                    </div>
-                )}
-                <div className='mb-14 ml-6 flex flex-row'>
-                    <button className='flex flex-row text-[#7ebaba] transform transition duration-300 hover:scale-110 hover:text-[#e8b693]' onClick={onDonationsClick}>
-                        <GiPayMoney style={{ width: '2.5em', height: '2.5em' }} /><h1 className='text-3xl ml-2'>Donations</h1>
+                <div className='ml-6 flex flex-row'>
+                    <button
+                        className={`flex flex-row transform transition duration-300 ${selected === 'smartMatch' ? 'text-[#e8b693]' : 'text-[#7ebaba]'} hover:scale-110`}
+                        onClick={() => handleClick('smartMatch', onSmartMatchClick)}
+                    >
+                        <FaRegHandshake style={{ width: '2.5em', height: '2.5em' }} />
+                        <h1 className='text-3xl ml-2'>Smart Match</h1>
+                    </button>
+                </div>
+                <div className='ml-6 flex flex-row'>
+                    <button
+                        className={`flex flex-row transform transition duration-300 ${selected === 'marketAnalysis' ? 'text-[#e8b693]' : 'text-[#7ebaba]'} hover:scale-110`}
+                        onClick={() => handleClick('marketAnalysis', onMarketAnalysisClick)}
+                    >
+                        <TbDeviceDesktopAnalytics style={{ width: '2.5em', height: '2.5em' }} />
+                        <h1 className='text-3xl ml-2'>Market Analysis</h1>
+                    </button>
+                </div>
+                <div className='ml-6 flex flex-row'>
+                    <button
+                        className={`flex flex-row transform transition duration-300 ${selected === 'funding' ? 'text-[#e8b693]' : 'text-[#7ebaba]'} hover:scale-110`}
+                        onClick={() => handleClick('funding', onFundingClick)}
+                    >
+                        <GiReceiveMoney style={{ width: '2.5em', height: '2.5em' }} />
+                        <h1 className='text-3xl ml-2'>Funding</h1>
+                    </button>
+                </div>
+                <div className='ml-6 flex flex-row'>
+                    <button
+                        className={`flex flex-row transform transition duration-300 ${selected === 'donations' ? 'text-[#e8b693]' : 'text-[#7ebaba]'} hover:scale-110`}
+                        onClick={() => handleClick('donations', onDonationsClick)}
+                    >
+                        <GiPayMoney style={{ width: '2.5em', height: '2.5em' }} />
+                        <h1 className='text-3xl ml-2'>Donations</h1>
                     </button>
                 </div>
             </nav>

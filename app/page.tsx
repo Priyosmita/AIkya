@@ -40,9 +40,6 @@ export default function Home() {
         <l-trefoil
           size="60"
           stroke="4"
-          stroke-length="0.15"
-          bg-opacity="0.1"
-          speed="0"
           color="white"
         ></l-trefoil>
       </div>

@@ -6,27 +6,27 @@ import React, { useState } from 'react';
 const followersData = [
   {
     id: 1,
-    name: 'Alice Johnson',
+    name: 'Rijuraj Datta',
     industry: 'Tech',
     profilePic: 'https://ashallendesign.ams3.cdn.digitaloceanspaces.com/rMbsGOyK6i1KjNkbXff8qLohzM1nWQA8HNGwHF0J.png'
   },
   {
     id: 2,
-    name: 'Bob Brown',
+    name: 'Priyosmita Das',
     industry: 'Finance',
-    profilePic: 'profile-pic-url-2.jpg'
+    profilePic: 'https://media.licdn.com/dms/image/D4E03AQF994QfoNMUBA/profile-displayphoto-shrink_200_200/0/1706964303726?e=2147483647&v=beta&t=kvqaovcfqEGsj35xJaAo6o6MSmvuvn_mThbzHTFyy3U'
   },
   {
     id: 3,
     name: 'Carol White',
     industry: 'Food',
-    profilePic: 'profile-pic-url-3.jpg'
+    profilePic: 'https://img.freepik.com/photos-gratuite/gros-plan-belle-jeune-femme-brune-habillee-haut-raye-se-detendre-dans-pepiniere-pendant-journee-profiter-air-frais-concept-personnes-nature-verdure-agriculture-jardinage-fraicheur_343059-209.jpg'
   },
   {
     id: 4,
     name: 'David Green',
     industry: 'Health',
-    profilePic: 'profile-pic-url-4.jpg'
+    profilePic: 'https://www.qtrainers.com/upload/profile/160/2020/02/profile_35405e4683b309238.jpg'
   }
 ];
 
@@ -53,8 +53,7 @@ const Followers = () => {
   };
 
   return (
-    <div className='text-black p-4'>
-      <h1 className='text-3xl mb-4'>Followers</h1>
+    <div className='text-black p-10'>
 
       {/* Search Bar */}
       <div className='mb-4'>
@@ -69,7 +68,7 @@ const Followers = () => {
 
       <ul className='space-y-4'>
         {filteredFollowers.map(follower => (
-          <li key={follower.id} className='flex items-center justify-between p-4 bg-white shadow rounded-lg'>
+          <li key={follower.id} className='flex items-center justify-between p-4 bg-white shadow-lg rounded-lg bg-opacity-50'>
             <div className='flex items-center'>
               <img src={follower.profilePic} alt={`${follower.name}'s profile`} className='w-12 h-12 rounded-full' />
               <div className='ml-4'>
@@ -77,15 +76,15 @@ const Followers = () => {
                 <p className='text-sm text-gray-500'>{follower.industry}</p>
               </div>
             </div>
-            <div className='flex items-center space-x-2'>
+            <div className='flex items-center space-x-4'>
               <button
-                className='text-blue-500 border border-blue-500 p-2 rounded'
+                className='font-bold bg-[#7ebaba] hover:bg-[#6cbaba] text-white px-4 py-2 rounded-full hover:scale-110 transition duration-200'
                 onClick={() => handleViewProfile(follower)}
               >
                 See Full Profile
               </button>
               <button
-                className='text-red-500 border border-red-500 p-2 rounded'
+                className='bg-[#f8b891] text-white px-4 py-2 rounded-full  font-bold hover:scale-110 transition duration-200'
                 onClick={() => handleRemove(follower.id)}
               >
                 Remove
@@ -98,20 +97,20 @@ const Followers = () => {
       {/* Profile Popup */}
       {selectedProfile && (
         <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
-          <div className='bg-white p-6 rounded-lg shadow-lg w-80'>
-            <div className='flex items-center'>
-              <img src={selectedProfile.profilePic} alt={`${selectedProfile.name}'s profile`} className='w-24 h-24 rounded-full' />
+          <div className='bg-white p-8 rounded-lg shadow-lg w-[90%] max-w-3xl'>
+            <div className='flex items-center mb-6'>
+              <img src={selectedProfile.profilePic} alt={`${selectedProfile.name}'s profile`} className='w-32 h-32 rounded-full' />
               <div className='ml-4'>
-                <p className='text-xl font-semibold'>{selectedProfile.name}</p>
-                <p className='text-sm text-gray-500'>{selectedProfile.industry}</p>
+                <p className='text-2xl font-semibold'>{selectedProfile.name}</p>
+                <p className='text-lg text-gray-500'>{selectedProfile.industry}</p>
               </div>
             </div>
-            <p className='mt-4 text-gray-700'>
-              {/* Profile Details */}
-              Here you can put more details about {selectedProfile.name}.
+            <p className='text-gray-700'>
+              <p className='font-medium'>Industry: {selectedProfile.industry}</p>
+              <p className='mt-2'>About: A {selectedProfile.industry} enthusiast.</p>
             </p>
             <button
-              className='mt-4 text-blue-500 border border-blue-500 p-2 rounded'
+              className='mt-6 bg-[#7ebaba] hover:bg-[#6cbaba] hover:scale-110 transition duration-300 text-white border border-blue-500 p-3 rounded'
               onClick={handleCloseProfile}
             >
               Close

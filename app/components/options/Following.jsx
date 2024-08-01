@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 const followingData = [
   {
     id: 1,
-    name: 'Eve Adams',
+    name: 'Rijuraj Datta',
     industry: 'Tech',
     profilePic: 'https://ashallendesign.ams3.cdn.digitaloceanspaces.com/rMbsGOyK6i1KjNkbXff8qLohzM1nWQA8HNGwHF0J.png'
   },
@@ -14,19 +14,19 @@ const followingData = [
     id: 2,
     name: 'Frank Harris',
     industry: 'Finance',
-    profilePic: 'profile-pic-url-6.jpg'
+    profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJo1MiPQp3IIdp54vvRDXlhbqlhXW9v1v6kw&s'
   },
   {
     id: 3,
     name: 'Grace Lee',
     industry: 'Food',
-    profilePic: 'profile-pic-url-7.jpg'
+    profilePic: 'https://www.nicesnippets.com/demo/following1.jpg'
   },
   {
     id: 4,
     name: 'Henry Wilson',
     industry: 'Health',
-    profilePic: 'profile-pic-url-8.jpg'
+    profilePic: 'https://www.live4india.com/images/users/6.jpg'
   }
 ];
 
@@ -53,8 +53,7 @@ const Following = () => {
   };
 
   return (
-    <div className='text-black p-4'>
-      <h1 className='text-3xl mb-4'>Following</h1>
+    <div className='text-black p-10'>
 
       {/* Search Bar */}
       <div className='mb-4'>
@@ -69,7 +68,7 @@ const Following = () => {
 
       <ul className='space-y-4'>
         {filteredFollowing.map(person => (
-          <li key={person.id} className='flex items-center justify-between p-4 bg-white shadow rounded-lg'>
+          <li key={person.id} className='flex items-center justify-between p-4 bg-white bg-opacity-50 shadow-lg rounded-lg'>
             <div className='flex items-center'>
               <img src={person.profilePic} alt={`${person.name}'s profile`} className='w-12 h-12 rounded-full' />
               <div className='ml-4'>
@@ -77,15 +76,15 @@ const Following = () => {
                 <p className='text-sm text-gray-500'>{person.industry}</p>
               </div>
             </div>
-            <div className='flex items-center space-x-2'>
+            <div className='flex items-center space-x-4'>
               <button
-                className='text-blue-500 border border-blue-500 p-2 rounded'
+                className='font-bold bg-[#7ebaba] hover:bg-[#6cbaba] text-white px-4 py-2 rounded-full  hover:scale-110 transition duration-200'
                 onClick={() => handleViewProfile(person)}
               >
                 See Full Profile
               </button>
               <button
-                className='text-red-500 border border-red-500 p-2 rounded'
+                className='bg-[#f8b891] text-white px-4 py-2 rounded-full  font-bold hover:scale-110 transition duration-200'
                 onClick={() => handleRemove(person.id)}
               >
                 Remove
@@ -98,20 +97,20 @@ const Following = () => {
       {/* Profile Popup */}
       {selectedProfile && (
         <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
-          <div className='bg-white p-6 rounded-lg shadow-lg w-80'>
-            <div className='flex items-center'>
-              <img src={selectedProfile.profilePic} alt={`${selectedProfile.name}'s profile`} className='w-24 h-24 rounded-full' />
+          <div className='bg-white p-8 rounded-lg shadow-lg w-[90%] max-w-2xl h-auto'>
+            <div className='flex items-center mb-4'>
+              <img src={selectedProfile.profilePic} alt={`${selectedProfile.name}'s profile`} className='w-32 h-32 rounded-full' />
               <div className='ml-4'>
-                <p className='text-xl font-semibold'>{selectedProfile.name}</p>
-                <p className='text-sm text-gray-500'>{selectedProfile.industry}</p>
+                <p className='text-2xl font-semibold'>{selectedProfile.name}</p>
+                <p className='text-lg text-gray-500'>{selectedProfile.industry}</p>
               </div>
             </div>
-            <p className='mt-4 text-gray-700'>
-              {/* Profile Details */}
-              Here you can put more details about {selectedProfile.name}.
+            <p className='text-gray-700'>
+              <p>Industry: {selectedProfile.industry}</p>
+              <p>About: An enthusiastic person in the {selectedProfile.industry} industry.</p>
             </p>
             <button
-              className='mt-4 text-blue-500 border border-blue-500 p-2 rounded'
+              className='mt-4 bg-[#7ebaba] hover:scale-110 transition duration-300 hover:bg-[#6cbaba] text-white border border-blue-500 p-2 rounded'
               onClick={handleCloseProfile}
             >
               Close

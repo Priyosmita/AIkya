@@ -16,7 +16,7 @@ const profiles = [
   },
   {
     id: 2,
-    photo: 'https://via.placeholder.com/150',
+    photo: 'https://wildlifefilmnetwork.com/wp-content/uploads/pmpro-register-helper/Demo%20-%20Admin%20Page/Demo%20Page%20Profile%20Photo.jpg',
     name: 'Jane Smith',
     industry: 'Beauty',
     tag: 'Investor',
@@ -26,7 +26,7 @@ const profiles = [
   },
   {
     id: 3,
-    photo: 'https://via.placeholder.com/150',
+    photo: 'https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg',
     name: 'Alice Johnson',
     industry: 'Food',
     tag: 'Entrepreneur',
@@ -36,7 +36,7 @@ const profiles = [
   },
   {
     id: 4,
-    photo: 'https://via.placeholder.com/150',
+    photo: 'https://cambridgesmiles.ca/wp-content/uploads/2016/10/dentalia-demo-deoctor-3-1-750x750-1.jpg',
     name: 'Bob Brown',
     industry: 'Tech',
     tag: 'Investor',
@@ -46,7 +46,7 @@ const profiles = [
   },
   {
     id: 5,
-    photo: 'https://via.placeholder.com/150',
+    photo: 'https://img.freepik.com/photos-gratuite/gros-plan-belle-jeune-femme-brune-habillee-haut-raye-se-detendre-dans-pepiniere-pendant-journee-profiter-air-frais-concept-personnes-nature-verdure-agriculture-jardinage-fraicheur_343059-209.jpghttps://img.freepik.com/free-photo/portrait-happy-young-woman-looking-camera_23-2147892777.jpg',
     name: 'Carol White',
     industry: 'Tech',
     tag: 'Entrepreneur',
@@ -56,7 +56,7 @@ const profiles = [
   },
   {
     id: 6,
-    photo: 'https://via.placeholder.com/150',
+    photo: 'https://www.qtrainers.com/upload/profile/160/2020/02/profile_35405e4683b309238.jpg',
     name: 'David Green',
     industry: 'Beauty',
     tag: 'Investor',
@@ -66,7 +66,7 @@ const profiles = [
   },
   {
     id: 7,
-    photo: 'https://via.placeholder.com/150',
+    photo: 'https://qph.cf2.quoracdn.net/main-thumb-2013309591-200-freawasztvjtwggymlgduhmjkdgrklkh.jpeg',
     name: 'Eve Black',
     industry: 'Food',
     tag: 'Entrepreneur',
@@ -85,10 +85,12 @@ const SmartMatch = () => {
     }, {})
   );
   const [searchQuery, setSearchQuery] = useState('');
+  const [filter, setFilter] = useState('All');
 
   const filteredProfiles = profiles.filter(profile => 
-    profile.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    profile.industry.toLowerCase().includes(searchQuery.toLowerCase())
+    (profile.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    profile.industry.toLowerCase().includes(searchQuery.toLowerCase())) &&
+    (filter === 'All' || profile.tag === filter)
   );
 
   const openModal = (profile) => {
@@ -108,18 +110,27 @@ const SmartMatch = () => {
 
   return (
     <div className="p-4 max-h-screen overflow-y-auto">
-      <div className="mb-4">
+      <div className="flex mb-4 items-center">
         <input 
           type="text"
           placeholder="Search by name or industry"
-          className="p-2 border rounded w-full text-black"
+          className="p-2 border rounded w-full text-black mr-4"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+        <select
+          className="p-2 border rounded text-black"
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option value="All">All</option>
+          <option value="Entrepreneur">Entrepreneur</option>
+          <option value="Investor">Investor</option>
+        </select>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredProfiles.map(profile => (
-          <div key={profile.id} className="p-4 border rounded-xl shadow bg-white text-black">
+          <div key={profile.id} className="p-4 border rounded-xl bg-opacity-30 shadow-lg bg-white text-black">
             <img src={profile.photo} alt={profile.name} className="w-24 h-24 rounded-full mx-auto mb-2" />
             <h3 className="text-xl text-center mb-1">{profile.name}</h3>
             <p className="text-center text-gray-600 mb-1">{profile.industry}</p>
@@ -127,13 +138,13 @@ const SmartMatch = () => {
             <div className="flex justify-around">
               <button 
                 onClick={() => openModal(profile)}
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+                className="bg-[#f8b891] text-white px-4 py-2 rounded-full font-bold hover:scale-110 transition duration-300 "
               >
                 See Profile
               </button>
               <button 
                 onClick={() => toggleFollow(profile.id)}
-                className="bg-green-500 text-white px-4 py-2 rounded"
+                className="font-bold bg-[#7ebaba] hover:bg-[#6cbaba] text-white px-4 py-2 rounded-full hover:scale-110 transition duration-300"
               >
                 {followStatus[profile.id]}
               </button>
@@ -160,7 +171,7 @@ const SmartMatch = () => {
             <p className="mb-4">{selectedProfile.skills}</p>
             <button 
               onClick={closeModal}
-              className="bg-red-500 text-white px-4 py-2 rounded block mx-auto"
+              className="bg-[#7ebaba] hover:scale-110 transition duration-200 text-white px-4 py-2 rounded block mx-auto"
             >
               Close
             </button>

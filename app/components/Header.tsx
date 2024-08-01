@@ -66,8 +66,8 @@ const Header: React.FC = () => {
                 className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer"
                 onClick={toggleDropdown}
               >
-                <Image
-                  src={'/default-profile.png'}
+                <img
+                  src={"https://media.licdn.com/dms/image/D4E03AQF994QfoNMUBA/profile-displayphoto-shrink_200_200/0/1706964303726?e=2147483647&v=beta&t=kvqaovcfqEGsj35xJaAo6o6MSmvuvn_mThbzHTFyy3U"} 
                   alt="Profile"
                   width={48}
                   height={48}

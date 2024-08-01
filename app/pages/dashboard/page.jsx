@@ -14,6 +14,8 @@ const DashboardPage= () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [isChats, setIsChats] = useState(false);
   const [isDonations, setIsDonations] = useState(false)
+  const [isFunding, setIsFunding] = useState(false)
+  const [isSearch, setIsSearch] = useState(false)
   
 
   const handleMarketAnalysisClick = () => {
@@ -24,6 +26,8 @@ const DashboardPage= () => {
     setIsFollowing(false);
     setIsChats(false);
     setIsDonations(false);
+    setIsFunding(false);
+    setIsSearch(false);
      // Ensure other components are not shown when MarketAnalysis is clicked
   };
 
@@ -35,6 +39,8 @@ const DashboardPage= () => {
     setIsFollowing(false);
     setIsChats(false);
     setIsDonations(false);
+    setIsFunding(false);
+    setIsSearch(false);
      // Ensure other components are not shown when SocialMedia is clicked
   };
 
@@ -46,6 +52,8 @@ const DashboardPage= () => {
     setIsFollowing(false);
     setIsChats(false);
     setIsDonations(false);
+    setIsFunding(false);
+    setIsSearch(false);
      // Ensure other components are not shown when SmartMatch is clicked
   };
 
@@ -57,6 +65,8 @@ const DashboardPage= () => {
     setIsFollowing(false);
     setIsChats(false);
     setIsDonations(false);
+    setIsFunding(false);
+    setIsSearch(false);
      // Ensure other components are not shown when Followers is clicked
   };
   const handleFollowingClick = () => {
@@ -67,6 +77,8 @@ const DashboardPage= () => {
     setIsSmartMatch(false);
     setIsChats(false);
     setIsDonations(false);
+    setIsFunding(false);
+    setIsSearch(false);
     
      // Ensure other components are not shown when Followers is clicked
   };
@@ -78,6 +90,8 @@ const DashboardPage= () => {
     setIsSocialMedia(false);
     setIsSmartMatch(false);
     setIsDonations(false);
+    setIsFunding(false);
+    setIsSearch(false);
     
     
      // Ensure other components are not shown when Followers is clicked
@@ -90,6 +104,42 @@ const DashboardPage= () => {
     setIsMarketAnalysis(false);
     setIsSocialMedia(false);
     setIsSmartMatch(false);
+    setIsFunding(false);
+    setIsSearch(false);
+    
+    
+    
+     // Ensure other components are not shown when Followers is clicked
+  };
+  const handleFundingClick = () => {
+    setIsFunding(true);
+    setIsDonations(false);
+    setIsChats(false);
+    setIsFollowing(false);
+    setIsFollowers(false);
+    setIsMarketAnalysis(false);
+    setIsSocialMedia(false);
+    setIsSmartMatch(false);
+    setIsSearch(false);
+    
+    
+    
+    
+     // Ensure other components are not shown when Followers is clicked
+  };
+  const handleSearchclick = () => {
+    
+    setIsSearch(true);
+    setIsFunding(false);
+    setIsDonations(false);
+    setIsChats(false);
+    setIsFollowing(false);
+    setIsFollowers(false);
+    setIsMarketAnalysis(false);
+    setIsSocialMedia(false);
+    setIsSmartMatch(false);
+    
+    
     
     
     
@@ -111,6 +161,8 @@ const DashboardPage= () => {
           onFollowingClick={handleFollowingClick} // Add onFollowersClick prop
           onChatsClick={handleChatsClick} // Add onFollowersClick prop
           onDonationsClick={handleDonationsClick} // Add onFollowersClick prop
+          onFundingClick={handleFundingClick} // Add onFollowersClick prop
+          onSearchClick={handleSearchclick} // Add onFollowersClick prop
         />
         <div className='flex-grow'>
           <Window 
@@ -121,6 +173,8 @@ const DashboardPage= () => {
             isFollowing={isFollowing} 
             isChats={isChats} 
             isDonations={isDonations} 
+            isFunding={isFunding} 
+            isSearch={isSearch} 
              // Pass following state
           />
         </div>
