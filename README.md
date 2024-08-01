@@ -20,8 +20,15 @@ Micro and nano entrepreneurs drive growth and innovation but struggle with fundi
 ## 🛠 System Architecture
 <div align="center">
   <img src="https://github.com/user-attachments/assets/05961428-4b20-4077-b933-26c751dd4eb9" alt="system architecture">
-</div>
+</div> <br/>
 
 ## ⚙️ Tech Stack
-- Frontend: <img src="https://www.datocms-assets.com/98835/1684410508-image-7.png" alt="nextjs" width="50" height="50" align="middle"/>
+- Frontend:<br/> <img src="https://www.datocms-assets.com/98835/1684410508-image-7.png" alt="nextjs" width="50" height="50"/> <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="50" height="50"/> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="50" height="50"/> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="50" height="50"/> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="50" height="50"/>
+- Backend: <br/> <img src="https://www.vectorlogo.zone/logos/pocoo_flask/pocoo_flask-icon.svg" alt="flask" width="50" height="50"/> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg" alt="nodejs" width="50" height="50"/> <img src="https://user-images.githubusercontent.com/8939680/57233884-20344080-6fe5-11e9-8df3-0df1282e1574.png" alt="axios" width="100" height="40"/> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Socket-io.svg/1024px-Socket-io.svg.png" alt="socket.io" width="50" height="50"/> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/express/express-original-wordmark.svg" alt="express" width="70" height="70"/>
+- Database: <br/> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg" alt="mongodb" width="40" height="40"/> <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Fsponsors%2Fmongoosejs&psig=AOvVaw3sdzUysUM9dR6EnMtpDO3j&ust=1722594159314000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCIimtLnJ04cDFQAAAAAdAAAAABAQ" alt="mongoose" width="40" height="40"/>
+- AI Tools: <br/>
+- Authentication: <br/>
+- Web Server: <br/>
 
+## 💫 In a nutshell
+AIkya transforms the entrepreneurial landscape by connecting entrepreneurs with investors using cutting-edge smart AI matchmaking. With seamless chat, crowd funding, and real-time market insights, AIkya boosts access to funding, expertise, and community support, fueling innovation and economic growth.<br/> AIkya, with its name reflecting unity and innovation, is your gateway to unlocking potential and driving success in the entrepreneurial world.
