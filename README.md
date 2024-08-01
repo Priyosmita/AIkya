@@ -4,7 +4,7 @@
   <img src="https://github.com/Priyosmita/AIkya/blob/main/public/assets/logo.png" alt="AIkya logo">
 </div>
 
-## [🌐 Click to Visit AIkya](https://aikya-theta.vercel.app/pages/home)
+## [🌐 Click to Visit AIkya](https://aikya-theta.vercel.app)
 
 ## [📝 Click to view Medium Blog](https://medium.com/@daspriyosmita2003/aikya-from-ideas-to-impact-88987bf36c6f)
 
