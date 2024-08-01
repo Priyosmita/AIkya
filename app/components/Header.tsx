@@ -49,7 +49,7 @@ const Header: React.FC = () => {
       <div className='flex justify-end'>
         <nav className='flex items-center space-x-12 mr-10'>
           {isSignedIn && (
-            <Link href="/pages/dashboard" legacyBehavior>
+            <Link href="/pages/choice" legacyBehavior>
               <a className='cursor-pointer text-[#7ebaba] text-3xl font-semibold transform transition duration-300 hover:scale-110 hover:text-[#f8b891]'>
                 Dashboard
               </a>
