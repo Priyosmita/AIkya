@@ -7,7 +7,7 @@ const initialPosts = [
     id: 1,
     profilePic: 'https://media.licdn.com/dms/image/D4E03AQF994QfoNMUBA/profile-displayphoto-shrink_200_200/0/1706964303726?e=2147483647&v=beta&t=kvqaovcfqEGsj35xJaAo6o6MSmvuvn_mThbzHTFyy3U', // Add profile picture URL
     name: 'Priyosmita Das', // Add profile name
-    image: 'https://cdn2.unrealengine.com/Unreal+Engine%2Fblog%2Flearn-game-development-for-free-with-unreal-online-learning%2FNews_GameDevTrack_share_img-1200x630-dea7f1410562869d9cf9f9499b5b0cab20fdf658.jpg',
+    image: 'https://github.com/Priyosmita/Kali-Yug/blob/main/Environment%20Design/Environment%207.png?raw=true',
     title: 'What is Unreal Engine?',
     description: 'Unreal engine is an advance game development platform to create high end games. It uses C++ in the background.',
     reactions: 0,
