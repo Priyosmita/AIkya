@@ -4,9 +4,11 @@
   <img src="https://github.com/Priyosmita/AIkya/blob/main/public/assets/logo.png" alt="AIkya logo">
 </div>
 
-## [🌐 Visit AIkya](https://aikya-theta.vercel.app/pages/home)
+## [🌐 Click to Visit AIkya](https://aikya-theta.vercel.app/pages/home)
 
 ## [📝 Click to view Medium Blog](https://medium.com/@daspriyosmita2003/aikya-from-ideas-to-impact-88987bf36c6f)
+
+## [🎥 Click to watch Prototype Video]()
 
 ## 🚀 Idea Brief
 Micro and nano entrepreneurs drive growth and innovation but struggle with funding, skills, visibility, and tech. These hurdles stall their progress and slow down economic development.<br/>AIkya bridges the gap between micro-entrepreneurs and investors with AI-powered match-making, chat integration for smooth communication, crowd funding to boost capital, and social media for community engagement. With real-time market insights and growth tips, AIkya creates a thriving ecosystem for entrepreneurial success and investment.
