@@ -1,4 +1,4 @@
-# AIkya: <br/>From Ideas To Impact
+# <b>AIkya:</b> <br/>From Ideas To Impact
 
 <div align="center">
   <img src="https://github.com/Priyosmita/AIkya/blob/main/public/assets/logo.png" alt="AIkya logo">
