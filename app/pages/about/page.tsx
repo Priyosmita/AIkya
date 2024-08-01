@@ -8,20 +8,21 @@ import Link from 'next/link';
 import '../../globals.css';
 import { useEffect, useState, useRef } from 'react';
 
-const page = () => {
+const Page = () => { // Renamed to Page
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [showgoals, setShowgoals] = useState(false);
   const handleScrollPerk = () => {
-  const scrollY = window.scrollY;
-  const triggerHeight = window.innerHeight / 2;
+    const scrollY = window.scrollY;
+    const triggerHeight = window.innerHeight / 2;
     if (scrollY > triggerHeight) {
       setShowgoals(true);
     } else {
       setShowgoals(false);
-    };
+    }
   };
+  
   useEffect(() => {
     window.addEventListener('scroll', handleScrollPerk);
     return () => {
@@ -31,25 +32,25 @@ const page = () => {
 
   useEffect(() => {
     const handleIntersection = ([entry]: IntersectionObserverEntry[]) => {
-        if (entry.isIntersecting) {
-            setIsVisible(true);
-            setTimeout(() => {
-                setIsVisible(false); // Reset visibility state after animation
-            }, 1000); // Duration of the animation
-        }
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        setTimeout(() => {
+          setIsVisible(false); // Reset visibility state after animation
+        }, 1000); // Duration of the animation
+      }
     };
     const observer = new IntersectionObserver(handleIntersection, {
-        threshold: 0.1 // Adjust the threshold as needed
+      threshold: 0.1 // Adjust the threshold as needed
     });
     if (buttonRef.current) {
-        observer.observe(buttonRef.current);
+      observer.observe(buttonRef.current);
     }
     return () => {
-        if (buttonRef.current) {
-            observer.unobserve(buttonRef.current);
-        }
+      if (buttonRef.current) {
+        observer.unobserve(buttonRef.current);
+      }
     };
-}, []);
+  }, []);
 
   return (
     <>
@@ -72,8 +73,7 @@ const page = () => {
           </div>
         </div>
         <div className={`flex flex-col mt-28 transition-transform duration-700 ${showgoals ? 'translate-x-0' : '-translate-x-full'}`}>
-          <div className="text-[#7ebaba] text-8xl ml-14 text-left cursor-default">Our Goals
-          </div>
+          <div className="text-[#7ebaba] text-8xl ml-14 text-left cursor-default">Our Goals</div>
           <div className="flex flex-col justify-center items-center">
             <div className="grid grid-cols-3 gap-y-5 py-9">
               {goals.map((perk, index) => (
@@ -92,7 +92,6 @@ const page = () => {
             <button
               ref={buttonRef}
               type="button"
-
               className={`text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-pink-300 dark:focus:ring-pink-800 shadow-lg shadow-pink-500/50 dark:shadow-lg dark:shadow-pink-800/80 font-medium rounded-lg text-5xl px-5 py-2.5 text-center me-2 mb-6 transform transition duration-300 hover:scale-110 ${isVisible ? 'animate-fadeInFromBottom' : 'reset-animation'}`}
             >
               Visit Medium Blog
@@ -135,4 +134,4 @@ const goals = [
   },
 ];
 
-export default page;
+export default Page; // Renamed to Page
