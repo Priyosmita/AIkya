@@ -11,9 +11,9 @@ import Link from 'next/link';
 
 // Define the type for feature items
 interface Feature {
-  src: string;
-  alt: string;
-  text: string;
+    src: string;
+    alt: string;
+    text: string;
 }
 
 
