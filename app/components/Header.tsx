@@ -63,7 +63,7 @@ const Header: React.FC = () => {
           {isSignedIn && (
             <div className="relative">
               <div
-                className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer"
+                className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer tranform transition duration-300 hover:scale-110"
                 onClick={toggleDropdown}
               >
                 <img
