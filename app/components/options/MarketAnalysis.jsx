@@ -122,7 +122,7 @@ const MarketAnalysis = () => {
           {selectedCompany && companyData && !loading && (
             <div className='flex justify-start'>
               <div className='w-full'>
-                <h3 className='text-xl font-bold mb-2'>{selectedCompany}</h3>
+                <h3 className='text-xl font-bold mb-2 text-[#7ebaba]'>{selectedCompany}</h3>
                 <div className='chart-container'>
                   <Line data={transformDataForChart()} options={{ maintainAspectRatio: false }} />
                 </div>
