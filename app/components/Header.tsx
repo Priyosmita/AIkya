@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useAuth, useUser } from '@clerk/nextjs';
+import { useAuth, useUser, useClerk } from '@clerk/nextjs'; // Import useClerk
 
 const Header: React.FC = () => {
   const [hidden, setHidden] = useState<boolean>(false);
@@ -10,6 +10,7 @@ const Header: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
   const { isSignedIn } = useAuth();
   const { user } = useUser(); // Using useUser to get user details
+  const { signOut } = useClerk(); // Get the signOut function from useClerk
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +64,7 @@ const Header: React.FC = () => {
           {isSignedIn && (
             <div className="relative">
               <div
-                className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer tranform transition duration-300 hover:scale-110"
+                className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer transform transition duration-300 hover:scale-110"
                 onClick={toggleDropdown}
               >
                 <img
@@ -83,8 +84,7 @@ const Header: React.FC = () => {
                   <button
                     className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                     onClick={() => {
-                      // Add sign-out logic here if needed
-                      console.log('Sign out');
+                      signOut(); // Call the signOut method from useClerk
                     }}
                   >
                     Sign Out
