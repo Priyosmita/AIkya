@@ -23,4 +23,5 @@ Micro and nano entrepreneurs drive growth and innovation but struggle with fundi
 </div>
 
 ## ⚙️ Tech Stack
-- Frontend: <img src="https://www.datocms-assets.com/98835/1684410508-image-7.png" alt="nextjs" width="50" height="50"/>
+- Frontend: <img src="https://www.datocms-assets.com/98835/1684410508-image-7.png" alt="nextjs" width="50" height="50" align="middle"/>
+
