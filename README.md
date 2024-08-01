@@ -1,5 +1,8 @@
 # AIkya: <br/>From Ideas To Impact
 
+<div align="center">
+  <img src="https://github.com/Priyosmita/AIkya/blob/main/public/assets/logo.png" alt="AIkya logo">
+</div>
 
 ## [Click to view Idea Link](https://drive.google.com/file/d/1YGQGHtdbpbXvdugJdDIu9MOT3TfAAiV4/view?usp=drive_link)
 
@@ -14,4 +17,10 @@ Micro and nano entrepreneurs drive growth and innovation but struggle with fundi
 - <b>Real-Time Market Analysis</b>: Delivers actionable insights to help entrepreneurs refine strategies and boost success.
 - <b>Efficient Bridge</b>: Simplifies the funding process and supports business growth by connecting entrepreneurs with investors.
 
-## System Architecture
+## 🛠 System Architecture
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/05961428-4b20-4077-b933-26c751dd4eb9" alt="system architecture">
+</div>
+
+## ⚙️ Tech Stack
+- Frontend: <img src="https://www.datocms-assets.com/98835/1684410508-image-7.png" alt="nextjs" width="50" height="50"/>
