@@ -8,6 +8,7 @@ import { SlUserFollowing, SlUserFollow } from "react-icons/sl";
 import { TbDeviceDesktopAnalytics } from "react-icons/tb";
 import { GiReceiveMoney, GiPayMoney } from "react-icons/gi";
 import { FaRegHandshake } from "react-icons/fa";
+import './components.css'
 
 interface LeftSidebarProps {
     userType?: 'Entrepreneur' | 'Investor';
@@ -42,7 +43,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
     };
 
     return (
-        <div className='w-80 bg-white rounded-2xl h-101 bg-opacity-50 mb-6 mr-4 mt-24 ml-3'>
+        <div className='LeftsidebarWidth w-80 bg-white rounded-2xl h-101 bg-opacity-50 mb-6 mr-4 mt-24 ml-3'>
             <nav className='flex flex-col gap-y-14'>
                 <div className='mt-12 ml-6 flex flex-row'>
                     <button
