@@ -540,19 +540,20 @@ const ProfileDetailsPage = () => {
               Sign Out
             </button>
           </SignOutButton>
-          
+
           <button
-              onClick={handleOpenModal}
-              className="hover:scale-110 tranform transition duration-300 mt-4 bg-[#f66666] text-white font-bold py-2 px-4 rounded"
-            >
-              Delete Account
-            </button>
+            onClick={handleOpenModal}
+            className="hover:scale-110 tranform transition duration-300 mt-4 bg-[#f66666] text-white font-bold py-2 px-4 rounded"
+          >
+            Delete Account
+          </button>
 
           <div className="flex flex-col items-center justify-center p-4">
             {isModalOpen && (
               <div className="text-black fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                 <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
                   <h2 className="text-2xl font-semibold mb-4 text-center">Confirm Account Deletion</h2>
+                  <p className="mb-4 text-center">This project will be deleted, along with all of its Credentials, Details, Fundings, Donations, Promotions.</p>
                   <p className="mb-4 text-center">Please type your username to confirm:</p>
                   <input
                     type="text"
