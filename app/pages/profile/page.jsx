@@ -24,6 +24,9 @@ const ProfileDetailsPage = () => {
   const [dropdownIndex, setDropdownIndex] = useState(null);
   const [skillInput, setSkillInput] = useState("");
   const [savedCertifications, setSavedCertifications] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [inputUsername, setInputUsername] = useState('');
+  const username = 'yourUsername'; // Replace with the actual username
 
   const [projectData, setProjectData] = useState({
     name: "",
@@ -253,6 +256,25 @@ const ProfileDetailsPage = () => {
 
   const toggleDropdown = (index) => {
     setDropdownIndex(dropdownIndex === index ? null : index);
+  };
+
+  const handleDeleteAccount = () => {
+    if (inputUsername === username) {
+      alert('Account deleted successfully!');
+      setIsModalOpen(false);
+      // Add your account deletion logic here
+    } else {
+      alert('Username does not match!');
+    }
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setInputUsername(''); // Clear the input field when closing the modal
   };
 
   return (
@@ -512,11 +534,54 @@ const ProfileDetailsPage = () => {
             </div>
           </div>
         </div>
-        <SignOutButton>
-          <button className="mt-4 bg-[#7ebaba] text-white font-bold py-2 px-4 rounded">
-            Sign Out
-          </button>
-        </SignOutButton>
+        <div className="flex flex-row gap-x-28 pb-9">
+          <SignOutButton>
+            <button className="hover:scale-110 tranform transition duration-300 mt-4 bg-[#7ebaba] text-white font-bold py-2 px-4 rounded">
+              Sign Out
+            </button>
+          </SignOutButton>
+          
+          <button
+              onClick={handleOpenModal}
+              className="hover:scale-110 tranform transition duration-300 mt-4 bg-[#f66666] text-white font-bold py-2 px-4 rounded"
+            >
+              Delete Account
+            </button>
+
+          <div className="flex flex-col items-center justify-center p-4">
+            {isModalOpen && (
+              <div className="text-black fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+                  <h2 className="text-2xl font-semibold mb-4 text-center">Confirm Account Deletion</h2>
+                  <p className="mb-4 text-center">Please type your username to confirm:</p>
+                  <input
+                    type="text"
+                    value={inputUsername}
+                    onChange={(e) => setInputUsername(e.target.value)}
+                    placeholder="Enter your username"
+                    className="w-full p-2 mb-4 border border-gray-300 rounded"
+                  />
+                  <div className="flex justify-center space-x-4">
+                    <button
+                      onClick={handleDeleteAccount}
+                      className="bg-[#f66666] text-white py-2 px-4 rounded hover:bg-red-600"
+                    >
+                      Delete Account
+                    </button>
+                    <button
+                      onClick={handleCloseModal}
+                      className="bg-gray-300 text-gray-700 py-2 px-4 rounded hover:bg-gray-400"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+
+        </div>
       </div>
       <Footer />
       <CustomModal isOpen={modalIsOpen} onClose={closeModal}>
