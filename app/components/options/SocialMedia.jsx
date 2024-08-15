@@ -76,7 +76,7 @@ const SocialMedia = () => {
 
 
   return (
-    <div className="SocialWidth h-96 text-black  overflow-hidden flex flex-col">
+    <div className="SocialWidth h-104 text-black  overflow-hidden flex flex-col">
       <div className="flex justify-end mb-10">
         <button
           onClick={() => setShowCreatePost(!showCreatePost)}
