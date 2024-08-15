@@ -52,7 +52,7 @@ const Page = () => {
                         <h2 className='text-3xl font-bold mt-8'>4. Content Ownership and License</h2>
                         <h3 className='text-2xl font-semibold mt-6'>4.1 User Content</h3>
                         <p className='mt-4 text-2xl'>
-                            "User Content" refers to any text, images, videos, or other material that you post or share on AIkya. You retain ownership of your User Content, but by posting it on AIkya, you grant us a non-exclusive, worldwide, royalty-free license to use, distribute, modify, display, and reproduce it in connection with our services.
+                            &quot;User Content&quot; refers to any text, images, videos, or other material that you post or share on AIkya. You retain ownership of your User Content, but by posting it on AIkya, you grant us a non-exclusive, worldwide, royalty-free license to use, distribute, modify, display, and reproduce it in connection with our services.
                         </p>
                         <h3 className='text-2xl font-semibold mt-6'>4.2 Prohibited Content</h3>
                         <p className='mt-4 text-2xl'>
@@ -111,7 +111,7 @@ const Page = () => {
 
                         <h2 className='text-3xl font-bold mt-8'>13. Contact Information</h2>
                         <p className='mt-4 text-2xl'>
-                        If you have any questions about these Terms and Conditions, please contact us <a className='font-bold' href='https://aikya-theta.vercel.app/pages/contactus'>here</a>.
+                            If you have any questions about these Terms and Conditions, please contact us <a className='font-bold' href='https://aikya-theta.vercel.app/pages/contactus'>here</a>.
                         </p>
                     </div>
                 )}
@@ -122,4 +122,3 @@ const Page = () => {
 }
 
 export default Page;
-
