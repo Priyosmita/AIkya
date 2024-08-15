@@ -23,23 +23,23 @@ const Page = () => {
                     <div className='max-w-7xl mt-12 text-[#649292]'>
                         <h2 className='text-3xl font-bold mt-8'>1. Introduction</h2>
                         <p className='mt-4 text-2xl'>
-                            Welcome to AIlya. These terms and conditions outline the rules and regulations for the use of our social networking platform, located <a className='font-bold' href='https://aikya-theta.vercel.app'>here</a>.
-                            By accessing AIlya, you agree to comply with these terms and conditions. If you do not agree to these terms, please do not use our platform.
+                            Welcome to AIkya. These terms and conditions outline the rules and regulations for the use of our social networking platform, located <a className='font-bold' href='https://aikya-theta.vercel.app'>here</a>.
+                            By accessing AIkya, you agree to comply with these terms and conditions. If you do not agree to these terms, please do not use our platform.
                         </p>
 
                         <h2 className='text-3xl font-bold mt-8'>2. User Accounts</h2>
                         <h3 className='text-2xl font-semibold mt-6'>2.1 Account Registration</h3>
                         <p className='mt-4 text-2xl'>
-                            To access certain features of AIlya, you must create an account. You agree to provide accurate and complete information during the registration process and to keep your account information updated.
+                            To access certain features of AIkya, you must create an account. You agree to provide accurate and complete information during the registration process and to keep your account information updated.
                         </p>
                         <h3 className='text-2xl font-semibold mt-6'>2.2 Account Responsibility</h3>
                         <p className='mt-4 text-2xl'>
-                            You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. AIlya is not liable for any loss or damage arising from your failure to protect your account information.
+                            You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. AIkya is not liable for any loss or damage arising from your failure to protect your account information.
                         </p>
 
                         <h2 className='text-3xl font-bold mt-8'>3. User Conduct</h2>
                         <p className='mt-4 text-2xl'>
-                            By using AIlya, you agree to:
+                            By using AIkya, you agree to:
                             <ul className='list-disc list-inside mt-4'>
                                 <li><strong>Respect Others:</strong> Engage with other users respectfully and professionally.</li>
                                 <li><strong>Lawful Use:</strong> Comply with all applicable laws and regulations.</li>
@@ -52,7 +52,7 @@ const Page = () => {
                         <h2 className='text-3xl font-bold mt-8'>4. Content Ownership and License</h2>
                         <h3 className='text-2xl font-semibold mt-6'>4.1 User Content</h3>
                         <p className='mt-4 text-2xl'>
-                            "User Content" refers to any text, images, videos, or other material that you post or share on AIlya. You retain ownership of your User Content, but by posting it on AIlya, you grant us a non-exclusive, worldwide, royalty-free license to use, distribute, modify, display, and reproduce it in connection with our services.
+                            "User Content" refers to any text, images, videos, or other material that you post or share on AIkya. You retain ownership of your User Content, but by posting it on AIkya, you grant us a non-exclusive, worldwide, royalty-free license to use, distribute, modify, display, and reproduce it in connection with our services.
                         </p>
                         <h3 className='text-2xl font-semibold mt-6'>4.2 Prohibited Content</h3>
                         <p className='mt-4 text-2xl'>
@@ -66,37 +66,37 @@ const Page = () => {
 
                         <h2 className='text-3xl font-bold mt-8'>5. Connections and Communication</h2>
                         <p className='mt-4 text-2xl'>
-                            AIlya facilitates connections and communication between users. However, we do not guarantee the accuracy, completeness, or reliability of any information exchanged between users. AIlya is not responsible for any decisions or actions taken based on such communications.
+                            AIkya facilitates connections and communication between users. However, we do not guarantee the accuracy, completeness, or reliability of any information exchanged between users. AIkya is not responsible for any decisions or actions taken based on such communications.
                         </p>
 
                         <h2 className='text-3xl font-bold mt-8'>6. Donations and Financial Transactions</h2>
                         <h3 className='text-2xl font-semibold mt-6'>6.1 Donations</h3>
                         <p className='mt-4 text-2xl'>
-                            AIlya allows users to make donations to support entrepreneurs or projects. All donations are voluntary and non-refundable. AIlya is not responsible for how donations are used by recipients.
+                            AIkya allows users to make donations to support entrepreneurs or projects. All donations are voluntary and non-refundable. AIkya is not responsible for how donations are used by recipients.
                         </p>
                         <h3 className='text-2xl font-semibold mt-6'>6.2 Financial Transactions</h3>
                         <p className='mt-4 text-2xl'>
-                            Any financial transactions conducted on AIlya must comply with applicable laws and regulations. AIlya does not guarantee the security or success of any financial transactions made through our platform.
+                            Any financial transactions conducted on AIkya must comply with applicable laws and regulations. AIkya does not guarantee the security or success of any financial transactions made through our platform.
                         </p>
 
                         <h2 className='text-3xl font-bold mt-8'>7. Intellectual Property</h2>
                         <p className='mt-4 text-2xl'>
-                            AIlya and its content, including but not limited to the design, text, graphics, and software, are owned by AIlya or its licensors and are protected by intellectual property laws. You may not reproduce, distribute, or create derivative works from any part of AIlya without our express written permission.
+                            AIkya and its content, including but not limited to the design, text, graphics, and software, are owned by AIkya or its licensors and are protected by intellectual property laws. You may not reproduce, distribute, or create derivative works from any part of AIkya without our express written permission.
                         </p>
 
                         <h2 className='text-3xl font-bold mt-8'>8. Limitation of Liability</h2>
                         <p className='mt-4 text-2xl'>
-                            AIlya and its affiliates will not be liable for any direct, indirect, incidental, consequential, or punitive damages arising out of your use of the platform. This includes, but is not limited to, any errors or omissions in content, loss of data, or unauthorized access to your account.
+                            AIkya and its affiliates will not be liable for any direct, indirect, incidental, consequential, or punitive damages arising out of your use of the platform. This includes, but is not limited to, any errors or omissions in content, loss of data, or unauthorized access to your account.
                         </p>
 
                         <h2 className='text-3xl font-bold mt-8'>9. Indemnification</h2>
                         <p className='mt-4 text-2xl'>
-                            You agree to indemnify and hold AIlya harmless from any claims, damages, losses, or expenses (including legal fees) arising out of your use of the platform, your violation of these terms, or your infringement of any third-party rights.
+                            You agree to indemnify and hold AIkya harmless from any claims, damages, losses, or expenses (including legal fees) arising out of your use of the platform, your violation of these terms, or your infringement of any third-party rights.
                         </p>
 
                         <h2 className='text-3xl font-bold mt-8'>10. Termination</h2>
                         <p className='mt-4 text-2xl'>
-                            AIlya reserves the right to suspend or terminate your account at any time, with or without notice, for any reason, including if you violate these Terms and Conditions. Upon termination, your right to use AIlya will immediately cease.
+                            AIkya reserves the right to suspend or terminate your account at any time, with or without notice, for any reason, including if you violate these Terms and Conditions. Upon termination, your right to use AIkya will immediately cease.
                         </p>
 
                         <h2 className='text-3xl font-bold mt-8'>11. Governing Law</h2>
@@ -106,7 +106,7 @@ const Page = () => {
 
                         <h2 className='text-3xl font-bold mt-8'>12. Changes to Terms</h2>
                         <p className='mt-4 text-2xl'>
-                            AIlya reserves the right to modify these Terms and Conditions at any time. We will notify users of any changes by posting the new terms on our platform. Your continued use of AIlya after such changes will constitute your acceptance of the revised terms.
+                            AIkya reserves the right to modify these Terms and Conditions at any time. We will notify users of any changes by posting the new terms on our platform. Your continued use of AIkya after such changes will constitute your acceptance of the revised terms.
                         </p>
 
                         <h2 className='text-3xl font-bold mt-8'>13. Contact Information</h2>
