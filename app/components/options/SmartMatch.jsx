@@ -227,12 +227,6 @@ const SmartMatch = () => {
               {menuOpen === profile.id && (
                 <div className="absolute right-0 mt-2 w-32 bg-white border rounded shadow-lg">
                   <button 
-                    onClick={() => removeProfile(profile.id)} 
-                    className="block px-4 py-2 text-sm text-left w-full hover:bg-gray-200"
-                  >
-                    Remove
-                  </button>
-                  <button 
                     onClick={() => blockProfile(profile.id)} 
                     className="block px-4 py-2 text-sm text-left w-full hover:bg-gray-200"
                   >
