@@ -1,8 +1,11 @@
+
 'use client';
+
 
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import "./options.css"
+
 
 const profiles = [
   {
@@ -107,6 +110,7 @@ const profiles = [
   }
 ];
 
+
 const SmartMatch = () => {
   const [profileList, setProfileList] = useState(profiles);
   const [selectedProfile, setSelectedProfile] = useState(null);
@@ -124,20 +128,24 @@ const SmartMatch = () => {
   const [reportReason, setReportReason] = useState('');
   const [showTextArea, setShowTextArea] = useState(false);
 
-  const filteredProfiles = profiles.filter(profile => 
+
+  const filteredProfiles = profiles.filter(profile =>
     (profile.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     profile.industry.toLowerCase().includes(searchQuery.toLowerCase())) &&
     (filter === 'All' || profile.tag === filter) &&
     !blockedProfiles[profile.id]
   );
 
+
   const openModal = (profile) => {
     setSelectedProfile(profile);
   };
 
+
   const closeModal = () => {
     setSelectedProfile(null);
   };
+
 
   const toggleFollow = (id) => {
     setFollowStatus((prevStatus) => ({
@@ -146,14 +154,17 @@ const SmartMatch = () => {
     }));
   };
 
+
   const toggleMenu = (id) => {
     setMenuOpen(menuOpen === id ? null : id);
   };
+
 
   const removeProfile = (id) => {
     setProfileList(profileList.filter(profile => profile.id !== id));
     setMenuOpen(null);
   };
+
 
   const blockProfile = (id) => {
     setBlockedProfiles((prevStatus) => ({
@@ -163,10 +174,12 @@ const SmartMatch = () => {
     setMenuOpen(null);
   };
 
+
   const openReportModal = () => {
     setReportModalOpen(true);
     setMenuOpen(null);
   };
+
 
   const closeReportModal = () => {
     setReportModalOpen(false);
@@ -174,15 +187,17 @@ const SmartMatch = () => {
     setShowTextArea(false);
   };
 
+
   const handleReportSubmit = () => {
     alert('Your report has been submitted successfully');
     closeReportModal();
   };
 
+
   return (
     <div className="p-4 h-103 overflow-y-auto">
-      <div className="flex mb-4 items-center p-8">
-        <input 
+      <div className="flex mb-4 items-center">
+        <input
           type="text"
           placeholder="Search by name or industry"
           className="p-2 border rounded w-full text-black mr-4"
@@ -190,7 +205,7 @@ const SmartMatch = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         <select
-          className="p-2 border rounded text-black"
+          className="p-2 border rounded text-black h-10"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
@@ -199,7 +214,7 @@ const SmartMatch = () => {
           <option value="Investor">Investor</option>
         </select>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
         {filteredProfiles.map(profile => (
           <div key={profile.id} className="relative p-4 border rounded-xl bg-opacity-30 shadow-lg bg-white text-black">
             <img src={profile.photo} alt={profile.name} className="w-24 h-24 rounded-full mx-auto mb-2" />
@@ -207,13 +222,13 @@ const SmartMatch = () => {
             <p className="text-center text-gray-600 mb-1">{profile.industry}</p>
             <p className="text-center text-gray-400 mb-2">{profile.tag}</p>
             <div className="flex justify-around">
-              <button 
+              <button
                 onClick={() => openModal(profile)}
                 className="bg-[#f8b891] text-white px-4 py-2 rounded-full font-bold hover:scale-110 transition duration-300"
               >
                 See Profile
               </button>
-              <button 
+              <button
                 onClick={() => toggleFollow(profile.id)}
                 className="font-bold bg-[#7ebaba] hover:bg-[#6cbaba] text-white px-4 py-2 rounded-full hover:scale-110 transition duration-300"
               >
@@ -226,15 +241,14 @@ const SmartMatch = () => {
               </button>
               {menuOpen === profile.id && (
                 <div className="absolute right-0 mt-2 w-32 bg-white border rounded shadow-lg">
-                  
-                  <button 
-                    onClick={() => blockProfile(profile.id)} 
+                  <button
+                    onClick={() => blockProfile(profile.id)}
                     className="block px-4 py-2 text-sm text-left w-full hover:bg-gray-200"
                   >
                     {blockedProfiles[profile.id] ? 'Unblock' : 'Block'}
                   </button>
-                  <button 
-                    onClick={openReportModal} 
+                  <button
+                    onClick={openReportModal}
                     className="block px-4 py-2 text-sm text-left w-full hover:bg-gray-200"
                   >
                     Report
@@ -245,6 +259,7 @@ const SmartMatch = () => {
           </div>
         ))}
       </div>
+
 
       {selectedProfile && (
         <Modal
@@ -262,7 +277,7 @@ const SmartMatch = () => {
             <p className="mb-4">{selectedProfile.experience}</p>
             <h3 className="text-xl mb-2">Skills</h3>
             <p className="mb-4">{selectedProfile.skills}</p>
-            <button 
+            <button
               onClick={closeModal}
               className="bg-[#7ebaba] hover:scale-110 transition duration-200 text-white px-4 py-2 rounded block mx-auto"
             >
@@ -271,6 +286,7 @@ const SmartMatch = () => {
           </div>
         </Modal>
       )}
+
 
       {reportModalOpen && (
         <Modal
@@ -285,61 +301,61 @@ const SmartMatch = () => {
             <p className="mb-2">Why are you reporting this profile?</p>
             <div>
               <label className="block mb-2">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   value="Inappropriate Content"
                   checked={reportReason === 'Inappropriate Content'}
                   onChange={(e) => setReportReason(e.target.value)}
-                /> 
+                />
                 Inappropriate Content
               </label>
               <label className="block mb-2">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   value="Spam"
                   checked={reportReason === 'Spam'}
                   onChange={(e) => setReportReason(e.target.value)}
-                /> 
+                />
                 Spam
               </label>
               <label className="block mb-2">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   value="Harassment"
                   checked={reportReason === 'Harassment'}
                   onChange={(e) => setReportReason(e.target.value)}
-                /> 
+                />
                 Harassment
               </label>
               <label className="block mb-2">
-                <input 
-                  type="checkbox" 
+                <input
+                  type="checkbox"
                   value="Other"
                   checked={reportReason === 'Other'}
                   onChange={(e) => {
                     setReportReason(e.target.value);
                     setShowTextArea(e.target.checked);
                   }}
-                /> 
+                />
                 Other
               </label>
               {showTextArea && (
-                <textarea 
+                <textarea
                   className="border rounded w-full p-2"
                   placeholder="Please explain..."
-                  
+                 
                   onChange={(e) => setReportReason(e.target.value)}
                 />
               )}
             </div>
             <div className="flex justify-end mt-4">
-              <button 
+              <button
                 onClick={closeReportModal}
                 className="bg-gray-200 text-gray-800 px-4 py-2 rounded mr-2"
               >
                 Cancel
               </button>
-              <button 
+              <button
                 onClick={handleReportSubmit}
                 className="bg-[#7ebaba] text-white px-4 py-2 rounded"
               >
@@ -352,5 +368,6 @@ const SmartMatch = () => {
     </div>
   );
 };
+
 
 export default SmartMatch;

@@ -1,7 +1,10 @@
+
 'use client';
+
 
 import React, { useState } from 'react';
 import "../components.css"
+
 
 const initialPosts = [
   {
@@ -26,19 +29,23 @@ const initialPosts = [
   },
 ];
 
+
 const SocialMedia = () => {
   const [posts, setPosts] = useState(initialPosts);
   const [newPost, setNewPost] = useState({ title: '', description: '', image: '' });
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
 
+
   const handleReaction = (postId) => {
     setPosts(posts.map(post => post.id === postId ? { ...post, reactions: post.reactions + 1 } : post));
   };
 
+
   const handleComment = (postId, comment) => {
     setPosts(posts.map(post => post.id === postId ? { ...post, comments: [...post.comments, comment] } : post));
   };
+
 
   const handleCreatePost = () => {
     setPosts([...posts, { ...newPost, id: posts.length + 1, image: imagePreview, reactions: 0, comments: [] }]);
@@ -47,11 +54,13 @@ const SocialMedia = () => {
     setShowCreatePost(false);
   };
 
+
   const handleCancelPost = () => {
     setNewPost({ title: '', description: '', image: '' });
     setImagePreview('');
     setShowCreatePost(false);
   };
+
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -65,8 +74,9 @@ const SocialMedia = () => {
     }
   };
 
+
   return (
-    <div className=" SocialWidth  text-black  overflow-hidden flex flex-col">
+    <div className="SocialWidth h-96 text-black  overflow-hidden flex flex-col">
       <div className="flex justify-end mb-10">
         <button
           onClick={() => setShowCreatePost(!showCreatePost)}
@@ -78,8 +88,9 @@ const SocialMedia = () => {
         </button>
       </div>
 
+
       {showCreatePost && (
-        <div className="mb-4 p-4 border rounded bg-white shadow-md  overflow-y-auto">
+        <div className="mb-4 p-4 border rounded bg-white shadow-md overflow-y-auto">
           <h3 className="text-2xl font-semibold mb-2">Create Post</h3>
           <input
             type="text"
@@ -109,6 +120,7 @@ const SocialMedia = () => {
           </button>
         </div>
       )}
+
 
       <div className="max-h-screen overflow-y-auto">
         {posts.map((post) => (
@@ -153,5 +165,6 @@ const SocialMedia = () => {
     </div>
   );
 };
+
 
 export default SocialMedia;
