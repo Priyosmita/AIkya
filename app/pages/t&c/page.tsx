@@ -20,10 +20,10 @@ const Page = () => {
                     Terms and Conditions
                 </div>
                 {mounted && (
-                    <div className='max-w-7xl mt-12 text-[#72a8a8]'>
+                    <div className='max-w-7xl mt-12 text-[#649292]'>
                         <h2 className='text-3xl font-bold mt-8'>1. Introduction</h2>
                         <p className='mt-4 text-2xl'>
-                            Welcome to AIlya. These terms and conditions outline the rules and regulations for the use of our social networking platform, located at <a href='https://aikya-theta.vercel.app'>https://aikya-theta.vercel.app</a>.
+                            Welcome to AIlya. These terms and conditions outline the rules and regulations for the use of our social networking platform, located <a className='font-bold' href='https://aikya-theta.vercel.app'>here</a>.
                             By accessing AIlya, you agree to comply with these terms and conditions. If you do not agree to these terms, please do not use our platform.
                         </p>
 
@@ -111,7 +111,7 @@ const Page = () => {
 
                         <h2 className='text-3xl font-bold mt-8'>13. Contact Information</h2>
                         <p className='mt-4 text-2xl'>
-                            If you have any questions about these Terms and Conditions, please contact us at [Your Contact Information].
+                            If you have any questions about these Terms and Conditions, please contact us <a className='font-bold' href='https://aikya-theta.vercel.app/pages/contactus'>here</a>.
                         </p>
                     </div>
                 )}
