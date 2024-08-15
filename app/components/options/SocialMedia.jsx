@@ -66,7 +66,7 @@ const SocialMedia = () => {
   };
 
   return (
-    <div className=" SocialWidth SocialHeight text-black  overflow-hidden flex flex-col">
+    <div className="SocialWidth h-96 text-black  overflow-hidden flex flex-col">
       <div className="flex justify-end mb-10">
         <button
           onClick={() => setShowCreatePost(!showCreatePost)}
@@ -79,7 +79,7 @@ const SocialMedia = () => {
       </div>
 
       {showCreatePost && (
-        <div className="mb-4 p-4 border rounded bg-white shadow-md SocialHeight overflow-y-auto">
+        <div className="mb-4 p-4 border rounded bg-white shadow-md overflow-y-auto">
           <h3 className="text-2xl font-semibold mb-2">Create Post</h3>
           <input
             type="text"
