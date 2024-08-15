@@ -51,7 +51,6 @@ export default function Home() {
     <>
       <style jsx global>{`
         html, body {
-          overflow: hidden; /* Prevent scrolling */
         }
       `}</style>
       {!isSignedIn && <><Header /><LandingPage /><Footer /></>}
