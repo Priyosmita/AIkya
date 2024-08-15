@@ -111,7 +111,7 @@ const Page = () => {
 
                         <h2 className='text-3xl font-bold mt-8'>13. Contact Information</h2>
                         <p className='mt-4 text-2xl'>
-                            If you have any questions about these Terms and Conditions, please contact us <a className='font-bold' href='https://aikya-theta.vercel.app/pages/contactus'>here</a>.
+                        If you have any questions about these Terms and Conditions, please contact us <a className='font-bold' href='https://aikya-theta.vercel.app/pages/contactus'>here</a>.
                         </p>
                     </div>
                 )}
@@ -122,3 +122,4 @@ const Page = () => {
 }
 
 export default Page;
+

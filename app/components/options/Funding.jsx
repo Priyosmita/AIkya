@@ -71,6 +71,45 @@ const fundedStartupsData = [
       { name: 'Jane Smith', amount: '$1M' },
     ],
   },
+  {
+    id: 1,
+    image: 'https://i.pcmag.com/imagery/lineups/05eGqoRcVFRa6mqdHas610v-1.fit_lim.size_768x432.v1569492758.jpg',
+    name: 'InnovateTech',
+    industry: 'Technology',
+    valuation: '$60M',
+    fundingRequired: '$10M',
+    description: 'InnovateTech is pioneering the future of AI and robotics.',
+    fundingLogs: [
+      { name: 'John Doe', amount: '$500K' },
+      { name: 'Jane Smith', amount: '$1M' },
+    ],
+  },
+  {
+    id: 1,
+    image: 'https://i.pcmag.com/imagery/lineups/05eGqoRcVFRa6mqdHas610v-1.fit_lim.size_768x432.v1569492758.jpg',
+    name: 'InnovateTech',
+    industry: 'Technology',
+    valuation: '$60M',
+    fundingRequired: '$10M',
+    description: 'InnovateTech is pioneering the future of AI and robotics.',
+    fundingLogs: [
+      { name: 'John Doe', amount: '$500K' },
+      { name: 'Jane Smith', amount: '$1M' },
+    ],
+  },
+  {
+    id: 1,
+    image: 'https://i.pcmag.com/imagery/lineups/05eGqoRcVFRa6mqdHas610v-1.fit_lim.size_768x432.v1569492758.jpg',
+    name: 'InnovateTech',
+    industry: 'Technology',
+    valuation: '$60M',
+    fundingRequired: '$10M',
+    description: 'InnovateTech is pioneering the future of AI and robotics.',
+    fundingLogs: [
+      { name: 'John Doe', amount: '$500K' },
+      { name: 'Jane Smith', amount: '$1M' },
+    ],
+  },
   // Add other startup data here
 ];
 
@@ -126,7 +165,7 @@ const Funding = () => {
   };
 
   return (
-    <div className='funding-container p-7 text-black SocialWidth'>
+    <div className='funding-container p-7 text-black SocialWidth overflow-y-auto'>
       {/* <button
         className="bg-green-500 text-white px-4 py-2 rounded-full mb-4"
         onClick={openAddModal}

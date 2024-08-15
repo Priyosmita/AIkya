@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import "./options.css"
+
 
 // Sample static chat data with demo messages
 const chatsData = [
@@ -80,7 +82,7 @@ const Chats = () => {
   );
 
   return (
-    <div className='text-black p-10'>
+    <div className='text-black p-10 funding-container overflow-y-auto '>
 
       {/* Search Bar */}
       <input
