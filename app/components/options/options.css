@@ -6,7 +6,7 @@
   }
   .donations-container {
     max-height: 900px;
-    width: 170vh;
+    width: 140vh;
     overflow: auto;
   }
   
@@ -23,7 +23,7 @@
   }
   .funding-container{
     max-height: 900px;
-    width: 170vh;
+    width: 140vh;
   }
   
   
