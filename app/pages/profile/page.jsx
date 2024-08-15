@@ -1,20 +1,20 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import Header from '@/app/components/Header';
-import Footer from '@/app/components/Footer';
-import '../../globals.css';
-import CustomModal from '@/app/components/CustomModal';
-import { SignOutButton } from '@clerk/nextjs';
-import axios from 'axios';
+"use client";
+import React, { useState, useEffect } from "react";
+import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
+import "../../globals.css";
+import CustomModal from "@/app/components/CustomModal";
+import { SignOutButton } from "@clerk/nextjs";
+import axios from "axios";
 
 const ProfileDetailsPage = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    about: '',
-    experience: '',
-    certifications: '',
-    skills: '',
-    profilePicture: '',
+    name: "",
+    about: "",
+    experience: "",
+    certifications: [], // Array to store files with associative text
+    skills: [],
+    profilePicture: "",
   });
 
   const [projects, setProjects] = useState([]);
@@ -22,38 +22,124 @@ const ProfileDetailsPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [dropdownIndex, setDropdownIndex] = useState(null);
+  const [skillInput, setSkillInput] = useState("");
+  const [savedCertifications, setSavedCertifications] = useState([]);
+
   const [projectData, setProjectData] = useState({
-    name: '',
-    website: '',
-    type: '',
-    industry: '',
-    details: '',
-    images: null,
+    name: "",
+    website: "",
+    type: "",
+    industry: "",
+    details: "",
+    startedIn: "",
+    yearlyRevenue: "",
+    yearlyRevenueCurrency: "USD",
+    monthlySales: "",
+    monthlySalesCurrency: "USD",
+    grossMargin: "",
+    netMargin: "",
+    ebitda: "",
+    ebitdaCurrency: "USD",
+    skus: "",
+    originalAsk: "",
+    originalAskCurrency: "USD",
+    equityOffered: "",
+    debtAccept: false,
+    debtAmount: "",
+    debtCurrency: "USD",
   });
 
   useEffect(() => {
     const fetchProfileAndProjects = async () => {
       try {
-        const profileResponse = await axios.get('http://localhost:5000/api/profile');
+        const profileResponse = await axios.get(
+          "http://localhost:5000/api/profile"
+        );
         if (profileResponse.data) {
           setFormData(profileResponse.data);
         }
-        const projectResponse = await axios.get('http://localhost:5000/api/projects');
+        const projectResponse = await axios.get(
+          "http://localhost:5000/api/projects"
+        );
         setProjects(projectResponse.data);
       } catch (error) {
-        console.error('There was an error fetching profile and projects!', error);
+        console.error(
+          "There was an error fetching profile and projects!",
+          error
+        );
       }
     };
     fetchProfileAndProjects();
   }, []);
+  const handleCertificationUpload = (e) => {
+    const files = Array.from(e.target.files);
+    files.forEach((file) => {
+      const fileURL = URL.createObjectURL(file); // Create a URL for the file
+      setFormData((prevData) => ({
+        ...prevData,
+        certifications: [
+          ...prevData.certifications,
+          {
+            file,
+            preview: fileURL, // Store the URL for preview
+            text: '',
+          },
+        ],
+      }));
+    });
+  };
+  
+  
+  
+  const handleSkillsChange = (skills) => {
+    setFormData((prevData) => ({ ...prevData, skills }));
+  };
+  const handleSaveCertification = (index) => {
+    const certification = formData.certifications[index];
+    setSavedCertifications((prevCerts) => [...prevCerts, certification]);
+    removeCertification(index);
+  };
+
+  const handleCertificationTextChange = (index, text) => {
+    const updatedCertifications = [...formData.certifications];
+    updatedCertifications[index].text = text;
+    setFormData((prevData) => ({
+      ...prevData,
+      certifications: updatedCertifications,
+    }));
+  };
+  const handleSkillKeyDown = (e) => {
+    if (e.key === "Enter" && skillInput.trim()) {
+      e.preventDefault();
+      handleSkillsChange([...formData.skills, skillInput.trim()]);
+      setSkillInput("");
+    }
+  };
+
+  const handleRemoveSkill = (index) => {
+    handleSkillsChange(formData.skills.filter((_, i) => i !== index));
+  };
+
+  const removeCertification = (index) => {
+    const updatedCertifications = formData.certifications.filter(
+      (_, i) => i !== index
+    );
+    setFormData((prevData) => ({
+      ...prevData,
+      certifications: updatedCertifications,
+    }));
+  };
 
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/profile', formData);
+      const response = await axios.post(
+        "http://localhost:5000/api/profile",
+        formData
+      );
       console.log(response.data);
     } catch (error) {
-      console.error('There was an error!', error);
+      console.error("There was an error!", error);
     }
   };
 
@@ -67,13 +153,28 @@ const ProfileDetailsPage = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData((prevData) => ({ ...prevData, profilePicture: reader.result }));
+        setFormData((prevData) => ({
+          ...prevData,
+          profilePicture: reader.result,
+        }));
       };
       reader.readAsDataURL(file);
     }
   };
 
   const handleProjectChange = (e) => {
+    const { name, value } = e.target;
+    setProjectData((prevData) => ({ ...prevData, [name]: value }));
+  };
+  const handleCheckboxChange = (e) => {
+    const { checked } = e.target;
+    setProjectData((prevData) => ({
+      ...prevData,
+      debtAccept: checked,
+      debtAmount: checked ? prevData.debtAmount : "",
+    }));
+  };
+  const handleCurrencyChange = (e) => {
     const { name, value } = e.target;
     setProjectData((prevData) => ({ ...prevData, [name]: value }));
   };
@@ -92,21 +193,30 @@ const ProfileDetailsPage = () => {
   const handleProjectSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/project', projectData);
+      const response = await axios.post(
+        "http://localhost:5000/api/project",
+        projectData
+      );
       const project = response.data;
       setProjects((prevProjects) => [...prevProjects, project]);
       setProjectData({
-        name: '',
-        website: '',
-        type: '',
-        industry: '',
-        details: '',
+        name: "",
+        website: "",
+        type: "",
+        industry: "",
+        details: "",
         images: null,
       });
       setModalIsOpen(false);
     } catch (error) {
-      console.error('There was an error!', error);
+      console.error("There was an error!", error);
     }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle the submit logic here
+    console.log('Project data submitted:', projectData);
+    // Optionally close the modal or reset form here
   };
 
   const openModal = () => setModalIsOpen(true);
@@ -114,11 +224,11 @@ const ProfileDetailsPage = () => {
     setModalIsOpen(false);
     setIsEditing(false);
     setProjectData({
-      name: '',
-      website: '',
-      type: '',
-      industry: '',
-      details: '',
+      name: "",
+      website: "",
+      type: "",
+      industry: "",
+      details: "",
       images: null,
     });
   };
@@ -139,7 +249,7 @@ const ProfileDetailsPage = () => {
       setProjects(updatedProjects);
       setDropdownIndex(null);
     } catch (error) {
-      console.error('There was an error!', error);
+      console.error("There was an error!", error);
     }
   };
 
@@ -152,23 +262,23 @@ const ProfileDetailsPage = () => {
       <Header />
       <div className="min-h-screen bgGradient flex flex-col items-center py-10">
         <div className="bg-white bg-opacity-0 rounded-2xl p-8 w-3/4 pt-32 gap-y-7">
-          <h2 className="text-[#7ebaba] text-5xl mb-6 text-center">Profile Details</h2>
+          <h2 className="text-[#7ebaba] text-5xl mb-6 text-center">
+            Profile Details
+          </h2>
           <form className="space-y-8" onSubmit={handleProfileSubmit}>
-          <div className="flex justify-start mb-8">
-  <div className="relative w-40 h-40 rounded-full border-2 border-[#6a9696] flex items-center justify-center overflow-hidden">
-    
-      <label className="flex flex-col items-center justify-center cursor-pointer">
-        <span className="text-4xl text-[#6a9696]">+</span>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleProfilePictureUpload}
-          className="absolute inset-0 opacity-0 cursor-pointer"
-        />
-      </label>
-    
-  </div>
-</div>
+            <div className="flex justify-start mb-8">
+              <div className="relative w-40 h-40 rounded-full border-2 border-[#6a9696] flex items-center justify-center overflow-hidden">
+                <label className="flex flex-col items-center justify-center cursor-pointer">
+                  <span className="text-4xl text-[#6a9696]">+</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleProfilePictureUpload}
+                    className="absolute inset-0 opacity-0 cursor-pointer"
+                  />
+                </label>
+              </div>
+            </div>
 
             <div>
               <label className="block text-[#6a9696] text-2xl">Name</label>
@@ -190,7 +300,9 @@ const ProfileDetailsPage = () => {
               ></textarea>
             </div>
             <div>
-              <label className="block text-[#6a9696] text-2xl">Experience</label>
+              <label className="block text-[#6a9696] text-2xl">
+                Experience
+              </label>
               <textarea
                 name="experience"
                 value={formData.experience}
@@ -199,22 +311,130 @@ const ProfileDetailsPage = () => {
               ></textarea>
             </div>
             <div>
-              <label className="block text-[#6a9696] text-2xl">Certifications</label>
-              <textarea
-                name="certifications"
-                value={formData.certifications}
-                onChange={handleChange}
-                className="w-full p-2 border rounded text-black"
-              ></textarea>
-            </div>
+  <label className="block text-[#6a9696] text-2xl">Certifications</label>
+  <input
+    type="file"
+    multiple
+    onChange={handleCertificationUpload}
+    className="w-full p-2 border rounded text-black"
+  />
+  {formData.certifications.map((certification, index) => (
+  <div key={index} className="flex items-center mt-2">
+    <a href={certification.preview} target="_blank" rel="noopener noreferrer" className="mr-4">
+      {certification.file.type.includes('image') ? (
+        <img
+          src={certification.preview}
+          alt={`Certification ${index + 1}`}
+          className="w-20 h-20 object-cover rounded"
+        />
+      ) : certification.file.type === 'application/pdf' ? (
+        <div className="text-black">
+          <object
+            data={certification.preview}
+            type="application/pdf"
+            width="100"
+            height="100"
+          >
+            <embed src={certification.preview} type="application/pdf" />
+          </object>
+        </div>
+      ) : (
+        <div className="text-black">Preview not available</div>
+      )}
+    </a>
+    <input
+      type="text"
+      placeholder="Add a description"
+      value={certification.text}
+      onChange={(e) => handleCertificationTextChange(index, e.target.value)}
+      className="ml-4 p-2 border rounded text-black flex-grow"
+    />
+    <button
+      type="button"
+      onClick={() => removeCertification(index)}
+      className="ml-4 bg-red-500 text-white p-2 rounded"
+    >
+      Remove
+    </button>
+    <button
+      type="button"
+      onClick={() => handleSaveCertification(index)}
+      className="ml-2 bg-green-500 text-white p-2 rounded"
+    >
+      Save
+    </button>
+  </div>
+))}
+
+</div>
+
+
+
+<div className="mt-8">
+  <h3 className="text-[#6a9696] text-2xl mb-4">Saved Certifications</h3>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    {savedCertifications.map((certification, index) => (
+      <div key={index} className="bg-white p-4 rounded-lg shadow-md">
+        <a
+          href={URL.createObjectURL(certification.file)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {certification.file.type.includes('image') ? (
+            <img
+              src={URL.createObjectURL(certification.file)}
+              alt={`Certification ${index + 1}`}
+              className="w-full h-32 object-cover rounded mb-2"
+            />
+          ) : certification.file.type === 'application/pdf' ? (
+            <object
+              data={URL.createObjectURL(certification.file)}
+              type="application/pdf"
+              width="100%"
+              height="200"
+            >
+              <embed src={URL.createObjectURL(certification.file)} type="application/pdf" />
+            </object>
+          ) : (
+            <div className="text-black">Preview not available</div>
+          )}
+        </a>
+        <p className="text-[#6a9696] mt-2">{certification.text}</p>
+      </div>
+    ))}
+  </div>
+</div>
+
+
+
+
             <div>
               <label className="block text-[#6a9696] text-2xl">Skills</label>
-              <textarea
-                name="skills"
-                value={formData.skills}
-                onChange={handleChange}
-                className="w-full p-2 border rounded text-black"
-              ></textarea>
+              <div className="border rounded p-2 flex flex-wrap gap-2">
+                {formData.skills.map((skill, index) => (
+                  <div
+                    key={index}
+                    className="bg-[#7ebaba] text-white py-1 px-2 rounded flex items-center"
+                  >
+                    <span>{skill}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveSkill(index)}
+                      className="ml-2"
+                    >
+                      &times;
+                    </button>
+                  </div>
+                ))}
+                <input
+                  type="text"
+                  value={skillInput}
+                  onChange={(e) => setSkillInput(e.target.value)}
+                  onKeyDown={handleSkillKeyDown}
+                  placeholder="Type a skill and press Enter"
+                  className="p-2 border rounded text-black flex-grow"
+                />
+              </div>
             </div>
             <button
               type="submit"
@@ -227,7 +447,10 @@ const ProfileDetailsPage = () => {
           <h2 className="text-[#7ebaba] text-4xl mt-12 mb-6">Projects</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {projects.map((project, index) => (
-              <div key={index} className="relative bg-white bg-opacity-30 rounded-lg shadow-md p-4">
+              <div
+                key={index}
+                className="relative bg-white bg-opacity-30 rounded-lg shadow-md p-4"
+              >
                 <div
                   className="absolute top-2 right-2 cursor-pointer text-3xl text-[#6a9696]"
                   onClick={() => toggleDropdown(index)}
@@ -280,73 +503,258 @@ const ProfileDetailsPage = () => {
       </div>
       <Footer />
       <CustomModal isOpen={modalIsOpen} onClose={closeModal}>
-        <form onSubmit={handleProjectSubmit}>
-          <div>
-            <label className="block text-[#6a9696] text-xl">Project Name</label>
-            <input
-              type="text"
-              name="name"
-              value={projectData.name}
-              onChange={handleProjectChange}
-              className="w-full p-2 border rounded text-black"
-            />
-          </div>
-          <div>
-            <label className="block text-[#6a9696] text-xl">Project Website</label>
-            <input
-              type="text"
-              name="website"
-              value={projectData.website}
-              onChange={handleProjectChange}
-              className="w-full p-2 border rounded text-black"
-            />
-          </div>
-          <div>
-            <label className="block text-[#6a9696] text-xl">Project Type</label>
-            <input
-              type="text"
-              name="type"
-              value={projectData.type}
-              onChange={handleProjectChange}
-              className="w-full p-2 border rounded text-black"
-            />
-          </div>
-          <div>
-            <label className="block text-[#6a9696] text-xl">Industry</label>
-            <input
-              type="text"
-              name="industry"
-              value={projectData.industry}
-              onChange={handleProjectChange}
-              className="w-full p-2 border rounded text-black"
-            />
-          </div>
-          <div>
-            <label className="block text-[#6a9696] text-xl">Project Details</label>
-            <textarea
-              name="details"
-              value={projectData.details}
-              onChange={handleProjectChange}
-              className="w-full p-2 border rounded text-black"
-            ></textarea>
-          </div>
-          <div>
-            <label className="block text-[#6a9696] text-xl">Upload Images</label>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="w-full p-2 border rounded text-black"
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded mt-4"
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Project Name</label>
+          <input
+            type="text"
+            name="name"
+            value={projectData.name}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+          />
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Project Website</label>
+          <input
+            type="text"
+            name="website"
+            value={projectData.website}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+          />
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Project Type</label>
+          <select
+            name="type"
+            value={projectData.type}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
           >
-            Save Project
-          </button>
-        </form>
-      </CustomModal>
+            <option value="">Select Type</option>
+            <option value="physical">Physical</option>
+            <option value="non-physical">Non-Physical</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Industry</label>
+          <select
+            name="industry"
+            value={projectData.industry}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+          >
+            <option value="">Select Industry</option>
+            <option value="technology">Technology</option>
+            <option value="healthcare">Healthcare</option>
+            <option value="finance">Finance</option>
+            <option value="others">Others</option>
+          </select>
+          {projectData.industry === "others" && (
+            <input
+              type="text"
+              name="industryOther"
+              placeholder="Specify Industry"
+              value={projectData.industryOther || ""}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black mt-2"
+            />
+          )}
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Project Details</label>
+          <textarea
+            name="details"
+            value={projectData.details}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+          ></textarea>
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Started In</label>
+          <input
+            type="date"
+            name="startedIn"
+            value={projectData.startedIn}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+          />
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Yearly Revenue</label>
+          <input
+            type="number"
+            name="yearlyRevenue"
+            value={projectData.yearlyRevenue}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+          />
+          <select
+            name="yearlyRevenueCurrency"
+            value={projectData.yearlyRevenueCurrency}
+            onChange={handleCurrencyChange}
+            className="w-full p-2 border rounded text-black mt-2"
+          >
+            <option value="USD">USD</option>
+            <option value="INR">INR</option>
+            <option value="EURO">EURO</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Monthly Sales</label>
+          <input
+            type="number"
+            name="monthlySales"
+            value={projectData.monthlySales}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+          />
+          <select
+            name="monthlySalesCurrency"
+            value={projectData.monthlySalesCurrency}
+            onChange={handleCurrencyChange}
+            className="w-full p-2 border rounded text-black mt-2"
+          >
+            <option value="USD">USD</option>
+            <option value="INR">INR</option>
+            <option value="EURO">EURO</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Gross Margin (%)</label>
+          <input
+            type="number"
+            name="grossMargin"
+            value={projectData.grossMargin}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+            step="0.01"
+          />
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Net Margin (%)</label>
+          <input
+            type="number"
+            name="netMargin"
+            value={projectData.netMargin}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+            step="0.01"
+          />
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">EBITDA</label>
+          <input
+            type="number"
+            name="ebitda"
+            value={projectData.ebitda}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+          />
+          <select
+            name="ebitdaCurrency"
+            value={projectData.ebitdaCurrency}
+            onChange={handleCurrencyChange}
+            className="w-full p-2 border rounded text-black mt-2"
+          >
+            <option value="USD">USD</option>
+            <option value="INR">INR</option>
+            <option value="EURO">EURO</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">SKU's</label>
+          <input
+            type="number"
+            name="skus"
+            value={projectData.skus}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+          />
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Original Ask</label>
+          <input
+            type="number"
+            name="originalAsk"
+            value={projectData.originalAsk}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+          />
+          <select
+            name="originalAskCurrency"
+            value={projectData.originalAskCurrency}
+            onChange={handleCurrencyChange}
+            className="w-full p-2 border rounded text-black mt-2"
+          >
+            <option value="USD">USD</option>
+            <option value="INR">INR</option>
+            <option value="EURO">EURO</option>
+          </select>
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Equity Offered (%)</label>
+          <input
+            type="number"
+            name="equityOffered"
+            value={projectData.equityOffered}
+            onChange={handleProjectChange}
+            className="w-full p-2 border rounded text-black"
+            step="0.01"
+          />
+        </div>
+        <div>
+          <label className="block text-[#6a9696] text-xl">Debt Accept or Not</label>
+          <input
+             type="checkbox"
+             name="debtAccept"
+             checked={projectData.debtAccept}
+             onChange={handleCheckboxChange}
+             className="mr-2"
+           />
+           <label className="text-[#6a9696] text-xl">Yes</label>
+           {projectData.debtAccept && (
+             <div>
+               <label className="block text-[#6a9696] text-xl">Debt Amount</label>
+               <input
+                 type="number"
+                 name="debtAmount"
+                 value={projectData.debtAmount}
+                 onChange={handleProjectChange}
+                 className="w-full p-2 border rounded text-black"
+               />
+               <select
+                 name="debtCurrency"
+                 value={projectData.debtCurrency}
+                 onChange={handleCurrencyChange}
+                 className="w-full p-2 border rounded text-black mt-2"
+               >
+                 <option value="USD">USD</option>
+                 <option value="INR">INR</option>
+                 <option value="EURO">EURO</option>
+               </select>
+             </div>
+           )}
+         </div>
+         <div>
+           <label className="block text-[#6a9696] text-xl">Upload Images</label>
+           <input
+             type="file"
+             accept="image/*"
+             onChange={handleImageUpload}
+             className="w-full p-2 border rounded text-black"
+           />
+         </div>
+         <button
+           type="submit"
+            className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded mt-4"
+            
+         >
+           Save Project
+         </button>
+       </form>
+     </CustomModal>
     </>
   );
 };

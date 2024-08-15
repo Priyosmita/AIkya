@@ -181,7 +181,7 @@ const SmartMatch = () => {
 
   return (
     <div className="p-4 h-103 overflow-y-auto">
-      <div className="flex mb-4 items-center">
+      <div className="flex mb-4 items-center p-8">
         <input 
           type="text"
           placeholder="Search by name or industry"
@@ -199,7 +199,7 @@ const SmartMatch = () => {
           <option value="Investor">Investor</option>
         </select>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-8">
         {filteredProfiles.map(profile => (
           <div key={profile.id} className="relative p-4 border rounded-xl bg-opacity-30 shadow-lg bg-white text-black">
             <img src={profile.photo} alt={profile.name} className="w-24 h-24 rounded-full mx-auto mb-2" />
@@ -226,12 +226,7 @@ const SmartMatch = () => {
               </button>
               {menuOpen === profile.id && (
                 <div className="absolute right-0 mt-2 w-32 bg-white border rounded shadow-lg">
-                  <button 
-                    onClick={() => removeProfile(profile.id)} 
-                    className="block px-4 py-2 text-sm text-left w-full hover:bg-gray-200"
-                  >
-                    Remove
-                  </button>
+                  
                   <button 
                     onClick={() => blockProfile(profile.id)} 
                     className="block px-4 py-2 text-sm text-left w-full hover:bg-gray-200"
