@@ -190,7 +190,7 @@ const SmartMatch = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         <select
-          className="p-2 border rounded text-black"
+          className="p-2 border rounded text-black h-10"
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
         >
@@ -199,7 +199,7 @@ const SmartMatch = () => {
           <option value="Investor">Investor</option>
         </select>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-8">
         {filteredProfiles.map(profile => (
           <div key={profile.id} className="relative p-4 border rounded-xl bg-opacity-30 shadow-lg bg-white text-black">
             <img src={profile.photo} alt={profile.name} className="w-24 h-24 rounded-full mx-auto mb-2" />
