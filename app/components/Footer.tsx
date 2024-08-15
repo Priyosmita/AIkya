@@ -47,7 +47,7 @@ const Footer = () => {
           <Link href="/pages/t&c" legacyBehavior>
             <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer hover:text-[#ffd9c1]'>Terms and Conditions</p>
           </Link>
-          <Link href="/" legacyBehavior>
+          <Link href="/pages/privacypolicy" legacyBehavior>
             <p className='text-3xl transform transition duration-300 hover:scale-110 cursor-pointer mt-24 hover:text-[#ffd9c1]'>Privacy Policy</p>
           </Link>
         </div>
