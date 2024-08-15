@@ -26,7 +26,7 @@ const ProfileDetailsPage = () => {
   const [savedCertifications, setSavedCertifications] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputUsername, setInputUsername] = useState('');
-  const username = 'yourUsername'; // Replace with the actual username
+  const username = "any"; // Replace with the actual username
 
   const [projectData, setProjectData] = useState({
     name: "",
@@ -758,7 +758,7 @@ const ProfileDetailsPage = () => {
             </select>
           </div>
           <div>
-            <label className="block text-[#6a9696] text-xl">SKU's</label>
+            <label className="block text-[#6a9696] text-xl">SKU</label>
             <input
               type="number"
               name="skus"
