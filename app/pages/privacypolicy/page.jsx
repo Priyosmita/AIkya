@@ -127,7 +127,7 @@ const Page = () => {
                         You can opt out of receiving marketing communications from us by following the unsubscribe instructions in the emails you receive or by contacting us directly.
                     </p>
 
-                    <h3 className='text-2xl font-semibold mt-6'>6. Children's Privacy</h3>
+                    <h3 className='text-2xl font-semibold mt-6'>6. Childrens Privacy</h3>
                     <p>
                         AIkya is not intended for use by children under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that we have inadvertently collected personal information from a child under 13, we will take steps to delete it as soon as possible.
                     </p>
