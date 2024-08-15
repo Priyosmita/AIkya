@@ -512,11 +512,16 @@ const ProfileDetailsPage = () => {
             </div>
           </div>
         </div>
-        <SignOutButton>
-          <button className="mt-4 bg-[#7ebaba] text-white font-bold py-2 px-4 rounded">
-            Sign Out
+        <div className="flex flex-row gap-x-28 pb-9">
+          <SignOutButton>
+            <button className="mt-4 bg-[#7ebaba] text-white font-bold py-2 px-4 rounded">
+              Sign Out
+            </button>
+          </SignOutButton>
+          <button className="mt-4 bg-[#e66666] text-white font-bold py-2 px-4 rounded">
+              Delete Account
           </button>
-        </SignOutButton>
+        </div>
       </div>
       <Footer />
       <CustomModal isOpen={modalIsOpen} onClose={closeModal}>
