@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import "../components.css"
 
 const initialPosts = [
   {
@@ -65,8 +66,8 @@ const SocialMedia = () => {
   };
 
   return (
-    <div className="p-4 w-full text-black h-101 max-h-screen overflow-hidden flex flex-col">
-      <div className="flex justify-end mb-4">
+    <div className=" SocialWidth SocialHeight text-black  overflow-hidden flex flex-col">
+      <div className="flex justify-end mb-10">
         <button
           onClick={() => setShowCreatePost(!showCreatePost)}
           className={`bg-[#7ebaba] text-white px-4 py-2 rounded-full transition-transform transform ${
@@ -78,7 +79,7 @@ const SocialMedia = () => {
       </div>
 
       {showCreatePost && (
-        <div className="mb-4 p-4 border rounded bg-white shadow-md max-h-96 overflow-y-auto">
+        <div className="mb-4 p-4 border rounded bg-white shadow-md SocialHeight overflow-y-auto">
           <h3 className="text-2xl font-semibold mb-2">Create Post</h3>
           <input
             type="text"

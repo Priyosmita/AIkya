@@ -14,7 +14,7 @@ import './components.css'
 
 const Window = ({ isMarketAnalysis, isSocialMedia, isSmartMatch, isFollowers, isFollowing, isChats, isDonations, isFunding, isSearch }) => {
   return (
-    <div className='WindowWidth bg-white rounded-2xl h-101 bg-opacity-50 mb-6 mr-4 mt-24 p-4 '>
+    <div className='WindowWidth bg-white rounded-2xl h-101 bg-opacity-50 mr-4 mt-24 p-4 '>
       {isMarketAnalysis && <MarketAnalysis />}
       <div className='flex justify-center'>
       {isSocialMedia && <SocialMedia />}</div>

@@ -2,9 +2,62 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import './options.css'; // Ensure this file exists or use inline styles/Tailwind
+import '../components.css'
 
 // Sample data for funded startups
 const fundedStartupsData = [
+  {
+    id: 1,
+    image: 'https://i.pcmag.com/imagery/lineups/05eGqoRcVFRa6mqdHas610v-1.fit_lim.size_768x432.v1569492758.jpg',
+    name: 'InnovateTech',
+    industry: 'Technology',
+    valuation: '$60M',
+    fundingRequired: '$10M',
+    description: 'InnovateTech is pioneering the future of AI and robotics.',
+    fundingLogs: [
+      { name: 'John Doe', amount: '$500K' },
+      { name: 'Jane Smith', amount: '$1M' },
+    ],
+  },
+  {
+    id: 1,
+    image: 'https://i.pcmag.com/imagery/lineups/05eGqoRcVFRa6mqdHas610v-1.fit_lim.size_768x432.v1569492758.jpg',
+    name: 'InnovateTech',
+    industry: 'Technology',
+    valuation: '$60M',
+    fundingRequired: '$10M',
+    description: 'InnovateTech is pioneering the future of AI and robotics.',
+    fundingLogs: [
+      { name: 'John Doe', amount: '$500K' },
+      { name: 'Jane Smith', amount: '$1M' },
+    ],
+  },
+  {
+    id: 1,
+    image: 'https://i.pcmag.com/imagery/lineups/05eGqoRcVFRa6mqdHas610v-1.fit_lim.size_768x432.v1569492758.jpg',
+    name: 'InnovateTech',
+    industry: 'Technology',
+    valuation: '$60M',
+    fundingRequired: '$10M',
+    description: 'InnovateTech is pioneering the future of AI and robotics.',
+    fundingLogs: [
+      { name: 'John Doe', amount: '$500K' },
+      { name: 'Jane Smith', amount: '$1M' },
+    ],
+  },
+  {
+    id: 1,
+    image: 'https://i.pcmag.com/imagery/lineups/05eGqoRcVFRa6mqdHas610v-1.fit_lim.size_768x432.v1569492758.jpg',
+    name: 'InnovateTech',
+    industry: 'Technology',
+    valuation: '$60M',
+    fundingRequired: '$10M',
+    description: 'InnovateTech is pioneering the future of AI and robotics.',
+    fundingLogs: [
+      { name: 'John Doe', amount: '$500K' },
+      { name: 'Jane Smith', amount: '$1M' },
+    ],
+  },
   {
     id: 1,
     image: 'https://i.pcmag.com/imagery/lineups/05eGqoRcVFRa6mqdHas610v-1.fit_lim.size_768x432.v1569492758.jpg',
@@ -73,7 +126,7 @@ const Funding = () => {
   };
 
   return (
-    <div className='funding-container p-7 text-black'>
+    <div className='funding-container p-7 text-black SocialWidth'>
       {/* <button
         className="bg-green-500 text-white px-4 py-2 rounded-full mb-4"
         onClick={openAddModal}
@@ -81,10 +134,10 @@ const Funding = () => {
         Add New Startup
       </button> */}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-auto ml-20">
         {startups.map(startup => (
           <div key={startup.id} className="p-4 bg-white shadow-lg rounded-lg bg-opacity-30">
-            <img src={startup.image} alt={startup.name} className="w-full h-80 object-cover mb-2 rounded" />
+            <img src={startup.image} alt={startup.name} className="w-full h-64 object-cover mb-2 rounded" />
             <h3 className="text-xl font-semibold mb-2">{startup.name}</h3>
             <p className="mb-2 text-gray-600">{startup.industry}</p>
             <button

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import "./options.css"
+import "../components.css"
 
 // Sample data for startups
 const startupsData = [
@@ -85,7 +86,7 @@ const Donations = () => {
   };
 
   return (
-    <div className='donations-container p-4 text-black'>
+    <div className='donations-container p-4 text-black SocialWidth flex justify-center flex-col ml-20 items-center'>
       <input
         type="text"
         placeholder="Search startups..."
@@ -97,7 +98,7 @@ const Donations = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-auto">
         {filteredStartups.map(startup => (
           <div key={startup.id} className="p-4 bg-white shadow-lg rounded-lg bg-opacity-30">
-            <img src={startup.image} alt={startup.name} className="w-full h-80 object-cover mb-2 rounded" />
+            <img src={startup.image} alt={startup.name} className="w-full h-64 object-cover mb-2 rounded" />
             <h3 className="text-xl font-semibold mb-2">{startup.name}</h3>
             <p className="mb-2 text-gray-600">{startup.industry}</p>
             <button
