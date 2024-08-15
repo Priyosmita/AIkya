@@ -7,8 +7,7 @@ import 'chart.js/auto';
 import './options.css';
 
 // const API_KEY = 'cqkil61r01qjqssgdq00cqkil61r01qjqssgdq0g';
-const API_KEY = 'W9FFWWWFBHNB1RRL';
-
+const API_KEY = 'your_alpha_vantage_api_key';
 
 const TECH_SYMBOLS = ['MSFT', 'AAPL', 'GOOGL', 'AMZN', 'META', 'TSLA', 'NVDA', 'AMD', 'INTC', 'IBM'];
 const FOOD_SYMBOLS = ['KO', 'PEP', 'MDLZ', 'GIS', 'CPB', 'K', 'NSRGY', 'CAG', 'SJM', 'BGS'];
@@ -41,13 +40,19 @@ const MarketAnalysis = () => {
         setLoading(true);
         setError(null);
         try {
-          const response = await axios.get(`https://finnhub.io/api/v1/quote`, {
+          const response = await axios.get('https://www.alphavantage.co/query', {
             params: {
+              function: 'TIME_SERIES_DAILY',
               symbol: selectedCompany,
-              token: API_KEY,
+              apikey: API_KEY,
             },
           });
-          setCompanyData(response.data);
+
+          const timeSeries = response.data['Time Series (Daily)'];
+          const dates = Object.keys(timeSeries).slice(0, 30).reverse();
+          const prices = dates.map(date => parseFloat(timeSeries[date]['4. close']));
+
+          setCompanyData({ dates, prices });
         } catch (err) {
           setError('Error fetching data');
         } finally {
@@ -69,20 +74,12 @@ const MarketAnalysis = () => {
   const transformDataForChart = () => {
     if (!companyData) return null;
 
-    const dates = Array.from({ length: 30 }, (_, i) => {
-      const date = new Date();
-      date.setDate(date.getDate() - i);
-      return date.toISOString().split('T')[0];
-    }).reverse();
-
-    const prices = Array.from({ length: 30 }, () => companyData.c);
-
     return {
-      labels: dates,
+      labels: companyData.dates,
       datasets: [
         {
           label: `${selectedCompany} Stock Price`,
-          data: prices,
+          data: companyData.prices,
           borderColor: 'rgba(75,192,192,1)',
           backgroundColor: 'rgba(75,192,192,0.2)',
           fill: true,
