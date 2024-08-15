@@ -82,15 +82,13 @@ const ProfileDetailsPage = () => {
           {
             file,
             preview: fileURL, // Store the URL for preview
-            text: '',
+            text: "",
           },
         ],
       }));
     });
   };
-  
-  
-  
+
   const handleSkillsChange = (skills) => {
     setFormData((prevData) => ({ ...prevData, skills }));
   };
@@ -215,7 +213,7 @@ const ProfileDetailsPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle the submit logic here
-    console.log('Project data submitted:', projectData);
+    console.log("Project data submitted:", projectData);
     // Optionally close the modal or reset form here
   };
 
@@ -287,7 +285,7 @@ const ProfileDetailsPage = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full p-2 border rounded text-black"
+                className="w-full p-2 border rounded text-black focus:outline-none"
               />
             </div>
             <div>
@@ -296,7 +294,7 @@ const ProfileDetailsPage = () => {
                 name="about"
                 value={formData.about}
                 onChange={handleChange}
-                className="w-full p-2 border rounded text-black"
+                className="w-full p-2 border rounded text-black focus:outline-none"
               ></textarea>
             </div>
             <div>
@@ -307,135 +305,154 @@ const ProfileDetailsPage = () => {
                 name="experience"
                 value={formData.experience}
                 onChange={handleChange}
-                className="w-full p-2 border rounded text-black"
+                className="w-full p-2 border rounded text-black focus:outline-none"
               ></textarea>
             </div>
             <div>
-  <label className="block text-[#6a9696] text-2xl">Certifications</label>
-  <input
-    type="file"
-    multiple
-    onChange={handleCertificationUpload}
-    className="w-full p-2 border rounded text-black"
-  />
-  {formData.certifications.map((certification, index) => (
-  <div key={index} className="flex items-center mt-2">
-    <a href={certification.preview} target="_blank" rel="noopener noreferrer" className="mr-4">
-      {certification.file.type.includes('image') ? (
-        <img
-          src={certification.preview}
-          alt={`Certification ${index + 1}`}
-          className="w-20 h-20 object-cover rounded"
-        />
-      ) : certification.file.type === 'application/pdf' ? (
-        <div className="text-black">
-          <object
-            data={certification.preview}
-            type="application/pdf"
-            width="100"
-            height="100"
-          >
-            <embed src={certification.preview} type="application/pdf" />
-          </object>
-        </div>
-      ) : (
-        <div className="text-black">Preview not available</div>
-      )}
-    </a>
-    <input
-      type="text"
-      placeholder="Add a description"
-      value={certification.text}
-      onChange={(e) => handleCertificationTextChange(index, e.target.value)}
-      className="ml-4 p-2 border rounded text-black flex-grow"
-    />
-    <button
-      type="button"
-      onClick={() => removeCertification(index)}
-      className="ml-4 bg-red-500 text-white p-2 rounded"
-    >
-      Remove
-    </button>
-    <button
-      type="button"
-      onClick={() => handleSaveCertification(index)}
-      className="ml-2 bg-green-500 text-white p-2 rounded"
-    >
-      Save
-    </button>
-  </div>
-))}
+              <label className="block text-[#6a9696] text-2xl">
+                Certifications
+              </label>
+              <input
+                type="file"
+                multiple
+                onChange={handleCertificationUpload}
+                className="w-full p-2 border rounded text-black"
+              />
+              {formData.certifications.map((certification, index) => (
+                <div key={index} className="flex items-center mt-2">
+                  <a
+                    href={certification.preview}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mr-4"
+                  >
+                    {certification.file.type.includes("image") ? (
+                      <img
+                        src={certification.preview}
+                        alt={`Certification ${index + 1}`}
+                        className="w-20 h-20 object-cover rounded"
+                      />
+                    ) : certification.file.type === "application/pdf" ? (
+                      <div className="text-black">
+                        <object
+                          data={certification.preview}
+                          type="application/pdf"
+                          width="100"
+                          height="100"
+                        >
+                          <embed
+                            src={certification.preview}
+                            type="application/pdf"
+                          />
+                        </object>
+                      </div>
+                    ) : (
+                      <div className="text-black">Preview not available</div>
+                    )}
+                  </a>
+                  <input
+                    type="text"
+                    placeholder="Add a description"
+                    value={certification.text}
+                    onChange={(e) =>
+                      handleCertificationTextChange(index, e.target.value)
+                    }
+                    className="ml-4 p-2 border rounded text-black flex-grow"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeCertification(index)}
+                    className="ml-4 bg-red-500 text-white p-2 rounded"
+                  >
+                    Remove
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleSaveCertification(index)}
+                    className="ml-2 bg-green-500 text-white p-2 rounded"
+                  >
+                    Save
+                  </button>
+                </div>
+              ))}
+            </div>
 
-</div>
-
-
-
-<div className="mt-8">
-  <h3 className="text-[#6a9696] text-2xl mb-4">Saved Certifications</h3>
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    {savedCertifications.map((certification, index) => (
-      <div key={index} className="bg-white p-4 rounded-lg shadow-md">
-        <a
-          href={URL.createObjectURL(certification.file)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {certification.file.type.includes('image') ? (
-            <img
-              src={URL.createObjectURL(certification.file)}
-              alt={`Certification ${index + 1}`}
-              className="w-full h-32 object-cover rounded mb-2"
-            />
-          ) : certification.file.type === 'application/pdf' ? (
-            <object
-              data={URL.createObjectURL(certification.file)}
-              type="application/pdf"
-              width="100%"
-              height="200"
-            >
-              <embed src={URL.createObjectURL(certification.file)} type="application/pdf" />
-            </object>
-          ) : (
-            <div className="text-black">Preview not available</div>
-          )}
-        </a>
-        <p className="text-[#6a9696] mt-2">{certification.text}</p>
-      </div>
-    ))}
-  </div>
-</div>
-
-
-
-
-            <div>
-              <label className="block text-[#6a9696] text-2xl">Skills</label>
-              <div className="border rounded p-2 flex flex-wrap gap-2">
-                {formData.skills.map((skill, index) => (
+            <div className="mt-8">
+              <h3 className="text-[#6a9696] text-2xl mb-4">
+                Saved Certifications
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {savedCertifications.map((certification, index) => (
                   <div
                     key={index}
-                    className="bg-[#7ebaba] text-white py-1 px-2 rounded flex items-center"
+                    className="bg-white p-4 rounded-lg shadow-md"
                   >
-                    <span>{skill}</span>
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveSkill(index)}
-                      className="ml-2"
+                    <a
+                      href={URL.createObjectURL(certification.file)}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      &times;
-                    </button>
+                      {certification.file.type.includes("image") ? (
+                        <img
+                          src={URL.createObjectURL(certification.file)}
+                          alt={`Certification ${index + 1}`}
+                          className="w-full h-32 object-cover rounded mb-2"
+                        />
+                      ) : certification.file.type === "application/pdf" ? (
+                        <object
+                          data={URL.createObjectURL(certification.file)}
+                          type="application/pdf"
+                          width="100%"
+                          height="200"
+                        >
+                          <embed
+                            src={URL.createObjectURL(certification.file)}
+                            type="application/pdf"
+                          />
+                        </object>
+                      ) : (
+                        <div className="text-black">Preview not available</div>
+                      )}
+                    </a>
+                    <p className="text-[#6a9696] mt-2">{certification.text}</p>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[#6a9696] text-2xl mb-2">
+                Skills
+              </label>
+              <div className="flex flex-col gap-2">
                 <input
                   type="text"
                   value={skillInput}
                   onChange={(e) => setSkillInput(e.target.value)}
                   onKeyDown={handleSkillKeyDown}
                   placeholder="Type a skill and press Enter"
-                  className="p-2 border rounded text-black flex-grow"
+                  className="p-2 h-14 focus:outline-none rounded text-black"
                 />
+                <div className="border rounded p-2 flex flex-wrap gap-2 mt-2">
+                  {formData.skills.map((skill, index) => (
+                    <div
+                      key={index}
+                      className="bg-[#f8c3a2] text-white py-1 px-2 rounded flex items-center"
+                    >
+                      <span>{skill}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveSkill(index)}
+                        className="ml-2 text-lg"
+                      >
+                        &times;
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
+
             <button
               type="submit"
               className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded"
@@ -503,258 +520,277 @@ const ProfileDetailsPage = () => {
       </div>
       <Footer />
       <CustomModal isOpen={modalIsOpen} onClose={closeModal}>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Project Name</label>
-          <input
-            type="text"
-            name="name"
-            value={projectData.name}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-          />
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Project Website</label>
-          <input
-            type="text"
-            name="website"
-            value={projectData.website}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-          />
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Project Type</label>
-          <select
-            name="type"
-            value={projectData.type}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-          >
-            <option value="">Select Type</option>
-            <option value="physical">Physical</option>
-            <option value="non-physical">Non-Physical</option>
-          </select>
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Industry</label>
-          <select
-            name="industry"
-            value={projectData.industry}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-          >
-            <option value="">Select Industry</option>
-            <option value="technology">Technology</option>
-            <option value="healthcare">Healthcare</option>
-            <option value="finance">Finance</option>
-            <option value="others">Others</option>
-          </select>
-          {projectData.industry === "others" && (
+        <form onSubmit={handleProjectSubmit}>
+          <div>
+            <label className="block text-[#6a9696] text-xl">Project Name</label>
             <input
               type="text"
-              name="industryOther"
-              placeholder="Specify Industry"
-              value={projectData.industryOther || ""}
+              name="name"
+              value={projectData.name}
               onChange={handleProjectChange}
-              className="w-full p-2 border rounded text-black mt-2"
+              className="w-full p-2 border rounded text-black"
             />
-          )}
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Project Details</label>
-          <textarea
-            name="details"
-            value={projectData.details}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-          ></textarea>
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Started In</label>
-          <input
-            type="date"
-            name="startedIn"
-            value={projectData.startedIn}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-          />
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Yearly Revenue</label>
-          <input
-            type="number"
-            name="yearlyRevenue"
-            value={projectData.yearlyRevenue}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-          />
-          <select
-            name="yearlyRevenueCurrency"
-            value={projectData.yearlyRevenueCurrency}
-            onChange={handleCurrencyChange}
-            className="w-full p-2 border rounded text-black mt-2"
-          >
-            <option value="USD">USD</option>
-            <option value="INR">INR</option>
-            <option value="EURO">EURO</option>
-          </select>
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Monthly Sales</label>
-          <input
-            type="number"
-            name="monthlySales"
-            value={projectData.monthlySales}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-          />
-          <select
-            name="monthlySalesCurrency"
-            value={projectData.monthlySalesCurrency}
-            onChange={handleCurrencyChange}
-            className="w-full p-2 border rounded text-black mt-2"
-          >
-            <option value="USD">USD</option>
-            <option value="INR">INR</option>
-            <option value="EURO">EURO</option>
-          </select>
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Gross Margin (%)</label>
-          <input
-            type="number"
-            name="grossMargin"
-            value={projectData.grossMargin}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-            step="0.01"
-          />
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Net Margin (%)</label>
-          <input
-            type="number"
-            name="netMargin"
-            value={projectData.netMargin}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-            step="0.01"
-          />
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">EBITDA</label>
-          <input
-            type="number"
-            name="ebitda"
-            value={projectData.ebitda}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-          />
-          <select
-            name="ebitdaCurrency"
-            value={projectData.ebitdaCurrency}
-            onChange={handleCurrencyChange}
-            className="w-full p-2 border rounded text-black mt-2"
-          >
-            <option value="USD">USD</option>
-            <option value="INR">INR</option>
-            <option value="EURO">EURO</option>
-          </select>
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">SKU's</label>
-          <input
-            type="number"
-            name="skus"
-            value={projectData.skus}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-          />
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Original Ask</label>
-          <input
-            type="number"
-            name="originalAsk"
-            value={projectData.originalAsk}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-          />
-          <select
-            name="originalAskCurrency"
-            value={projectData.originalAskCurrency}
-            onChange={handleCurrencyChange}
-            className="w-full p-2 border rounded text-black mt-2"
-          >
-            <option value="USD">USD</option>
-            <option value="INR">INR</option>
-            <option value="EURO">EURO</option>
-          </select>
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Equity Offered (%)</label>
-          <input
-            type="number"
-            name="equityOffered"
-            value={projectData.equityOffered}
-            onChange={handleProjectChange}
-            className="w-full p-2 border rounded text-black"
-            step="0.01"
-          />
-        </div>
-        <div>
-          <label className="block text-[#6a9696] text-xl">Debt Accept or Not</label>
-          <input
-             type="checkbox"
-             name="debtAccept"
-             checked={projectData.debtAccept}
-             onChange={handleCheckboxChange}
-             className="mr-2"
-           />
-           <label className="text-[#6a9696] text-xl">Yes</label>
-           {projectData.debtAccept && (
-             <div>
-               <label className="block text-[#6a9696] text-xl">Debt Amount</label>
-               <input
-                 type="number"
-                 name="debtAmount"
-                 value={projectData.debtAmount}
-                 onChange={handleProjectChange}
-                 className="w-full p-2 border rounded text-black"
-               />
-               <select
-                 name="debtCurrency"
-                 value={projectData.debtCurrency}
-                 onChange={handleCurrencyChange}
-                 className="w-full p-2 border rounded text-black mt-2"
-               >
-                 <option value="USD">USD</option>
-                 <option value="INR">INR</option>
-                 <option value="EURO">EURO</option>
-               </select>
-             </div>
-           )}
-         </div>
-         <div>
-           <label className="block text-[#6a9696] text-xl">Upload Images</label>
-           <input
-             type="file"
-             accept="image/*"
-             onChange={handleImageUpload}
-             className="w-full p-2 border rounded text-black"
-           />
-         </div>
-         <button
-           type="submit"
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">
+              Project Website
+            </label>
+            <input
+              type="text"
+              name="website"
+              value={projectData.website}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+            />
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">Project Type</label>
+            <select
+              name="type"
+              value={projectData.type}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+            >
+              <option value="">Select Type</option>
+              <option value="physical">Physical</option>
+              <option value="non-physical">Non-Physical</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">Industry</label>
+            <select
+              name="industry"
+              value={projectData.industry}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+            >
+              <option value="">Select Industry</option>
+              <option value="technology">Technology</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="finance">Finance</option>
+              <option value="others">Others</option>
+            </select>
+            {projectData.industry === "others" && (
+              <input
+                type="text"
+                name="industryOther"
+                placeholder="Specify Industry"
+                value={projectData.industryOther || ""}
+                onChange={handleProjectChange}
+                className="w-full p-2 border rounded text-black mt-2"
+              />
+            )}
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">
+              Project Details
+            </label>
+            <textarea
+              name="details"
+              value={projectData.details}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+            ></textarea>
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">Started In</label>
+            <input
+              type="date"
+              name="startedIn"
+              value={projectData.startedIn}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+            />
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">
+              Yearly Revenue
+            </label>
+            <input
+              type="number"
+              name="yearlyRevenue"
+              value={projectData.yearlyRevenue}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+            />
+            <select
+              name="yearlyRevenueCurrency"
+              value={projectData.yearlyRevenueCurrency}
+              onChange={handleCurrencyChange}
+              className="w-full p-2 border rounded text-black mt-2"
+            >
+              <option value="USD">USD</option>
+              <option value="INR">INR</option>
+              <option value="EURO">EURO</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">
+              Monthly Sales
+            </label>
+            <input
+              type="number"
+              name="monthlySales"
+              value={projectData.monthlySales}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+            />
+            <select
+              name="monthlySalesCurrency"
+              value={projectData.monthlySalesCurrency}
+              onChange={handleCurrencyChange}
+              className="w-full p-2 border rounded text-black mt-2"
+            >
+              <option value="USD">USD</option>
+              <option value="INR">INR</option>
+              <option value="EURO">EURO</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">
+              Gross Margin (%)
+            </label>
+            <input
+              type="number"
+              name="grossMargin"
+              value={projectData.grossMargin}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+              step="0.01"
+            />
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">
+              Net Margin (%)
+            </label>
+            <input
+              type="number"
+              name="netMargin"
+              value={projectData.netMargin}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+              step="0.01"
+            />
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">EBITDA</label>
+            <input
+              type="number"
+              name="ebitda"
+              value={projectData.ebitda}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+            />
+            <select
+              name="ebitdaCurrency"
+              value={projectData.ebitdaCurrency}
+              onChange={handleCurrencyChange}
+              className="w-full p-2 border rounded text-black mt-2"
+            >
+              <option value="USD">USD</option>
+              <option value="INR">INR</option>
+              <option value="EURO">EURO</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">SKU's</label>
+            <input
+              type="number"
+              name="skus"
+              value={projectData.skus}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+            />
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">Original Ask</label>
+            <input
+              type="number"
+              name="originalAsk"
+              value={projectData.originalAsk}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+            />
+            <select
+              name="originalAskCurrency"
+              value={projectData.originalAskCurrency}
+              onChange={handleCurrencyChange}
+              className="w-full p-2 border rounded text-black mt-2"
+            >
+              <option value="USD">USD</option>
+              <option value="INR">INR</option>
+              <option value="EURO">EURO</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">
+              Equity Offered (%)
+            </label>
+            <input
+              type="number"
+              name="equityOffered"
+              value={projectData.equityOffered}
+              onChange={handleProjectChange}
+              className="w-full p-2 border rounded text-black"
+              step="0.01"
+            />
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">
+              Debt Accept or Not
+            </label>
+            <input
+              type="checkbox"
+              name="debtAccept"
+              checked={projectData.debtAccept}
+              onChange={handleCheckboxChange}
+              className="mr-2"
+            />
+            <label className="text-[#6a9696] text-xl">Yes</label>
+            {projectData.debtAccept && (
+              <div>
+                <label className="block text-[#6a9696] text-xl">
+                  Debt Amount
+                </label>
+                <input
+                  type="number"
+                  name="debtAmount"
+                  value={projectData.debtAmount}
+                  onChange={handleProjectChange}
+                  className="w-full p-2 border rounded text-black"
+                />
+                <select
+                  name="debtCurrency"
+                  value={projectData.debtCurrency}
+                  onChange={handleCurrencyChange}
+                  className="w-full p-2 border rounded text-black mt-2"
+                >
+                  <option value="USD">USD</option>
+                  <option value="INR">INR</option>
+                  <option value="EURO">EURO</option>
+                </select>
+              </div>
+            )}
+          </div>
+          <div>
+            <label className="block text-[#6a9696] text-xl">
+              Upload Images
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="w-full p-2 border rounded text-black"
+            />
+          </div>
+          <button
+            type="submit"
             className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded mt-4"
-            
-         >
-           Save Project
-         </button>
-       </form>
-     </CustomModal>
+          >
+            Save Project
+          </button>
+        </form>
+      </CustomModal>
     </>
   );
 };
