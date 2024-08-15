@@ -101,7 +101,7 @@ const Page = () => {
 
                         <h2 className='text-3xl font-bold mt-8'>11. Governing Law</h2>
                         <p className='mt-4 text-2xl'>
-                            These terms and conditions are governed by and construed in accordance with the laws of [Your Country], and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.
+                            These terms and conditions are governed by and construed in accordance with the laws of India, and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.
                         </p>
 
                         <h2 className='text-3xl font-bold mt-8'>12. Changes to Terms</h2>
