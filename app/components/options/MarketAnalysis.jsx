@@ -6,7 +6,9 @@ import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import './options.css';
 
-const API_KEY = 'cqkil61r01qjqssgdq00cqkil61r01qjqssgdq0g';
+// const API_KEY = 'cqkil61r01qjqssgdq00cqkil61r01qjqssgdq0g';
+const API_KEY = 'W9FFWWWFBHNB1RRL';
+
 
 const TECH_SYMBOLS = ['MSFT', 'AAPL', 'GOOGL', 'AMZN', 'META', 'TSLA', 'NVDA', 'AMD', 'INTC', 'IBM'];
 const FOOD_SYMBOLS = ['KO', 'PEP', 'MDLZ', 'GIS', 'CPB', 'K', 'NSRGY', 'CAG', 'SJM', 'BGS'];
