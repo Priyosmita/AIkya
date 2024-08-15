@@ -34,7 +34,8 @@ export default function Home() {
       <div
         className='min-h-screen flex justify-center items-center'
         style={{
-          background: 'linear-gradient(106deg, rgba(140, 196, 196, 1) 0%, rgba(245, 247, 234, 1) 52%, rgba(252, 217, 195, 1) 100%)'
+          background: 'linear-gradient(106deg, rgba(140, 196, 196, 1) 0%, rgba(245, 247, 234, 1) 52%, rgba(252, 217, 195, 1) 100%)',
+          overflow: 'hidden', /* Prevent scrolling */
         }}
       >
         <l-dot-wave
@@ -48,6 +49,11 @@ export default function Home() {
 
   return (
     <>
+      <style jsx global>{`
+        html, body {
+          overflow: hidden; /* Prevent scrolling */
+        }
+      `}</style>
       {!isSignedIn && <><Header /><LandingPage /><Footer /></>}
     </>
   );
