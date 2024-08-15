@@ -165,7 +165,7 @@ const Funding = () => {
   };
 
   return (
-    <div className='funding-container p-7 text-black SocialWidth overflow-y-auto'>
+    <div className='funding-container p-7 text-black  overflow-y-auto'>
       {/* <button
         className="bg-green-500 text-white px-4 py-2 rounded-full mb-4"
         onClick={openAddModal}
@@ -173,7 +173,7 @@ const Funding = () => {
         Add New Startup
       </button> */}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-auto ml-20">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-auto ">
         {startups.map(startup => (
           <div key={startup.id} className="p-4 bg-white shadow-lg rounded-lg bg-opacity-30">
             <img src={startup.image} alt={startup.name} className="w-full h-64 object-cover mb-2 rounded" />

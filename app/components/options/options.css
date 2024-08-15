@@ -5,8 +5,8 @@
     /* margin-right: 90px; */
   }
   .donations-container {
-    max-width: 1000px;
     max-height: 900px;
+    width: 170vh;
     overflow: auto;
   }
   
@@ -23,6 +23,7 @@
   }
   .funding-container{
     max-height: 900px;
+    width: 170vh;
   }
   
   

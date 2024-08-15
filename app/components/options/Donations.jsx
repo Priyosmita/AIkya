@@ -126,7 +126,7 @@ const Donations = () => {
   };
 
   return (
-    <div className='donations-container p-4 text-black SocialWidth flex justify-center flex-col ml-20 items-center'>
+    <div className='donations-container p-4 text-black  flex justify-center flex-col  items-center'>
       <input
         type="text"
         placeholder="Search startups..."
