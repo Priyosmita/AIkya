@@ -45,7 +45,7 @@ const TermsPage = () => {
                     <h2 className='text-3xl font-bold mt-8'>4. Content Ownership and License</h2>
                     <h3 className='text-2xl font-semibold mt-6'>4.1 User Content</h3>
                     <p className='mt-4 text-2xl'>
-                        &quot;User Content&quot; refers to any text, images, videos, or other material that you post or share on AIkya. You retain ownership of your User Content, but by posting it on AIkya, you grant us a non-exclusive, worldwide, royalty-free license to use, distribute, modify, display, and reproduce it in connection with our services.
+                        User Content refers to any text, images, videos, or other material that you post or share on AIkya. You retain ownership of your User Content, but by posting it on AIkya, you grant us a non-exclusive, worldwide, royalty-free license to use, distribute, modify, display, and reproduce it in connection with our services.
                     </p>
                     <h3 className='text-2xl font-semibold mt-6'>4.2 Prohibited Content</h3>
                     <p className='mt-4 text-2xl'>
