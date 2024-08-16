@@ -154,10 +154,8 @@ const ProfileDetailsPage = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData((prevData) => ({
-          ...prevData,
-          profilePicture: reader.result,
-        }));
+        const imageData = reader.result;
+        localStorage.setItem('profilePicture', imageData);
       };
       reader.readAsDataURL(file);
     }
@@ -292,15 +290,23 @@ const ProfileDetailsPage = () => {
           <form className="space-y-8" onSubmit={handleProfileSubmit}>
             <div className="flex justify-start mb-8">
               <div className="relative w-40 h-40 rounded-full border-2 border-[#6a9696] flex items-center justify-center overflow-hidden">
-                <label className="flex flex-col items-center justify-center cursor-pointer">
-                  <span className="text-4xl text-[#6a9696]">+</span>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleProfilePictureUpload}
-                    className="absolute inset-0 opacity-0 cursor-pointer"
+                {formData.profilePicture ? (
+                  <img
+                    src={formData.profilePicture}
+                    alt="Profile"
+                    className="object-cover w-full h-full"
                   />
-                </label>
+                ) : (
+                  <label className="flex flex-col items-center justify-center cursor-pointer">
+                    <span className="text-4xl text-[#6a9696]">+</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleProfilePictureUpload}
+                      className="absolute inset-0 opacity-0 cursor-pointer"
+                    />
+                  </label>
+                )}
               </div>
             </div>
 

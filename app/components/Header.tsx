@@ -1,16 +1,18 @@
 'use client'
-import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useAuth, useUser, useClerk } from '@clerk/nextjs'; // Import useClerk
+
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useAuth, useUser, useClerk } from '@clerk/nextjs';
 
 const Header: React.FC = () => {
   const [hidden, setHidden] = useState<boolean>(false);
   const [scrollY, setScrollY] = useState<number>(0);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+  const [profilePicture, setProfilePicture] = useState<string | null>(null);
   const { isSignedIn } = useAuth();
-  const { user } = useUser(); // Using useUser to get user details
-  const { signOut } = useClerk(); // Get the signOut function from useClerk
+  const { user } = useUser(); 
+  const { signOut } = useClerk(); 
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,12 +27,22 @@ const Header: React.FC = () => {
     };
   }, [scrollY]);
 
+  // Load profile picture from local storage
+  useEffect(() => {
+    try {
+      const storedImage = localStorage.getItem('profilePicture');
+      if (storedImage) {
+        setProfilePicture(storedImage);
+      }
+    } catch (error) {
+      console.error("Failed to load profile picture:", error);
+    }
+  }, []);
+
   const toggleDropdown = () => setDropdownOpen(prev => !prev);
 
   return (
-    <header
-      className={`bg-[#ffffff] w-full flex flex-row justify-between top-0 z-10 fixed transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'}`}
-    >
+    <header className={`bg-[#ffffff] w-full flex flex-row justify-between top-0 z-10 fixed transition-transform duration-300 ${hidden ? '-translate-y-full' : 'translate-y-0'}`}>
       <div className='flex items-center gap-7'>
         <Link href='/'>
           <Image
@@ -67,13 +79,23 @@ const Header: React.FC = () => {
                 className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer transform transition duration-300 hover:scale-110"
                 onClick={toggleDropdown}
               >
-                <img
-                  src={"https://media.licdn.com/dms/image/D4E03AQF994QfoNMUBA/profile-displayphoto-shrink_200_200/0/1706964303726?e=2147483647&v=beta&t=kvqaovcfqEGsj35xJaAo6o6MSmvuvn_mThbzHTFyy3U"} 
-                  alt="Profile"
-                  width={48}
-                  height={48}
-                  className="rounded-full"
-                />
+                {profilePicture ? (
+                  <img
+                    src={profilePicture}
+                    alt="Profile"
+                    width={48}
+                    height={48}
+                    className="rounded-full"
+                  />
+                ) : (
+                  <img
+                    src={"https://via.placeholder.com/48"}
+                    alt="Default Profile"
+                    width={48}
+                    height={48}
+                    className="rounded-full"
+                  />
+                )}
               </div>
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-48">
@@ -84,7 +106,7 @@ const Header: React.FC = () => {
                   <button
                     className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
                     onClick={() => {
-                      signOut(); // Call the signOut method from useClerk
+                      signOut();
                     }}
                   >
                     Sign Out
