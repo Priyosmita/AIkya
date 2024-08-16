@@ -741,7 +741,7 @@ const ProfileDetailsPage = () => {
             />
           </div>
           <div>
-            <label className="block text-[#6a9696] text-xl">EBITDA</label>
+            <label className="block text-[#6a9696] text-xl">EBITDA (Earnings Before Interest, Taxes, Depreciation, and Amortization)</label>
             <input
               type="number"
               name="ebitda"
