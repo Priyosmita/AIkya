@@ -74,6 +74,7 @@ const ProfileDetailsPage = () => {
     };
     fetchProfileAndProjects();
   }, []);
+  
   const handleCertificationUpload = (e) => {
     const files = Array.from(e.target.files);
     files.forEach((file) => {

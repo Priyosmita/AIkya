@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useAuth, useUser, useClerk } from '@clerk/nextjs';
+import axios from 'axios';
 
 const Header: React.FC = () => {
   const [hidden, setHidden] = useState<boolean>(false);
@@ -13,6 +14,34 @@ const Header: React.FC = () => {
   const { isSignedIn } = useAuth();
   const { user } = useUser(); 
   const { signOut } = useClerk(); 
+
+  const [formData, setFormData] = useState({
+    name: "",
+    about: "",
+    experience: "",
+    certifications: [], // Array to store files with associative text
+    skills: [],
+    profilePicture: "",
+  });
+
+  useEffect(() => {
+    const fetchProfileAndProjects = async () => {
+      try {
+        const profileResponse = await axios.get(
+          "http://localhost:5000/api/profile"
+        );
+        if (profileResponse.data) {
+          setFormData(profileResponse.data);
+        }        
+      } catch (error) {
+        console.error(
+          "There was an error fetching profile and projects!",
+          error
+        );
+      }
+    };
+    fetchProfileAndProjects();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -79,22 +108,21 @@ const Header: React.FC = () => {
                 className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer transform transition duration-300 hover:scale-110"
                 onClick={toggleDropdown}
               >
-                {profilePicture ? (
+                {formData.profilePicture ? (
                   <img
-                    src={profilePicture}
+                    src={formData.profilePicture}
                     alt="Profile"
-                    width={48}
-                    height={48}
-                    className="rounded-full"
+                    className="object-cover w-full h-full"
                   />
                 ) : (
-                  <img
-                    src={"https://via.placeholder.com/48"}
-                    alt="Default Profile"
-                    width={48}
-                    height={48}
-                    className="rounded-full"
-                  />
+                  <label className="flex flex-col items-center justify-center cursor-pointer">
+                    <span className="text-4xl text-[#6a9696]">+</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="absolute inset-0 opacity-0 cursor-pointer"
+                    />
+                  </label>
                 )}
               </div>
               {dropdownOpen && (
