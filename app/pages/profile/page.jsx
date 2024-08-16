@@ -761,7 +761,7 @@ const ProfileDetailsPage = () => {
             </select>
           </div>
           <div>
-            <label className="block text-[#6a9696] text-xl">SKU</label>
+            <label className="block text-[#6a9696] text-xl">SKU (Stock Keeping Unit)</label>
             <input
               type="number"
               name="skus"
@@ -771,7 +771,7 @@ const ProfileDetailsPage = () => {
             />
           </div>
           <div>
-            <label className="block text-[#6a9696] text-xl">Original Ask</label>
+            <label className="block text-[#6a9696] text-xl">Funding Required</label>
             <input
               type="number"
               name="originalAsk"
