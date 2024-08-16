@@ -268,6 +268,10 @@ const ProfileDetailsPage = () => {
     }
   };
 
+  const saveChanges = () => {
+    alert('Changes saved sucessfully!');
+  }
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -383,17 +387,17 @@ const ProfileDetailsPage = () => {
                   />
                   <button
                     type="button"
-                    onClick={() => removeCertification(index)}
-                    className="ml-4 bg-red-500 text-white p-2 rounded"
+                    onClick={() => handleSaveCertification(index)}
+                    className="ml-4 bg-[#7ebaba] text-white py-2 px-5 rounded hover:bg-[#55aeae] transition duration-150"
                   >
-                    Remove
+                    Save
                   </button>
                   <button
                     type="button"
-                    onClick={() => handleSaveCertification(index)}
-                    className="ml-2 bg-green-500 text-white p-2 rounded"
+                    onClick={() => removeCertification(index)}
+                    className="ml-4 bg-[#ffbc93] text-white p-2 rounded hover:bg-[#ffa066] transition duration-150"
                   >
-                    Save
+                    Remove
                   </button>
                 </div>
               ))}
@@ -474,7 +478,8 @@ const ProfileDetailsPage = () => {
 
             <button
               type="submit"
-              className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded"
+              className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded hover:bg-[#f9bf9a] hover:scale-110 tranform transition duration-300"
+              onClick={saveChanges}
             >
               Save Changes
             </button>
