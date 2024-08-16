@@ -861,6 +861,7 @@ const ProfileDetailsPage = () => {
           <button
             type="submit"
             className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded mt-4"
+            onClick={handleProjectSubmit}
           >
             Save Project
           </button>
