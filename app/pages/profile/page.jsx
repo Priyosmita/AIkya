@@ -193,12 +193,23 @@ const ProfileDetailsPage = () => {
   const handleProjectSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/project",
-        projectData
-      );
-      const project = response.data;
-      setProjects((prevProjects) => [...prevProjects, project]);
+      if (isEditing) {
+        console.log('Updating project:', projectData); // Debugging line
+        const response = await axios.put(`http://localhost:5000/api/project/${projects[editIndex]._id}`, projectData);
+        const updatedProject = response.data;
+  
+        // Update the state with the edited project
+        setProjects((prevProjects) =>
+          prevProjects.map((proj, index) =>
+            index === editIndex ? updatedProject : proj
+          )
+        );
+      } else {
+        console.log('Creating new project:', projectData); // Debugging line
+        const response = await axios.post("http://localhost:5000/api/project", projectData);
+        const newProject = response.data;
+        setProjects((prevProjects) => [...prevProjects, newProject]);
+      }
       setProjectData({
         name: "",
         website: "",
@@ -218,10 +229,15 @@ const ProfileDetailsPage = () => {
         images: null,
       });
       setModalIsOpen(false);
+      setIsEditing(false);
+      setEditIndex(null);
     } catch (error) {
       console.error("There was an error!", error);
     }
   };
+  
+  
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle the submit logic here
@@ -250,7 +266,7 @@ const ProfileDetailsPage = () => {
       equityOffered: "",
       debtAmount: "",
       images: null,
-      
+
     });
   };
 
