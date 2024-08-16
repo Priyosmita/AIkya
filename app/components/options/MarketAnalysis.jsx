@@ -128,7 +128,7 @@ const MarketAnalysis = () => {
               </div>
             </div>
           )}
-          {!selectedCompany && !loading && <p>Please select a company to view data.</p>}
+          {!selectedCompany && !loading && <p className='cursor-default text-[#7ebaba] text-2xl ml-56 mt-48'>Please select a company to view data.</p>}
         </div>
       </div>
     </div>
