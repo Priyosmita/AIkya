@@ -400,9 +400,6 @@ const ProfileDetailsPage = () => {
             </div>
 
             <div className="mt-8">
-              <h3 className="text-[#6a9696] text-2xl mb-4">
-                Saved Certifications
-              </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {savedCertifications.map((certification, index) => (
                   <div
