@@ -74,7 +74,7 @@ const ProfileDetailsPage = () => {
     };
     fetchProfileAndProjects();
   }, []);
-  
+
   const handleCertificationUpload = (e) => {
     const files = Array.from(e.target.files);
     files.forEach((file) => {
@@ -285,7 +285,7 @@ const ProfileDetailsPage = () => {
       <Header />
       <div className="min-h-screen bgGradient flex flex-col items-center py-10">
         <div className="bg-white bg-opacity-0 rounded-2xl p-8 w-3/4 pt-32 gap-y-7">
-          <h2 className="text-[#7ebaba] text-5xl mb-6 text-center">
+          <h2 className="text-[#7ebaba] text-6xl mb-6 text-center">
             Profile Details
           </h2>
           <form className="space-y-8" onSubmit={handleProfileSubmit}>
