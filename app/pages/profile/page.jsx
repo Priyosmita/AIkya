@@ -205,6 +205,16 @@ const ProfileDetailsPage = () => {
         type: "",
         industry: "",
         details: "",
+        startedIn: "",
+        yearlyRevenue: "",
+        monthlySales: "",
+        grossMargin: "",
+        netMargin: "",
+        ebitda: "",
+        skus: "",
+        originalAsk: "",
+        equityOffered: "",
+        debtAmount: "",
         images: null,
       });
       setModalIsOpen(false);
@@ -229,7 +239,18 @@ const ProfileDetailsPage = () => {
       type: "",
       industry: "",
       details: "",
+      startedIn: "",
+      yearlyRevenue: "",
+      monthlySales: "",
+      grossMargin: "",
+      netMargin: "",
+      ebitda: "",
+      skus: "",
+      originalAsk: "",
+      equityOffered: "",
+      debtAmount: "",
       images: null,
+      
     });
   };
 
@@ -812,7 +833,7 @@ const ProfileDetailsPage = () => {
           </div>
           <div>
             <label className="block text-[#6a9696] text-xl">
-              Debt Accept or Not
+              Debt Accepted?
             </label>
             <input
               type="checkbox"
