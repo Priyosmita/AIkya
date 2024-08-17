@@ -1,8 +1,6 @@
 "use client";
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import CustomModal from "../CustomModal";
 import "../../globals.css";
 
 const ProfileForm = () => {
@@ -12,88 +10,97 @@ const ProfileForm = () => {
     experience: "",
     certifications: [], // Array to store files with associative text
     skills: [],
-    profilePicture: "",
+    profilePicture: null, // Store the file object
+    profilePicturePreview: "", // Store the preview URL
   });
   const [projects, setProjects] = useState([]);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editIndex, setEditIndex] = useState(null);
-  const [dropdownIndex, setDropdownIndex] = useState(null);
   const [skillInput, setSkillInput] = useState("");
-  const [savedCertifications, setSavedCertifications] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [inputUsername, setInputUsername] = useState("");
-  const username = "any"; // Replace with the actual username
+
   useEffect(() => {
     const fetchProfileAndProjects = async () => {
       try {
-        const profileResponse = await axios.get(
-          "http://localhost:5000/api/profile"
-        );
+        const profileResponse = await axios.get("http://localhost:5000/api/profile");
         if (profileResponse.data) {
-          setFormData(profileResponse.data);
+          setFormData((prevData) => ({
+            ...prevData,
+            ...profileResponse.data,
+            profilePicturePreview: profileResponse.data.profilePicture ? `http://localhost:5000/${profileResponse.data.profilePicture}` : ""
+          }));
         }
-        const projectResponse = await axios.get(
-          "http://localhost:5000/api/projects"
-        );
+        const projectResponse = await axios.get("http://localhost:5000/api/projects");
         setProjects(projectResponse.data);
       } catch (error) {
-        console.error(
-          "There was an error fetching profile and projects!",
-          error
-        );
+        console.error("There was an error fetching profile and projects!", error);
       }
     };
     fetchProfileAndProjects();
   }, []);
+  
 
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
+    const form = new FormData();
+
+    form.append("name", formData.name);
+    form.append("about", formData.about);
+    form.append("experience", formData.experience);
+    form.append("skills", JSON.stringify(formData.skills));
+
+    if (formData.profilePicture) {
+      form.append("profilePicture", formData.profilePicture);
+    }
+
+    formData.certifications.forEach((cert, index) => {
+      form.append(`certifications[${index}]`, cert.file);
+      form.append(`certificationsText[${index}]`, cert.text);
+    });
+
     try {
       const response = await axios.post(
         "http://localhost:5000/api/profile",
-        formData
+        form,
+        { headers: { 'Content-Type': 'multipart/form-data' } }
       );
       console.log(response.data);
     } catch (error) {
       console.error("There was an error!", error);
     }
   };
+
   const handleProfilePictureUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData((prevData) => ({
-          ...prevData,
-          profilePicture: file,
-          profilePicturePreview: reader.result, // Save the preview separately
-        }));
-      };
-      reader.readAsDataURL(file);
+      setFormData((prevData) => ({
+        ...prevData,
+        profilePicture: file
+      }));
     }
   };
+  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
+
   const handleCertificationUpload = (e) => {
     const files = Array.from(e.target.files);
     files.forEach((file) => {
-      const fileURL = URL.createObjectURL(file); // Create a URL for the file
+      const fileURL = URL.createObjectURL(file);
       setFormData((prevData) => ({
         ...prevData,
         certifications: [
           ...prevData.certifications,
           {
             file,
-            preview: fileURL, // Store the URL for preview
+            preview: fileURL,
             text: "",
           },
         ],
       }));
     });
   };
+
   const handleCertificationTextChange = (index, text) => {
     const updatedCertifications = [...formData.certifications];
     updatedCertifications[index].text = text;
@@ -102,11 +109,13 @@ const ProfileForm = () => {
       certifications: updatedCertifications,
     }));
   };
+
   const handleSaveCertification = (index) => {
     const certification = formData.certifications[index];
     setSavedCertifications((prevCerts) => [...prevCerts, certification]);
     removeCertification(index);
   };
+
   const removeCertification = (index) => {
     const updatedCertifications = formData.certifications.filter(
       (_, i) => i !== index
@@ -116,9 +125,11 @@ const ProfileForm = () => {
       certifications: updatedCertifications,
     }));
   };
+
   const handleSkillsChange = (skills) => {
     setFormData((prevData) => ({ ...prevData, skills }));
   };
+
   const handleSkillKeyDown = (e) => {
     if (e.key === "Enter" && skillInput.trim()) {
       e.preventDefault();
@@ -126,12 +137,15 @@ const ProfileForm = () => {
       setSkillInput("");
     }
   };
+
   const handleRemoveSkill = (index) => {
     handleSkillsChange(formData.skills.filter((_, i) => i !== index));
   };
+
   const saveChanges = () => {
-    alert("Changes saved sucessfully!");
+    alert("Changes saved successfully!");
   };
+
   return (
     <>
       <h2 className="text-[#7ebaba] text-6xl mb-6 text-center">
@@ -140,9 +154,9 @@ const ProfileForm = () => {
       <form className="space-y-8" onSubmit={handleProfileSubmit}>
         <div className="flex justify-start mb-8">
           <div className="relative w-40 h-40 rounded-full border-2 border-[#6a9696] flex items-center justify-center overflow-hidden">
-            {formData.profilePicture ? (
+            {formData.profilePicturePreview ? (
               <img
-                src={formData.profilePicture}
+                src={formData.profilePicturePreview}
                 alt="Profile"
                 className="object-cover w-full h-full"
               />
@@ -188,111 +202,6 @@ const ProfileForm = () => {
             className="w-full p-2 border rounded text-black focus:outline-none"
           ></textarea>
         </div>
-        <div>
-          <label className="block text-[#6a9696] text-2xl">
-            Certifications
-          </label>
-          <input
-            type="file"
-            multiple
-            onChange={handleCertificationUpload}
-            className="w-full p-2 border rounded text-black"
-          />
-          {formData.certifications.map((certification, index) => (
-            <div key={index} className="flex items-center mt-2">
-              <a
-                href={certification.preview}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mr-4"
-              >
-                {certification.file.type.includes("image") ? (
-                  <img
-                    src={certification.preview}
-                    alt={`Certification ${index + 1}`}
-                    className="w-20 h-20 object-cover rounded"
-                  />
-                ) : certification.file.type === "application/pdf" ? (
-                  <div className="text-black">
-                    <object
-                      data={certification.preview}
-                      type="application/pdf"
-                      width="100"
-                      height="100"
-                    >
-                      <embed
-                        src={certification.preview}
-                        type="application/pdf"
-                      />
-                    </object>
-                  </div>
-                ) : (
-                  <div className="text-black">Preview not available</div>
-                )}
-              </a>
-              <input
-                type="text"
-                placeholder="Add a description"
-                value={certification.text}
-                onChange={(e) =>
-                  handleCertificationTextChange(index, e.target.value)
-                }
-                className="ml-4 p-2 border rounded text-black flex-grow"
-              />
-              <button
-                type="button"
-                onClick={() => handleSaveCertification(index)}
-                className="ml-4 bg-[#7ebaba] text-white py-2 px-5 rounded hover:bg-[#55aeae] transition duration-150"
-              >
-                Save
-              </button>
-              <button
-                type="button"
-                onClick={() => removeCertification(index)}
-                className="ml-4 bg-[#ffbc93] text-white p-2 rounded hover:bg-[#ffa066] transition duration-150"
-              >
-                Remove
-              </button>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {savedCertifications.map((certification, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg shadow-md">
-                <a
-                  href={URL.createObjectURL(certification.file)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {certification.file.type.includes("image") ? (
-                    <img
-                      src={URL.createObjectURL(certification.file)}
-                      alt={`Certification ${index + 1}`}
-                      className="w-full h-32 object-cover rounded mb-2"
-                    />
-                  ) : certification.file.type === "application/pdf" ? (
-                    <object
-                      data={URL.createObjectURL(certification.file)}
-                      type="application/pdf"
-                      width="100%"
-                      height="200"
-                    >
-                      <embed
-                        src={URL.createObjectURL(certification.file)}
-                        type="application/pdf"
-                      />
-                    </object>
-                  ) : (
-                    <div className="text-black">Preview not available</div>
-                  )}
-                </a>
-                <p className="text-[#6a9696] mt-2">{certification.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
 
         <div>
           <label className="block text-[#6a9696] text-2xl mb-2">Skills</label>
@@ -327,7 +236,7 @@ const ProfileForm = () => {
 
         <button
           type="submit"
-          className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded hover:bg-[#f9bf9a] hover:scale-110 tranform transition duration-300"
+          className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded hover:bg-[#f9bf9a] hover:scale-110 transform transition duration-300"
           onClick={saveChanges}
         >
           Save Changes
