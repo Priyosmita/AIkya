@@ -1,29 +1,53 @@
 .chart-container {
-    position: relative;
-    height: 500px;
-    width: 100%;
-    /* margin-right: 90px; */
-  }
-  .donations-container {
-    max-height: 900px;
-    width: 140vh;
-    overflow: auto;
-  }
-  
-  .grid {
-    overflow: auto; /* Ensure grid itself is scrollable if needed */
-  }
-  
-  .modal-content {
-    max-height: 80vh; /* Adjust as necessary */
-    overflow-y: auto; /* Scroll if content overflows */
-  }
-  .Smart_match_container{
-    max-height: 1200px;
-  }
-  .funding-container{
-    max-height: 900px;
-    width: 140vh;
-  }
-  
-  
+  position: relative;
+  height: 500px;
+  width: 100%;
+  /* margin-right: 90px; */
+}
+
+.donations-container {
+  max-height: 900px;
+  width: 140vh;
+  overflow: auto;
+}
+
+.grid {
+  overflow: auto;
+  /* Ensure grid itself is scrollable if needed */
+}
+
+.modal-content {
+  max-height: 80vh;
+  /* Adjust as necessary */
+  overflow-y: auto;
+  /* Scroll if content overflows */
+}
+
+.Smart_match_container {
+  max-height: 1200px;
+}
+
+.funding-container {
+  max-height: 900px;
+  width: 140vh;
+}
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  background-color: #fedeca; /* Background color of the scrollbar track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #6bb3b3; /* Color of the scrollbar thumb */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #287f7f; /* Color when hovering over the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #fae4d5; /* Background color of the scrollbar track */
+  border-radius: 10px;
+}

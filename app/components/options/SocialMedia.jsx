@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { IoCloseSharp } from "react-icons/io5";
 import "../components.css";
+import "./options.css";
 
 const initialPosts = [
   {
@@ -244,75 +245,75 @@ const SocialMedia = () => {
       </div>
 
       {selectedPostId !== null && (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center ">
-    <div className="bg-[#fedeca] bg-opacity-95 p-6 rounded-xl w-full max-w-3xl h-105">
-    <div className="sticky top-0 z-50 flex flex-row justify-between p-2">
-          <h3 className="text-2xl text-[#6bb3b3] font-semibold cursor-default">Comments</h3>
-          <button
-            onClick={closeCommentModal}
-            className="text-[#6bb3b3] text-3xl rounded-full transform transition duration-150 hover:text-[#1f6262]"
-          >
-            <IoCloseSharp />
-          </button>
-        </div>
-
-      <div className="relative h-106 bg-opacity-95  overflow-y-auto">
-        {posts.find(post => post.id === selectedPostId).comments.map((comment, index) => (
-          <div key={index} className="mb-4">
-            <div className="flex items-center justify-between mb-2">
-              <p
-                className="font-semibold cursor-pointer"
-                onClick={() => navigateToProfile(comment.user)}
-              >
-                {comment.user}
-              </p>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+          <div className="bg-[#fedeca] bg-opacity-95 p-6 rounded-xl w-full max-w-3xl h-105">
+            <div className="sticky top-0 z-50 flex flex-row justify-between p-2">
+              <h3 className="text-2xl text-[#6bb3b3] font-semibold cursor-default">Comments</h3>
               <button
-                onClick={() => handleLikeComment(selectedPostId, index)}
-                className="text-2xl"
-                style={{ color: comment.isLiked ? '#6bb3b3' : '#6bb3b3' }}
+                onClick={closeCommentModal}
+                className="text-[#6bb3b3] text-3xl rounded-full transform transition duration-150 hover:text-[#1f6262]"
               >
-                {comment.isLiked ? <AiFillLike /> : <AiOutlineLike />}
+                <IoCloseSharp />
               </button>
             </div>
-            <p className="mb-2 text-gray-600">{comment.text}</p>
-            {comment.replies.map((reply, replyIndex) => (
-              <div key={replyIndex} className="ml-4 mb-2 border-t pt-1">
-                <p className="text-sm text-gray-600">{reply.text}</p>
-                <button
-                  onClick={() => handleLikeComment(selectedPostId, index, replyIndex)}
-                  className="text-xs text-[#6bb3b3]"
-                >
-                  {reply.isLiked ? <AiFillLike /> : <AiOutlineLike />} {reply.likes}
-                </button>
-              </div>
-            ))}
-            {activeReply === index ? (
-              <input
-                type="text"
-                placeholder="Reply..."
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    handleReply(selectedPostId, index, e.target.value);
-                    e.target.value = '';
-                    setActiveReply(null);
-                  }
-                }}
-                className="p-2 border rounded w-full"
-              />
-            ) : (
-              <button
-                onClick={() => setActiveReply(index)}
-                className="text-[#6bb3b3] text-sm"
-              >
-                Reply
-              </button>
-            )}
+
+            <div className="relative h-106 bg-opacity-95  overflow-y-auto custom-scrollbar">
+              {posts.find(post => post.id === selectedPostId).comments.map((comment, index) => (
+                <div key={index} className="mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <p
+                      className="font-semibold cursor-pointer"
+                      onClick={() => navigateToProfile(comment.user)}
+                    >
+                      {comment.user}
+                    </p>
+                    <button
+                      onClick={() => handleLikeComment(selectedPostId, index)}
+                      className="text-2xl"
+                      style={{ color: comment.isLiked ? '#6bb3b3' : '#6bb3b3' }}
+                    >
+                      {comment.isLiked ? <AiFillLike /> : <AiOutlineLike />}
+                    </button>
+                  </div>
+                  <p className="mb-2 text-gray-600">{comment.text}</p>
+                  {comment.replies.map((reply, replyIndex) => (
+                    <div key={replyIndex} className="ml-4 mb-2 border-t pt-1">
+                      <p className="text-sm text-gray-600">{reply.text}</p>
+                      <button
+                        onClick={() => handleLikeComment(selectedPostId, index, replyIndex)}
+                        className="text-xs text-[#6bb3b3]"
+                      >
+                        {reply.isLiked ? <AiFillLike /> : <AiOutlineLike />} {reply.likes}
+                      </button>
+                    </div>
+                  ))}
+                  {activeReply === index ? (
+                    <input
+                      type="text"
+                      placeholder="Reply..."
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          handleReply(selectedPostId, index, e.target.value);
+                          e.target.value = '';
+                          setActiveReply(null);
+                        }
+                      }}
+                      className="p-2 border rounded w-full"
+                    />
+                  ) : (
+                    <button
+                      onClick={() => setActiveReply(index)}
+                      className="text-[#6bb3b3] text-sm"
+                    >
+                      Reply
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
-      </div>
-    </div>
-  </div>
-)}
+        </div>
+      )}
 
     </div>
   );
