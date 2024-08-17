@@ -33,6 +33,10 @@
 }
 
 /* Custom scrollbar styles */
+.custom-scrollbar {
+  padding-right: 30px; /* Adjust this value to shift the scrollbar left */
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px;
   background-color: #fedeca; /* Background color of the scrollbar track */
