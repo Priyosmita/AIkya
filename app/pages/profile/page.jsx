@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
@@ -679,7 +680,14 @@ const ProfileDetailsPage = () => {
               <option value="">Select Industry</option>
               <option value="technology">Technology</option>
               <option value="healthcare">Healthcare</option>
+              <option value="finance">Food</option>
               <option value="finance">Finance</option>
+              <option value="finance">Fashion</option>
+              <option value="finance">Beauty & Skincare</option>
+              <option value="finance">Pets</option>
+              <option value="finance">Arts & Crafts</option>
+              <option value="finance">Gifts</option>
+              <option value="finance">Jwellery</option>
               <option value="others">Others</option>
             </select>
             {projectData.industry === "others" && (
