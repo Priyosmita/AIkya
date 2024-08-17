@@ -216,31 +216,38 @@ const SocialMedia = () => {
             <p className="mb-2">{post.description}</p>
             <div className="flex justify-between items-center mb-2">
               <div className="flex space-x-5">
-                <button
-                  onClick={() => handleReaction(post.id)}
-                  className="text-2xl"
-                  style={{ color: post.isLiked ? '#6bb3b3' : '#6bb3b3' }}
-                >
-                  {post.isLiked ? <AiFillLike /> : <AiOutlineLike />}
-                </button>
+                <div className="flex flex-row gap-x-2">
+                  <button
+                    onClick={() => handleReaction(post.id)}
+                    className="text-2xl"
+                    style={{ color: post.isLiked ? '#6bb3b3' : '#6bb3b3' }}
+                  >
+                    {post.isLiked ? <AiFillLike /> : <AiOutlineLike />}
+                  </button>
+                  <p className="text-[#6bb3b3] text-xl">{post.reactions}</p>
+                </div>
+
+                <div className="flex flex-row gap-x-2">
                 <button
                   className="text-[#6bb3b3] text-2xl"
                   onClick={() => openCommentModal(post.id)}
                 >
                   <FaRegComment />
                 </button>
+                <p className="text-[#6bb3b3] text-xl">{post.comments.length}</p>
+                </div>
                 <button className="text-[#6bb3b3] text-2xl"><IoShareSocial /></button>
               </div>
             </div>
+
             <div className="mb-2">
-              <p className="text-[#6bb3b3]">{post.reactions} Likes</p>
               {post.comments.slice(0, 2).map((comment, index) => (
                 <p key={index} className="mb-1 border-t pt-1 text-gray-600">{comment.text}</p>
               ))}
               {post.comments.length > 2 && (
                 <button
                   onClick={() => openCommentModal(post.id)}
-                  className="text-[#6bb3b3] text-sm mt-2"
+                  className="text-[#6bb3b3] text-lg mt-2"
                 >
                   View all comments
                 </button>
@@ -276,7 +283,7 @@ const SocialMedia = () => {
             </div>
 
 
-            <div className="relative h-106 bg-opacity-95  overflow-y-auto custom-scrollbar">
+            <div className="relative h-106 bg-opacity-95 overflow-y-auto custom-scrollbar">
               {posts.find(post => post.id === selectedPostId).comments.map((comment, index) => (
                 <div key={index} className="mb-4">
                   <div className="flex flex-row justify-between">
@@ -291,24 +298,30 @@ const SocialMedia = () => {
                         </p>
                       </div>
                     </div>
-                    <button
-                      onClick={() => handleLikeComment(selectedPostId, index)}
-                      className="text-2xl "
-                      style={{ color: comment.isLiked ? '#6bb3b3' : '#6bb3b3' }}
-                    >
-                      {comment.isLiked ? <AiFillLike /> : <AiOutlineLike />}
-                    </button>
+                    <div className="flex items-center">
+                      <button
+                        onClick={() => handleLikeComment(selectedPostId, index)}
+                        className="text-xl"
+                        style={{ color: comment.isLiked ? '#6bb3b3' : '#6bb3b3' }}
+                      >
+                        {comment.isLiked ? <AiFillLike /> : <AiOutlineLike />}
+                      </button>
+                      <p className="ml-2 text-[#6bb3b3]">{comment.likes} </p> {/* Display the number of likes */}
+                    </div>
                   </div>
                   <p className="mb-2 text-gray-600">{comment.text}</p>
                   {comment.replies.map((reply, replyIndex) => (
                     <div key={replyIndex} className="ml-4 mb-2 border-t pt-1">
                       <p className="text-sm text-gray-600">{reply.text}</p>
-                      <button
-                        onClick={() => handleLikeComment(selectedPostId, index, replyIndex)}
-                        className="text-xs text-[#6bb3b3]"
-                      >
-                        {reply.isLiked ? <AiFillLike /> : <AiOutlineLike />} {reply.likes}
-                      </button>
+                      <div className="flex items-center">
+                        <button
+                          onClick={() => handleLikeComment(selectedPostId, index, replyIndex)}
+                          className="text-xl text-[#6bb3b3]"
+                        >
+                          {reply.isLiked ? <AiFillLike /> : <AiOutlineLike />}
+                        </button>
+                        <p className="ml-2 text-[#6bb3b3]">{reply.likes} </p> {/* Display the number of likes for replies */}
+                      </div>
                     </div>
                   ))}
                   {activeReply === index ? (
@@ -335,6 +348,7 @@ const SocialMedia = () => {
                 </div>
               ))}
             </div>
+
           </div>
         </div>
       )}
@@ -343,6 +357,5 @@ const SocialMedia = () => {
     </div>
   );
 };
-
 
 export default SocialMedia;
