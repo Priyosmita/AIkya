@@ -72,20 +72,30 @@ const SocialMedia = () => {
     ));
   };
 
-  const handleLikeComment = (postId, commentIndex) => {
+  const handleLikeComment = (postId, commentIndex, replyIndex = null) => {
     setPosts(posts.map(post =>
       post.id === postId
         ? {
           ...post,
           comments: post.comments.map((comment, index) =>
             index === commentIndex
-              ? { ...comment, likes: comment.isLiked ? comment.likes - 1 : comment.likes + 1, isLiked: !comment.isLiked }
+              ? replyIndex === null
+                ? { ...comment, likes: comment.isLiked ? comment.likes - 1 : comment.likes + 1, isLiked: !comment.isLiked }
+                : {
+                  ...comment,
+                  replies: comment.replies.map((reply, rIndex) =>
+                    rIndex === replyIndex
+                      ? { ...reply, likes: reply.isLiked ? reply.likes - 1 : reply.likes + 1, isLiked: !reply.isLiked }
+                      : reply
+                  )
+                }
               : comment
           )
         }
         : post
     ));
   };
+
 
   const handleCreatePost = () => {
     setPosts([...posts, { ...newPost, id: posts.length + 1, image: imagePreview, reactions: 0, comments: [], isLiked: false }]);
@@ -190,7 +200,7 @@ const SocialMedia = () => {
                 <button
                   onClick={() => handleReaction(post.id)}
                   className="text-2xl"
-                  style={{ color: post.isLiked ? '#6bb3b3' : '#6bb3b3' }} 
+                  style={{ color: post.isLiked ? '#6bb3b3' : '#6bb3b3' }}
                 >
                   {post.isLiked ? <AiFillLike /> : <AiOutlineLike />}
                 </button>
@@ -264,6 +274,7 @@ const SocialMedia = () => {
                       >
                         {reply.isLiked ? <AiFillLike /> : <AiOutlineLike />} {reply.likes}
                       </button>
+
                     </div>
                   ))}
                   {activeReply === index ? (
