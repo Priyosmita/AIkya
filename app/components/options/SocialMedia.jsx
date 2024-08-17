@@ -260,16 +260,21 @@ const SocialMedia = () => {
             <div className="relative h-106 bg-opacity-95  overflow-y-auto custom-scrollbar">
               {posts.find(post => post.id === selectedPostId).comments.map((comment, index) => (
                 <div key={index} className="mb-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <p
-                      className="font-semibold cursor-pointer"
-                      onClick={() => navigateToProfile(comment.user)}
-                    >
-                      {comment.user}
-                    </p>
+                  <div className="flex flex-row justify-between">
+                    <div className="flex flex-row">
+                      <img src={comment.profilePic} alt="profile" className="w-8 h-8 rounded-full mr-2 mb-3" /> {/* Profile pic */}
+                      <div className="flex items-center mb-2">
+                        <p
+                          className="font-semibold cursor-pointer"
+                          onClick={() => navigateToProfile(comment.user)}
+                        >
+                          {comment.user}
+                        </p>
+                      </div>
+                    </div>
                     <button
                       onClick={() => handleLikeComment(selectedPostId, index)}
-                      className="text-2xl"
+                      className="text-2xl "
                       style={{ color: comment.isLiked ? '#6bb3b3' : '#6bb3b3' }}
                     >
                       {comment.isLiked ? <AiFillLike /> : <AiOutlineLike />}
