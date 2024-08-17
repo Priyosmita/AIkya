@@ -5,6 +5,7 @@ import { IoShareSocial } from "react-icons/io5";
 import { FaRegComment } from "react-icons/fa";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { IoCloseSharp } from "react-icons/io5";
 import "../components.css";
 
 const initialPosts = [
@@ -221,7 +222,7 @@ const SocialMedia = () => {
               {post.comments.length > 2 && (
                 <button
                   onClick={() => openCommentModal(post.id)}
-                  className="text-blue-500 text-sm mt-2"
+                  className="text-[#6bb3b3] text-sm mt-2"
                 >
                   View all comments
                 </button>
@@ -244,8 +245,16 @@ const SocialMedia = () => {
 
       {selectedPostId !== null && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-xl w-full max-w-3xl overflow-y-auto h-105">
-            <h3 className="text-2xl font-semibold mb-4">Comments</h3>
+          <div className="bg-[#fedeca] bg-opacity-95 p-6 rounded-xl w-full max-w-3xl overflow-y-auto h-105">
+            <div className="sticky top-0 bg-[#fedeca] bg-opacity-95 z-10 flex flex-row justify-between">
+              <h3 className="text-2xl font-semibold mb-4">Comments</h3>
+              <button
+                onClick={closeCommentModal}
+                className="mt-4 text-[#6bb3b3] text-3xl rounded-full transform transition duration-150 hover:text-[#1f6262]"
+              >
+                <IoCloseSharp />
+              </button>
+            </div>
             <div>
               {posts.find(post => post.id === selectedPostId).comments.map((comment, index) => (
                 <div key={index} className="mb-4">
@@ -274,7 +283,6 @@ const SocialMedia = () => {
                       >
                         {reply.isLiked ? <AiFillLike /> : <AiOutlineLike />} {reply.likes}
                       </button>
-
                     </div>
                   ))}
                   {activeReply === index ? (
@@ -293,7 +301,7 @@ const SocialMedia = () => {
                   ) : (
                     <button
                       onClick={() => setActiveReply(index)}
-                      className="text-blue-500 text-sm"
+                      className="text-[#6bb3b3] text-sm"
                     >
                       Reply
                     </button>
@@ -301,12 +309,6 @@ const SocialMedia = () => {
                 </div>
               ))}
             </div>
-            <button
-              onClick={closeCommentModal}
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              Close
-            </button>
           </div>
         </div>
       )}
