@@ -40,21 +40,23 @@ const ProfileForm = () => {
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
     const form = new FormData();
-
+  
     form.append("name", formData.name);
     form.append("about", formData.about);
     form.append("experience", formData.experience);
+    
+    // Convert skills array to JSON string before sending
     form.append("skills", JSON.stringify(formData.skills));
-
+    
     if (formData.profilePicture) {
       form.append("profilePicture", formData.profilePicture);
     }
-
+  
     formData.certifications.forEach((cert, index) => {
       form.append(`certifications[${index}]`, cert.file);
       form.append(`certificationsText[${index}]`, cert.text);
     });
-
+  
     try {
       const response = await axios.post(
         "http://localhost:5000/api/profile",
@@ -66,6 +68,7 @@ const ProfileForm = () => {
       console.error("There was an error!", error);
     }
   };
+  
 
   const handleProfilePictureUpload = (e) => {
     const file = e.target.files[0];
@@ -204,35 +207,36 @@ const ProfileForm = () => {
         </div>
 
         <div>
-          <label className="block text-[#6a9696] text-2xl mb-2">Skills</label>
-          <div className="flex flex-col gap-2">
-            <input
-              type="text"
-              value={skillInput}
-              onChange={(e) => setSkillInput(e.target.value)}
-              onKeyDown={handleSkillKeyDown}
-              placeholder="Type a skill and press Enter"
-              className="p-2 h-14 focus:outline-none rounded text-black"
-            />
-            <div className="border rounded p-2 flex flex-wrap gap-2 mt-2">
-              {formData.skills.map((skill, index) => (
-                <div
-                  key={index}
-                  className="bg-[#f8c3a2] text-white py-1 px-2 rounded flex items-center"
-                >
-                  <span>{skill}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveSkill(index)}
-                    className="ml-2 text-lg"
-                  >
-                    &times;
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
+  <label className="block text-[#6a9696] text-2xl mb-2">Skills</label>
+  <div className="flex flex-col gap-2">
+    <input
+      type="text"
+      value={skillInput}
+      onChange={(e) => setSkillInput(e.target.value)}
+      onKeyDown={handleSkillKeyDown}
+      placeholder="Type a skill and press Enter"
+      className="p-2 h-14 focus:outline-none rounded text-black"
+    />
+    <div className="border rounded p-2 flex flex-wrap gap-2 mt-2">
+      {formData.skills.map((skill, index) => (
+        <div
+          key={index}
+          className="bg-[#f8c3a2] text-white py-1 px-2 rounded flex items-center"
+        >
+          <span>{skill}</span>
+          <button
+            type="button"
+            onClick={() => handleRemoveSkill(index)}
+            className="ml-2 text-lg"
+          >
+            &times;
+          </button>
         </div>
+      ))}
+    </div>
+  </div>
+</div>
+
 
         <button
           type="submit"
