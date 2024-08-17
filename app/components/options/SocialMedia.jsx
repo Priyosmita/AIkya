@@ -1,7 +1,6 @@
-
 'use client';
 
-
+import { BiLike } from "react-icons/bi";
 import React, { useState } from 'react';
 import "../components.css"
 
@@ -136,8 +135,8 @@ const SocialMedia = () => {
             <p className="mb-2">{post.description}</p>
             <div className="flex justify-between items-center mb-2">
               <div>
-                <button onClick={() => handleReaction(post.id)} className="mr-2 text-gray-600">
-                  👍 {post.reactions}
+                <button onClick={() => handleReaction(post.id)} className="mr-2 text-[#6bb3b3]">
+                <BiLike /> {post.reactions}
                 </button>
                 <button className="mr-2 text-gray-600">💬</button>
                 <button className="text-gray-600">🔗</button>
