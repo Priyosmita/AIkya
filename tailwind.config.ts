@@ -1,4 +1,6 @@
+
 import type { Config } from 'tailwindcss';
+
 
 const config: Config = {
   content: [
@@ -17,7 +19,9 @@ const config: Config = {
         '101': '930px',
         '102': '600px',
         '103': '900px',
-        '104': '870px'
+        '104': '870px',
+        '105': '80vh',
+        '106': '60vh'
       },
       width: {
         '100': '750px',
@@ -57,4 +61,6 @@ const config: Config = {
   ],
 };
 
+
 export default config;
+

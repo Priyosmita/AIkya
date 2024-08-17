@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/pages/profile/page.jsx", "app/components/CustomModal.tsx", "app/components/Window.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/pages/profile/page.jsx", "app/components/CustomModal.tsx", "app/components/Window.jsx", "app/pages/dashboard/page.jsx"],
   "exclude": ["node_modules"]
 }

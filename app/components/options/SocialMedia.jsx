@@ -1,31 +1,38 @@
-
 'use client';
 
 
+import { AiOutlineLike, AiFillLike } from "react-icons/ai";
+import { IoShareSocial } from "react-icons/io5";
+import { FaRegComment } from "react-icons/fa";
 import React, { useState } from 'react';
-import "../components.css"
+import { useRouter } from 'next/navigation';
+import { IoCloseSharp } from "react-icons/io5";
+import "../components.css";
+import "./options.css";
 
 
 const initialPosts = [
   {
     id: 1,
-    profilePic: 'https://media.licdn.com/dms/image/D4E03AQF994QfoNMUBA/profile-displayphoto-shrink_200_200/0/1706964303726?e=2147483647&v=beta&t=kvqaovcfqEGsj35xJaAo6o6MSmvuvn_mThbzHTFyy3U', // Add profile picture URL
-    name: 'Priyosmita Das', // Add profile name
+    profilePic: 'https://media.licdn.com/dms/image/D4E03AQF994QfoNMUBA/profile-displayphoto-shrink_200_200/0/1706964303726?e=2147483647&v=beta&t=kvqaovcfqEGsj35xJaAo6o6MSmvuvn_mThbzHTFyy3U',
+    name: 'Priyosmita Das',
     image: 'https://github.com/Priyosmita/Kali-Yug/blob/main/Environment%20Design/Environment%207.png?raw=true',
     title: 'What is Unreal Engine?',
     description: 'Unreal engine is an advance game development platform to create high end games. It uses C++ in the background.',
     reactions: 0,
     comments: [],
+    isLiked: false,
   },
   {
     id: 2,
-    profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3nS0JgHTRTOZC5dkRUpA9ZqQCY8xsN45RgEMs_OYuet1UcN5zJDj-9oCHlPj65hla51I&usqp=CAU', // Add profile picture URL
-    name: 'Rijuraj Datta', // Add profile name
+    profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3nS0JgHTRTOZC5dkRUpA9ZqQCY8xsN45RgEMs_OYuet1UcN5zJDj-9oCHlPj65hla51I&usqp=CAU',
+    name: 'Rijuraj Datta',
     image: 'https://www.dicsinnovatives.com/blog/wp-content/uploads/2023/08/python-blog-image.jpg',
     title: 'Best languages to learn as beginner',
     description: 'Python is a high level programming language used in mainly AI and Ml and it is also very user friendly.',
     reactions: 0,
     comments: [],
+    isLiked: false,
   },
 ];
 
@@ -35,20 +42,74 @@ const SocialMedia = () => {
   const [newPost, setNewPost] = useState({ title: '', description: '', image: '' });
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
+  const [selectedPostId, setSelectedPostId] = useState(null);
+  const [activeReply, setActiveReply] = useState(null);
+  const router = useRouter();
 
 
   const handleReaction = (postId) => {
-    setPosts(posts.map(post => post.id === postId ? { ...post, reactions: post.reactions + 1 } : post));
+    setPosts(posts.map(post =>
+      post.id === postId
+        ? { ...post, reactions: post.isLiked ? post.reactions - 1 : post.reactions + 1, isLiked: !post.isLiked }
+        : post
+    ));
   };
 
 
   const handleComment = (postId, comment) => {
-    setPosts(posts.map(post => post.id === postId ? { ...post, comments: [...post.comments, comment] } : post));
+    setPosts(posts.map(post =>
+      post.id === postId
+        ? { ...post, comments: [...post.comments, { ...comment, likes: 0, isLiked: false, replies: [] }] }
+        : post
+    ));
   };
 
 
+  const handleReply = (postId, commentIndex, reply) => {
+    setPosts(posts.map(post =>
+      post.id === postId
+        ? {
+          ...post,
+          comments: post.comments.map((comment, index) =>
+            index === commentIndex
+              ? { ...comment, replies: [...comment.replies, { text: reply, likes: 0, isLiked: false }] }
+              : comment
+          )
+        }
+        : post
+    ));
+  };
+
+
+  const handleLikeComment = (postId, commentIndex, replyIndex = null) => {
+    setPosts(posts.map(post =>
+      post.id === postId
+        ? {
+          ...post,
+          comments: post.comments.map((comment, index) =>
+            index === commentIndex
+              ? replyIndex === null
+                ? { ...comment, likes: comment.isLiked ? comment.likes - 1 : comment.likes + 1, isLiked: !comment.isLiked }
+                : {
+                  ...comment,
+                  replies: comment.replies.map((reply, rIndex) =>
+                    rIndex === replyIndex
+                      ? { ...reply, likes: reply.isLiked ? reply.likes - 1 : reply.likes + 1, isLiked: !reply.isLiked }
+                      : reply
+                  )
+                }
+              : comment
+          )
+        }
+        : post
+    ));
+  };
+
+
+
+
   const handleCreatePost = () => {
-    setPosts([...posts, { ...newPost, id: posts.length + 1, image: imagePreview, reactions: 0, comments: [] }]);
+    setPosts([...posts, { ...newPost, id: posts.length + 1, image: imagePreview, reactions: 0, comments: [], isLiked: false }]);
     setNewPost({ title: '', description: '', image: '' });
     setImagePreview('');
     setShowCreatePost(false);
@@ -75,14 +136,28 @@ const SocialMedia = () => {
   };
 
 
+  const openCommentModal = (postId) => {
+    setSelectedPostId(postId);
+  };
+
+
+  const closeCommentModal = () => {
+    setSelectedPostId(null);
+    setActiveReply(null);
+  };
+
+
+  const navigateToProfile = (username) => {
+    router.push(`/profile/${username}`);
+  };
+
+
   return (
-    <div className="SocialWidth h-104 text-black  overflow-hidden flex flex-col">
+    <div className="SocialWidth h-104 text-black overflow-hidden flex flex-col">
       <div className="flex justify-end mb-10">
         <button
           onClick={() => setShowCreatePost(!showCreatePost)}
-          className={`bg-[#7ebaba] text-white px-4 py-2 rounded-full transition-transform transform ${
-            showCreatePost ? 'bg-red-500' : 'bg-[#7ebaba]'
-          }`}
+          className={`bg-[#7ebaba] text-white px-4 py-2 rounded-full transition-transform transform ${showCreatePost ? 'bg-red-500' : 'bg-[#7ebaba]'}`}
         >
           {showCreatePost ? 'Cancel Post' : 'Add Post'}
         </button>
@@ -124,35 +199,58 @@ const SocialMedia = () => {
 
       <div className="max-h-screen overflow-y-auto">
         {posts.map((post) => (
-          <div key={post.id} className="mb-4 p-4 border-black rounded  shadow-lg bg-transparent">
+          <div key={post.id} className="mb-4 p-4 border-black rounded shadow-lg bg-transparent">
             <div className="flex items-center mb-2">
               <img src={post.profilePic} alt={`${post.name}'s profile`} className="w-12 h-12 rounded-full" />
               <div className="ml-4 flex items-center">
-                <p className="font-semibold">{post.name}</p>
+                <p
+                  className="font-semibold cursor-pointer"
+                  onClick={() => navigateToProfile(post.name)}
+                >
+                  {post.name}
+                </p>
               </div>
             </div>
             <img src={post.image} alt={post.title} className="mb-2 object-cover h-full w-full" />
             <h3 className="text-2xl font-semibold mb-2">{post.title}</h3>
             <p className="mb-2">{post.description}</p>
             <div className="flex justify-between items-center mb-2">
-              <div>
-                <button onClick={() => handleReaction(post.id)} className="mr-2 text-gray-600">
-                  👍 {post.reactions}
+              <div className="flex space-x-5">
+                <button
+                  onClick={() => handleReaction(post.id)}
+                  className="text-2xl"
+                  style={{ color: post.isLiked ? '#6bb3b3' : '#6bb3b3' }}
+                >
+                  {post.isLiked ? <AiFillLike /> : <AiOutlineLike />}
                 </button>
-                <button className="mr-2 text-gray-600">💬</button>
-                <button className="text-gray-600">🔗</button>
+                <button
+                  className="text-[#6bb3b3] text-2xl"
+                  onClick={() => openCommentModal(post.id)}
+                >
+                  <FaRegComment />
+                </button>
+                <button className="text-[#6bb3b3] text-2xl"><IoShareSocial /></button>
               </div>
             </div>
             <div className="mb-2">
-              {post.comments.map((comment, index) => (
-                <p key={index} className="mb-1 border-t pt-1 text-gray-600">{comment}</p>
+              <p className="text-[#6bb3b3]">{post.reactions} Likes</p>
+              {post.comments.slice(0, 2).map((comment, index) => (
+                <p key={index} className="mb-1 border-t pt-1 text-gray-600">{comment.text}</p>
               ))}
+              {post.comments.length > 2 && (
+                <button
+                  onClick={() => openCommentModal(post.id)}
+                  className="text-[#6bb3b3] text-sm mt-2"
+                >
+                  View all comments
+                </button>
+              )}
               <input
                 type="text"
                 placeholder="Add a comment"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
-                    handleComment(post.id, e.target.value);
+                    handleComment(post.id, { text: e.target.value, user: 'Current User' });
                     e.target.value = '';
                   }
                 }}
@@ -162,6 +260,86 @@ const SocialMedia = () => {
           </div>
         ))}
       </div>
+
+
+      {selectedPostId !== null && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center pt-20">
+          <div className="bg-[#fedeca] bg-opacity-95 p-6 rounded-xl w-full max-w-3xl h-105">
+            <div className="sticky top-0 z-50 flex flex-row justify-between p-2">
+              <h3 className="text-2xl text-[#6bb3b3] font-semibold cursor-default">Comments</h3>
+              <button
+                onClick={closeCommentModal}
+                className="text-[#6bb3b3] text-3xl rounded-full transform transition duration-150 hover:text-[#1f6262]"
+              >
+                <IoCloseSharp />
+              </button>
+            </div>
+
+
+            <div className="relative h-106 bg-opacity-95  overflow-y-auto custom-scrollbar ">
+              {posts.find(post => post.id === selectedPostId).comments.map((comment, index) => (
+                <div key={index} className="mb-4">
+                  <div className="flex flex-row justify-between">
+                    <div className="flex flex-row">
+                      <img src={comment.profilePic} alt="profile" className="w-8 h-8 rounded-full mr-2 mb-3" /> {/* Profile pic */}
+                      <div className="flex items-center mb-2">
+                        <p
+                          className="font-semibold cursor-pointer"
+                          onClick={() => navigateToProfile(comment.user)}
+                        >
+                          {comment.user}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => handleLikeComment(selectedPostId, index)}
+                      className="text-2xl "
+                      style={{ color: comment.isLiked ? '#6bb3b3' : '#6bb3b3' }}
+                    >
+                      {comment.isLiked ? <AiFillLike /> : <AiOutlineLike />}
+                    </button>
+                  </div>
+                  <p className="mb-2 text-gray-600">{comment.text}</p>
+                  {comment.replies.map((reply, replyIndex) => (
+                    <div key={replyIndex} className="ml-4 mb-2 border-t pt-1">
+                      <p className="text-sm text-gray-600">{reply.text}</p>
+                      <button
+                        onClick={() => handleLikeComment(selectedPostId, index, replyIndex)}
+                        className="text-xs text-[#6bb3b3]"
+                      >
+                        {reply.isLiked ? <AiFillLike /> : <AiOutlineLike />} {reply.likes}
+                      </button>
+                    </div>
+                  ))}
+                  {activeReply === index ? (
+                    <input
+                      type="text"
+                      placeholder="Reply..."
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          handleReply(selectedPostId, index, e.target.value);
+                          e.target.value = '';
+                          setActiveReply(null);
+                        }
+                      }}
+                      className="p-2 border rounded w-full"
+                    />
+                  ) : (
+                    <button
+                      onClick={() => setActiveReply(index)}
+                      className="text-[#6bb3b3] text-sm"
+                    >
+                      Reply
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+
     </div>
   );
 };
