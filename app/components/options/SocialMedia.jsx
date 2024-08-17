@@ -4,7 +4,8 @@ import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { IoShareSocial } from "react-icons/io5";
 import { FaRegComment } from "react-icons/fa";
 import React, { useState } from 'react';
-import "../components.css"
+import { useRouter } from 'next/navigation';
+import "../components.css";
 
 const initialPosts = [
   {
@@ -36,6 +37,9 @@ const SocialMedia = () => {
   const [newPost, setNewPost] = useState({ title: '', description: '', image: '' });
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
+  const [selectedPostId, setSelectedPostId] = useState(null);
+  const [activeReply, setActiveReply] = useState(null);
+  const router = useRouter();
 
   const handleReaction = (postId) => {
     setPosts(posts.map(post =>
@@ -48,7 +52,37 @@ const SocialMedia = () => {
   const handleComment = (postId, comment) => {
     setPosts(posts.map(post =>
       post.id === postId
-        ? { ...post, comments: [...post.comments, comment] }
+        ? { ...post, comments: [...post.comments, { ...comment, likes: 0, isLiked: false, replies: [] }] }
+        : post
+    ));
+  };
+
+  const handleReply = (postId, commentIndex, reply) => {
+    setPosts(posts.map(post =>
+      post.id === postId
+        ? {
+          ...post,
+          comments: post.comments.map((comment, index) =>
+            index === commentIndex
+              ? { ...comment, replies: [...comment.replies, { text: reply, likes: 0, isLiked: false }] }
+              : comment
+          )
+        }
+        : post
+    ));
+  };
+
+  const handleLikeComment = (postId, commentIndex) => {
+    setPosts(posts.map(post =>
+      post.id === postId
+        ? {
+          ...post,
+          comments: post.comments.map((comment, index) =>
+            index === commentIndex
+              ? { ...comment, likes: comment.isLiked ? comment.likes - 1 : comment.likes + 1, isLiked: !comment.isLiked }
+              : comment
+          )
+        }
         : post
     ));
   };
@@ -78,13 +112,25 @@ const SocialMedia = () => {
     }
   };
 
+  const openCommentModal = (postId) => {
+    setSelectedPostId(postId);
+  };
+
+  const closeCommentModal = () => {
+    setSelectedPostId(null);
+    setActiveReply(null);
+  };
+
+  const navigateToProfile = (username) => {
+    router.push(`/profile/${username}`);
+  };
+
   return (
     <div className="SocialWidth h-104 text-black overflow-hidden flex flex-col">
       <div className="flex justify-end mb-10">
         <button
           onClick={() => setShowCreatePost(!showCreatePost)}
-          className={`bg-[#7ebaba] text-white px-4 py-2 rounded-full transition-transform transform ${showCreatePost ? 'bg-red-500' : 'bg-[#7ebaba]'
-            }`}
+          className={`bg-[#7ebaba] text-white px-4 py-2 rounded-full transition-transform transform ${showCreatePost ? 'bg-red-500' : 'bg-[#7ebaba]'}`}
         >
           {showCreatePost ? 'Cancel Post' : 'Add Post'}
         </button>
@@ -128,7 +174,12 @@ const SocialMedia = () => {
             <div className="flex items-center mb-2">
               <img src={post.profilePic} alt={`${post.name}'s profile`} className="w-12 h-12 rounded-full" />
               <div className="ml-4 flex items-center">
-                <p className="font-semibold">{post.name}</p>
+                <p
+                  className="font-semibold cursor-pointer"
+                  onClick={() => navigateToProfile(post.name)}
+                >
+                  {post.name}
+                </p>
               </div>
             </div>
             <img src={post.image} alt={post.title} className="mb-2 object-cover h-full w-full" />
@@ -143,21 +194,34 @@ const SocialMedia = () => {
                 >
                   {post.isLiked ? <AiFillLike /> : <AiOutlineLike />}
                 </button>
-                <button className="text-[#6bb3b3] text-2xl"><FaRegComment /></button>
+                <button
+                  className="text-[#6bb3b3] text-2xl"
+                  onClick={() => openCommentModal(post.id)}
+                >
+                  <FaRegComment />
+                </button>
                 <button className="text-[#6bb3b3] text-2xl"><IoShareSocial /></button>
               </div>
             </div>
             <div className="mb-2">
-              <p className="text-[#6bb3b3]">{post.reactions} Likes</p> {/* New row for like count */}
-              {post.comments.map((comment, index) => (
-                <p key={index} className="mb-1 border-t pt-1 text-gray-600">{comment}</p>
+              <p className="text-[#6bb3b3]">{post.reactions} Likes</p>
+              {post.comments.slice(0, 2).map((comment, index) => (
+                <p key={index} className="mb-1 border-t pt-1 text-gray-600">{comment.text}</p>
               ))}
+              {post.comments.length > 2 && (
+                <button
+                  onClick={() => openCommentModal(post.id)}
+                  className="text-blue-500 text-sm mt-2"
+                >
+                  View all comments
+                </button>
+              )}
               <input
                 type="text"
                 placeholder="Add a comment"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
-                    handleComment(post.id, e.target.value);
+                    handleComment(post.id, { text: e.target.value, user: 'Current User' });
                     e.target.value = '';
                   }
                 }}
@@ -167,6 +231,74 @@ const SocialMedia = () => {
           </div>
         ))}
       </div>
+
+      {selectedPostId !== null && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-xl w-full max-w-3xl overflow-y-auto h-105">
+            <h3 className="text-2xl font-semibold mb-4">Comments</h3>
+            <div>
+              {posts.find(post => post.id === selectedPostId).comments.map((comment, index) => (
+                <div key={index} className="mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <p
+                      className="font-semibold cursor-pointer"
+                      onClick={() => navigateToProfile(comment.user)}
+                    >
+                      {comment.user}
+                    </p>
+                    <button
+                      onClick={() => handleLikeComment(selectedPostId, index)}
+                      className="text-2xl"
+                      style={{ color: comment.isLiked ? '#6bb3b3' : '#6bb3b3' }}
+                    >
+                      {comment.isLiked ? <AiFillLike /> : <AiOutlineLike />}
+                    </button>
+                  </div>
+                  <p className="mb-2 text-gray-600">{comment.text}</p>
+                  {comment.replies.map((reply, replyIndex) => (
+                    <div key={replyIndex} className="ml-4 mb-2 border-t pt-1">
+                      <p className="text-sm text-gray-600">{reply.text}</p>
+                      <button
+                        onClick={() => handleLikeComment(selectedPostId, index, replyIndex)}
+                        className="text-xs text-[#6bb3b3]"
+                      >
+                        {reply.isLiked ? <AiFillLike /> : <AiOutlineLike />} {reply.likes}
+                      </button>
+                    </div>
+                  ))}
+                  {activeReply === index ? (
+                    <input
+                      type="text"
+                      placeholder="Reply..."
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') {
+                          handleReply(selectedPostId, index, e.target.value);
+                          e.target.value = '';
+                          setActiveReply(null);
+                        }
+                      }}
+                      className="p-2 border rounded w-full"
+                    />
+                  ) : (
+                    <button
+                      onClick={() => setActiveReply(index)}
+                      className="text-blue-500 text-sm"
+                    >
+                      Reply
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={closeCommentModal}
+              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
