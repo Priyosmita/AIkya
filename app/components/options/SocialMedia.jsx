@@ -247,10 +247,10 @@ const SocialMedia = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-[#fedeca] bg-opacity-95 p-6 rounded-xl w-full max-w-3xl overflow-y-auto h-105">
             <div className="sticky top-0 bg-[#fedeca] bg-opacity-95 z-10 flex flex-row justify-between">
-              <h3 className="text-2xl font-semibold mb-4">Comments</h3>
+              <h3 className="text-2xl font-semibold">Comments</h3>
               <button
                 onClick={closeCommentModal}
-                className="mt-4 text-[#6bb3b3] text-3xl rounded-full transform transition duration-150 hover:text-[#1f6262]"
+                className="text-[#6bb3b3] text-3xl rounded-full transform transition duration-150 hover:text-[#1f6262]"
               >
                 <IoCloseSharp />
               </button>
