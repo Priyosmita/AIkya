@@ -1,14 +1,19 @@
 'use client';
 
-
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { IoShareSocial } from "react-icons/io5";
 import { FaRegComment } from "react-icons/fa";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { IoCloseSharp } from "react-icons/io5";
+import { FaLink } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import "../components.css";
 import "./options.css";
+import Search from "./Search";
 
 
 const initialPosts = [
@@ -40,11 +45,14 @@ const initialPosts = [
 const SocialMedia = () => {
   const [posts, setPosts] = useState(initialPosts);
   const [newPost, setNewPost] = useState({ title: '', description: '', image: '' });
+  const [searchResults, setSearchResults] = useState(initialPosts);
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
   const [selectedPostId, setSelectedPostId] = useState(null);
   const [activeReply, setActiveReply] = useState(null);
   const router = useRouter();
+  const [showShareModal, setShowShareModal] = useState(false); // To manage share modal visibility
+  const [currentPostId, setCurrentPostId] = useState(null); // To track the post ID for the share modal
 
 
   const handleReaction = (postId) => {
@@ -105,16 +113,12 @@ const SocialMedia = () => {
     ));
   };
 
-
-
-
   const handleCreatePost = () => {
     setPosts([...posts, { ...newPost, id: posts.length + 1, image: imagePreview, reactions: 0, comments: [], isLiked: false }]);
     setNewPost({ title: '', description: '', image: '' });
     setImagePreview('');
     setShowCreatePost(false);
   };
-
 
   const handleCancelPost = () => {
     setNewPost({ title: '', description: '', image: '' });
@@ -135,6 +139,14 @@ const SocialMedia = () => {
     }
   };
 
+  const handleSearch = (query) => {
+    const results = posts.filter(post =>
+      post.title.toLowerCase().includes(query.toLowerCase()) ||
+      post.description.toLowerCase().includes(query.toLowerCase()) ||
+      post.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResults(results);
+  };
 
   const openCommentModal = (postId) => {
     setSelectedPostId(postId);
@@ -151,16 +163,40 @@ const SocialMedia = () => {
     router.push(`/profile/${username}`);
   };
 
+  const handleShareClick = (postId) => {
+    setCurrentPostId(postId);
+    setShowShareModal(true);
+  };
+
+  const closeShareModal = () => {
+    setShowShareModal(false);
+    setCurrentPostId(null);
+  };
+
 
   return (
     <div className="SocialWidth h-104 text-black overflow-hidden flex flex-col">
-      <div className="flex justify-end mb-10">
-        <button
-          onClick={() => setShowCreatePost(!showCreatePost)}
-          className={`bg-[#7ebaba] text-white px-4 py-2 rounded-full transition-transform transform ${showCreatePost ? 'bg-red-500' : 'bg-[#7ebaba]'}`}
-        >
-          {showCreatePost ? 'Cancel Post' : 'Add Post'}
-        </button>
+
+      <div className="flex justify-between">
+        <Search onSearch={handleSearch} />  {/* Searching option */}
+        {/* add post or cancel post */}
+        <div className="pt-4 mb-10">
+          <button
+            onClick={() => setShowCreatePost(!showCreatePost)}
+            className={`bg-[#7ebaba] text-white px-4 py-2 rounded-full transition-transform transform ${showCreatePost ? 'bg-red-500' : 'bg-[#7ebaba]'}`}
+          >
+            {showCreatePost ? 'Cancel Post' : 'Add Post'}
+          </button>
+        </div>
+      </div>
+
+      {/* Display posts based on search results */}
+      <div className="max-h-screen overflow-y-auto z-20">
+        {searchResults.map((post) => (
+          <div key={post.id} className="mb-4 p-4 border-black rounded bg-transparent">
+            {/* Post content */}
+          </div>
+        ))}
       </div>
 
 
@@ -228,15 +264,17 @@ const SocialMedia = () => {
                 </div>
 
                 <div className="flex flex-row gap-x-2">
-                <button
-                  className="text-[#6bb3b3] text-2xl"
-                  onClick={() => openCommentModal(post.id)}
-                >
-                  <FaRegComment />
-                </button>
-                <p className="text-[#6bb3b3] text-xl">{post.comments.length}</p>
+                  <button
+                    className="text-[#6bb3b3] text-2xl"
+                    onClick={() => openCommentModal(post.id)}
+                  >
+                    <FaRegComment />
+                  </button>
+                  <p className="text-[#6bb3b3] text-xl">{post.comments.length}</p>
                 </div>
-                <button className="text-[#6bb3b3] text-2xl"><IoShareSocial /></button>
+                <button className="text-[#6bb3b3] text-2xl" onClick={() => handleShareClick(post.id)}>
+                  <IoShareSocial />
+                </button>
               </div>
             </div>
 
@@ -268,7 +306,7 @@ const SocialMedia = () => {
         ))}
       </div>
 
-
+      {/* Commenting */}
       {selectedPostId !== null && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-[#fedeca] bg-opacity-95 p-6 rounded-xl w-full max-w-3xl h-105">
@@ -353,6 +391,42 @@ const SocialMedia = () => {
         </div>
       )}
 
+      {/* Sharing */}
+      {showShareModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-[#fedeca] bg-opacity-95 p-6 rounded-xl w-96 text-center">
+            <div className="flex flex-row justify-between">
+              <h3 className="text-xl font-semibold mb-4 text-[#6bb3b3] cursor-default">Share Via</h3>
+              <div className="pb-1">
+                <button
+                  onClick={closeShareModal}
+                  className="text-[#6bb3b3] text-2xl transform transition duration-150 hover:text-[#1f6262]"
+                >
+                  <IoCloseSharp />
+                </button>
+              </div>
+            </div>
+
+            <div className="flex justify-around text-2xl mb-4 space-x-9">
+              <span className="cursor-pointer text-3xl transform transition duration-150 hover:text-[#6bb3b3]" onClick={() => alert('<FaLink/>')}>
+                <FaLink />
+              </span>
+              <span className="cursor-pointer text-3xl transform transition duration-150 hover:text-[#6bb3b3]" onClick={() => alert('<FaWhatsapp/>')}>
+                <FaWhatsapp />
+              </span>
+              <span className="cursor-pointer text-3xl transform transition duration-150 hover:text-[#6bb3b3]" onClick={() => alert('<CiFacebook/>')}>
+                <FaFacebook />
+              </span>
+              <span className="cursor-pointer text-3xl transform transition duration-150 hover:text-[#6bb3b3]" onClick={() => alert('<FaInstagram/>')}>
+                <FaInstagram />
+              </span>
+              <span className="cursor-pointer text-3xl transform transition duration-150 hover:text-[#6bb3b3]" onClick={() => alert('<FaXTwitter />')}>
+                <FaXTwitter />
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

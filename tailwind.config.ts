@@ -24,6 +24,7 @@ const config: Config = {
         '106': '70vh'
       },
       width: {
+        '101': '50rem',
         '100': '750px',
         '65': '1326px',
       },
