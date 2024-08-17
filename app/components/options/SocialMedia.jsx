@@ -16,15 +16,20 @@ const initialPosts = [
     id: 1,
     profilePic: 'https://media.licdn.com/dms/image/D4E03AQF994QfoNMUBA/profile-displayphoto-shrink_200_200/0/1706964303726?e=2147483647&v=beta&t=kvqaovcfqEGsj35xJaAo6o6MSmvuvn_mThbzHTFyy3U',
     name: 'Priyosmita Das',
+    profilePic: 'https://media.licdn.com/dms/image/D4E03AQF994QfoNMUBA/profile-displayphoto-shrink_200_200/0/1706964303726?e=2147483647&v=beta&t=kvqaovcfqEGsj35xJaAo6o6MSmvuvn_mThbzHTFyy3U',
+    name: 'Priyosmita Das',
     image: 'https://github.com/Priyosmita/Kali-Yug/blob/main/Environment%20Design/Environment%207.png?raw=true',
     title: 'What is Unreal Engine?',
     description: 'Unreal engine is an advance game development platform to create high end games. It uses C++ in the background.',
     reactions: 0,
     comments: [],
     isLiked: false,
+    isLiked: false,
   },
   {
     id: 2,
+    profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3nS0JgHTRTOZC5dkRUpA9ZqQCY8xsN45RgEMs_OYuet1UcN5zJDj-9oCHlPj65hla51I&usqp=CAU',
+    name: 'Rijuraj Datta',
     profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3nS0JgHTRTOZC5dkRUpA9ZqQCY8xsN45RgEMs_OYuet1UcN5zJDj-9oCHlPj65hla51I&usqp=CAU',
     name: 'Rijuraj Datta',
     image: 'https://www.dicsinnovatives.com/blog/wp-content/uploads/2023/08/python-blog-image.jpg',
@@ -33,9 +38,9 @@ const initialPosts = [
     reactions: 0,
     comments: [],
     isLiked: false,
+    isLiked: false,
   },
 ];
-
 
 const SocialMedia = () => {
   const [posts, setPosts] = useState(initialPosts);
@@ -53,8 +58,12 @@ const SocialMedia = () => {
         ? { ...post, reactions: post.isLiked ? post.reactions - 1 : post.reactions + 1, isLiked: !post.isLiked }
         : post
     ));
+    setPosts(posts.map(post =>
+      post.id === postId
+        ? { ...post, reactions: post.isLiked ? post.reactions - 1 : post.reactions + 1, isLiked: !post.isLiked }
+        : post
+    ));
   };
-
 
   const handleComment = (postId, comment) => {
     setPosts(posts.map(post =>
@@ -108,20 +117,62 @@ const SocialMedia = () => {
 
 
 
+  const handleReply = (postId, commentIndex, reply) => {
+    setPosts(posts.map(post =>
+      post.id === postId
+        ? {
+          ...post,
+          comments: post.comments.map((comment, index) =>
+            index === commentIndex
+              ? { ...comment, replies: [...comment.replies, { text: reply, likes: 0, isLiked: false }] }
+              : comment
+          )
+        }
+        : post
+    ));
+  };
+
+
+  const handleLikeComment = (postId, commentIndex, replyIndex = null) => {
+    setPosts(posts.map(post =>
+      post.id === postId
+        ? {
+          ...post,
+          comments: post.comments.map((comment, index) =>
+            index === commentIndex
+              ? replyIndex === null
+                ? { ...comment, likes: comment.isLiked ? comment.likes - 1 : comment.likes + 1, isLiked: !comment.isLiked }
+                : {
+                  ...comment,
+                  replies: comment.replies.map((reply, rIndex) =>
+                    rIndex === replyIndex
+                      ? { ...reply, likes: reply.isLiked ? reply.likes - 1 : reply.likes + 1, isLiked: !reply.isLiked }
+                      : reply
+                  )
+                }
+              : comment
+          )
+        }
+        : post
+    ));
+  };
+
+
+
+
   const handleCreatePost = () => {
+    setPosts([...posts, { ...newPost, id: posts.length + 1, image: imagePreview, reactions: 0, comments: [], isLiked: false }]);
     setPosts([...posts, { ...newPost, id: posts.length + 1, image: imagePreview, reactions: 0, comments: [], isLiked: false }]);
     setNewPost({ title: '', description: '', image: '' });
     setImagePreview('');
     setShowCreatePost(false);
   };
 
-
   const handleCancelPost = () => {
     setNewPost({ title: '', description: '', image: '' });
     setImagePreview('');
     setShowCreatePost(false);
   };
-
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -154,15 +205,16 @@ const SocialMedia = () => {
 
   return (
     <div className="SocialWidth h-104 text-black overflow-hidden flex flex-col">
+    <div className="SocialWidth h-104 text-black overflow-hidden flex flex-col">
       <div className="flex justify-end mb-10">
         <button
           onClick={() => setShowCreatePost(!showCreatePost)}
+          className={`bg-[#7ebaba] text-white px-4 py-2 rounded-full transition-transform transform ${showCreatePost ? 'bg-red-500' : 'bg-[#7ebaba]'}`}
           className={`bg-[#7ebaba] text-white px-4 py-2 rounded-full transition-transform transform ${showCreatePost ? 'bg-red-500' : 'bg-[#7ebaba]'}`}
         >
           {showCreatePost ? 'Cancel Post' : 'Add Post'}
         </button>
       </div>
-
 
       {showCreatePost && (
         <div className="mb-4 p-4 border rounded bg-white shadow-md overflow-y-auto">
@@ -196,13 +248,19 @@ const SocialMedia = () => {
         </div>
       )}
 
-
       <div className="max-h-screen overflow-y-auto">
         {posts.map((post) => (
+          <div key={post.id} className="mb-4 p-4 border-black rounded shadow-lg bg-transparent">
           <div key={post.id} className="mb-4 p-4 border-black rounded shadow-lg bg-transparent">
             <div className="flex items-center mb-2">
               <img src={post.profilePic} alt={`${post.name}'s profile`} className="w-12 h-12 rounded-full" />
               <div className="ml-4 flex items-center">
+                <p
+                  className="font-semibold cursor-pointer"
+                  onClick={() => navigateToProfile(post.name)}
+                >
+                  {post.name}
+                </p>
                 <p
                   className="font-semibold cursor-pointer"
                   onClick={() => navigateToProfile(post.name)}
@@ -228,7 +286,21 @@ const SocialMedia = () => {
                   onClick={() => openCommentModal(post.id)}
                 >
                   <FaRegComment />
+              <div className="flex space-x-5">
+                <button
+                  onClick={() => handleReaction(post.id)}
+                  className="text-2xl"
+                  style={{ color: post.isLiked ? '#6bb3b3' : '#6bb3b3' }}
+                >
+                  {post.isLiked ? <AiFillLike /> : <AiOutlineLike />}
                 </button>
+                <button
+                  className="text-[#6bb3b3] text-2xl"
+                  onClick={() => openCommentModal(post.id)}
+                >
+                  <FaRegComment />
+                </button>
+                <button className="text-[#6bb3b3] text-2xl"><IoShareSocial /></button>
                 <button className="text-[#6bb3b3] text-2xl"><IoShareSocial /></button>
               </div>
             </div>
@@ -236,7 +308,18 @@ const SocialMedia = () => {
               <p className="text-[#6bb3b3]">{post.reactions} Likes</p>
               {post.comments.slice(0, 2).map((comment, index) => (
                 <p key={index} className="mb-1 border-t pt-1 text-gray-600">{comment.text}</p>
+              <p className="text-[#6bb3b3]">{post.reactions} Likes</p>
+              {post.comments.slice(0, 2).map((comment, index) => (
+                <p key={index} className="mb-1 border-t pt-1 text-gray-600">{comment.text}</p>
               ))}
+              {post.comments.length > 2 && (
+                <button
+                  onClick={() => openCommentModal(post.id)}
+                  className="text-[#6bb3b3] text-sm mt-2"
+                >
+                  View all comments
+                </button>
+              )}
               {post.comments.length > 2 && (
                 <button
                   onClick={() => openCommentModal(post.id)}
@@ -250,6 +333,7 @@ const SocialMedia = () => {
                 placeholder="Add a comment"
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
+                    handleComment(post.id, { text: e.target.value, user: 'Current User' });
                     handleComment(post.id, { text: e.target.value, user: 'Current User' });
                     e.target.value = '';
                   }
@@ -343,6 +427,5 @@ const SocialMedia = () => {
     </div>
   );
 };
-
 
 export default SocialMedia;

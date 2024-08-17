@@ -1,7 +1,7 @@
 // CustomModal.tsx
 import React from 'react';
-import { ImCancelCircle } from "react-icons/im";
 import { IoCloseSharp } from "react-icons/io5";
+
 interface CustomModalProps {
   isOpen: boolean;
   onClose: () => void;
