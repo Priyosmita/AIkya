@@ -1,33 +1,35 @@
 'use client';
 
-import { BiLike } from "react-icons/bi";
+import { AiOutlineLike, AiFillLike } from "react-icons/ai";
+import { IoShareSocial } from "react-icons/io5";
+import { FaRegComment } from "react-icons/fa";
 import React, { useState } from 'react';
 import "../components.css"
-
 
 const initialPosts = [
   {
     id: 1,
-    profilePic: 'https://media.licdn.com/dms/image/D4E03AQF994QfoNMUBA/profile-displayphoto-shrink_200_200/0/1706964303726?e=2147483647&v=beta&t=kvqaovcfqEGsj35xJaAo6o6MSmvuvn_mThbzHTFyy3U', // Add profile picture URL
-    name: 'Priyosmita Das', // Add profile name
+    profilePic: 'https://media.licdn.com/dms/image/D4E03AQF994QfoNMUBA/profile-displayphoto-shrink_200_200/0/1706964303726?e=2147483647&v=beta&t=kvqaovcfqEGsj35xJaAo6o6MSmvuvn_mThbzHTFyy3U',
+    name: 'Priyosmita Das',
     image: 'https://github.com/Priyosmita/Kali-Yug/blob/main/Environment%20Design/Environment%207.png?raw=true',
     title: 'What is Unreal Engine?',
     description: 'Unreal engine is an advance game development platform to create high end games. It uses C++ in the background.',
     reactions: 0,
     comments: [],
+    isLiked: false,
   },
   {
     id: 2,
-    profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3nS0JgHTRTOZC5dkRUpA9ZqQCY8xsN45RgEMs_OYuet1UcN5zJDj-9oCHlPj65hla51I&usqp=CAU', // Add profile picture URL
-    name: 'Rijuraj Datta', // Add profile name
+    profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3nS0JgHTRTOZC5dkRUpA9ZqQCY8xsN45RgEMs_OYuet1UcN5zJDj-9oCHlPj65hla51I&usqp=CAU',
+    name: 'Rijuraj Datta',
     image: 'https://www.dicsinnovatives.com/blog/wp-content/uploads/2023/08/python-blog-image.jpg',
     title: 'Best languages to learn as beginner',
     description: 'Python is a high level programming language used in mainly AI and Ml and it is also very user friendly.',
     reactions: 0,
     comments: [],
+    isLiked: false,
   },
 ];
-
 
 const SocialMedia = () => {
   const [posts, setPosts] = useState(initialPosts);
@@ -35,31 +37,34 @@ const SocialMedia = () => {
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
 
-
   const handleReaction = (postId) => {
-    setPosts(posts.map(post => post.id === postId ? { ...post, reactions: post.reactions + 1 } : post));
+    setPosts(posts.map(post =>
+      post.id === postId
+        ? { ...post, reactions: post.isLiked ? post.reactions - 1 : post.reactions + 1, isLiked: !post.isLiked }
+        : post
+    ));
   };
-
 
   const handleComment = (postId, comment) => {
-    setPosts(posts.map(post => post.id === postId ? { ...post, comments: [...post.comments, comment] } : post));
+    setPosts(posts.map(post =>
+      post.id === postId
+        ? { ...post, comments: [...post.comments, comment] }
+        : post
+    ));
   };
 
-
   const handleCreatePost = () => {
-    setPosts([...posts, { ...newPost, id: posts.length + 1, image: imagePreview, reactions: 0, comments: [] }]);
+    setPosts([...posts, { ...newPost, id: posts.length + 1, image: imagePreview, reactions: 0, comments: [], isLiked: false }]);
     setNewPost({ title: '', description: '', image: '' });
     setImagePreview('');
     setShowCreatePost(false);
   };
-
 
   const handleCancelPost = () => {
     setNewPost({ title: '', description: '', image: '' });
     setImagePreview('');
     setShowCreatePost(false);
   };
-
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -73,20 +78,17 @@ const SocialMedia = () => {
     }
   };
 
-
   return (
-    <div className="SocialWidth h-104 text-black  overflow-hidden flex flex-col">
+    <div className="SocialWidth h-104 text-black overflow-hidden flex flex-col">
       <div className="flex justify-end mb-10">
         <button
           onClick={() => setShowCreatePost(!showCreatePost)}
-          className={`bg-[#7ebaba] text-white px-4 py-2 rounded-full transition-transform transform ${
-            showCreatePost ? 'bg-red-500' : 'bg-[#7ebaba]'
-          }`}
+          className={`bg-[#7ebaba] text-white px-4 py-2 rounded-full transition-transform transform ${showCreatePost ? 'bg-red-500' : 'bg-[#7ebaba]'
+            }`}
         >
           {showCreatePost ? 'Cancel Post' : 'Add Post'}
         </button>
       </div>
-
 
       {showCreatePost && (
         <div className="mb-4 p-4 border rounded bg-white shadow-md overflow-y-auto">
@@ -120,10 +122,9 @@ const SocialMedia = () => {
         </div>
       )}
 
-
       <div className="max-h-screen overflow-y-auto">
         {posts.map((post) => (
-          <div key={post.id} className="mb-4 p-4 border-black rounded  shadow-lg bg-transparent">
+          <div key={post.id} className="mb-4 p-4 border-black rounded shadow-lg bg-transparent">
             <div className="flex items-center mb-2">
               <img src={post.profilePic} alt={`${post.name}'s profile`} className="w-12 h-12 rounded-full" />
               <div className="ml-4 flex items-center">
@@ -134,15 +135,20 @@ const SocialMedia = () => {
             <h3 className="text-2xl font-semibold mb-2">{post.title}</h3>
             <p className="mb-2">{post.description}</p>
             <div className="flex justify-between items-center mb-2">
-              <div>
-                <button onClick={() => handleReaction(post.id)} className="mr-2 text-[#6bb3b3]">
-                <BiLike /> {post.reactions}
+              <div className="flex space-x-5">
+                <button
+                  onClick={() => handleReaction(post.id)}
+                  className="text-2xl"
+                  style={{ color: post.isLiked ? '#6bb3b3' : '#6bb3b3' }} 
+                >
+                  {post.isLiked ? <AiFillLike /> : <AiOutlineLike />}
                 </button>
-                <button className="mr-2 text-gray-600">💬</button>
-                <button className="text-gray-600">🔗</button>
+                <button className="text-[#6bb3b3] text-2xl"><FaRegComment /></button>
+                <button className="text-[#6bb3b3] text-2xl"><IoShareSocial /></button>
               </div>
             </div>
             <div className="mb-2">
+              <p className="text-[#6bb3b3]">{post.reactions} Likes</p> {/* New row for like count */}
               {post.comments.map((comment, index) => (
                 <p key={index} className="mb-1 border-t pt-1 text-gray-600">{comment}</p>
               ))}
@@ -164,6 +170,5 @@ const SocialMedia = () => {
     </div>
   );
 };
-
 
 export default SocialMedia;
