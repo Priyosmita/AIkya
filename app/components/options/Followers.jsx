@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { FaSearch } from "react-icons/fa";
 
 // Sample static follower data
 const followersData = [
@@ -15,6 +16,42 @@ const followersData = [
     name: 'Priyosmita Das',
     industry: 'Finance',
     profilePic: 'https://media.licdn.com/dms/image/D4E03AQF994QfoNMUBA/profile-displayphoto-shrink_200_200/0/1706964303726?e=2147483647&v=beta&t=kvqaovcfqEGsj35xJaAo6o6MSmvuvn_mThbzHTFyy3U'
+  },
+  {
+    id: 3,
+    name: 'Carol White',
+    industry: 'Food',
+    profilePic: 'https://img.freepik.com/photos-gratuite/gros-plan-belle-jeune-femme-brune-habillee-haut-raye-se-detendre-dans-pepiniere-pendant-journee-profiter-air-frais-concept-personnes-nature-verdure-agriculture-jardinage-fraicheur_343059-209.jpg'
+  },
+  {
+    id: 3,
+    name: 'Carol White',
+    industry: 'Food',
+    profilePic: 'https://img.freepik.com/photos-gratuite/gros-plan-belle-jeune-femme-brune-habillee-haut-raye-se-detendre-dans-pepiniere-pendant-journee-profiter-air-frais-concept-personnes-nature-verdure-agriculture-jardinage-fraicheur_343059-209.jpg'
+  },
+  {
+    id: 3,
+    name: 'Carol White',
+    industry: 'Food',
+    profilePic: 'https://img.freepik.com/photos-gratuite/gros-plan-belle-jeune-femme-brune-habillee-haut-raye-se-detendre-dans-pepiniere-pendant-journee-profiter-air-frais-concept-personnes-nature-verdure-agriculture-jardinage-fraicheur_343059-209.jpg'
+  },
+  {
+    id: 3,
+    name: 'Carol White',
+    industry: 'Food',
+    profilePic: 'https://img.freepik.com/photos-gratuite/gros-plan-belle-jeune-femme-brune-habillee-haut-raye-se-detendre-dans-pepiniere-pendant-journee-profiter-air-frais-concept-personnes-nature-verdure-agriculture-jardinage-fraicheur_343059-209.jpg'
+  },
+  {
+    id: 3,
+    name: 'Carol White',
+    industry: 'Food',
+    profilePic: 'https://img.freepik.com/photos-gratuite/gros-plan-belle-jeune-femme-brune-habillee-haut-raye-se-detendre-dans-pepiniere-pendant-journee-profiter-air-frais-concept-personnes-nature-verdure-agriculture-jardinage-fraicheur_343059-209.jpg'
+  },
+  {
+    id: 3,
+    name: 'Carol White',
+    industry: 'Food',
+    profilePic: 'https://img.freepik.com/photos-gratuite/gros-plan-belle-jeune-femme-brune-habillee-haut-raye-se-detendre-dans-pepiniere-pendant-journee-profiter-air-frais-concept-personnes-nature-verdure-agriculture-jardinage-fraicheur_343059-209.jpg'
   },
   {
     id: 3,
@@ -56,13 +93,18 @@ const Followers = () => {
     <div className='text-black p-10 h-104'>
 
       {/* Search Bar */}
-      <div className='mb-4'>
+      <div className="relative pl-9 pb-7 pt-4">
+        <button
+          className='pl-9 pt-4 pb-7 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'
+        >
+          <FaSearch />
+        </button>
         <input
           type="text"
-          placeholder="Search by name or industry"
-          className="p-2 border rounded w-full"
+          placeholder="Search people, posts..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          className="shadow-lg pl-10 p-2 border rounded-full w-108"
         />
       </div>
 
