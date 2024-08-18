@@ -82,7 +82,7 @@ const Chats = () => {
   );
 
   return (
-    <div className='text-black p-10 funding-container overflow-y-auto '>
+    <div className='text-black p-10 h-104 funding-container overflow-y-auto '>
 
       {/* Search Bar */}
       <input

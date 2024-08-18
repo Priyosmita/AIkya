@@ -195,7 +195,7 @@ const SmartMatch = () => {
 
 
   return (
-    <div className="p-4 h-103 overflow-y-auto">
+    <div className="p-4 h-104 overflow-y-auto">
       <div className="flex mb-4 items-center">
         <input
           type="text"

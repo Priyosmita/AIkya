@@ -53,7 +53,7 @@ const Followers = () => {
   };
 
   return (
-    <div className='text-black p-10'>
+    <div className='text-black p-10 h-104'>
 
       {/* Search Bar */}
       <div className='mb-4'>
