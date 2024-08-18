@@ -16,7 +16,7 @@ const config: Config = {
       },
       height: {
         '100': '400px',
-        '101': '930px',
+        '101': '85vh',
         '102': '600px',
         '103': '900px',
         '104': '870px',
@@ -30,6 +30,7 @@ const config: Config = {
       },
       fontSize: {
         '11xl': '300px',
+        '12xl': '1.8rem'
       },
       textShadow: {
         default: '2px 2px 4px rgba(0, 0, 0, 0.1)',
