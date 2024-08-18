@@ -56,3 +56,28 @@
   border-radius: 10px;
 }
 
+
+/* Prevent stretching the textarea */
+textarea {
+  resize: none; /* Disables resizing */
+}
+
+/* Custom scrollbar styles */
+textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: #fbf0e9; /* Background of the scrollbar track */
+  border-radius: 10px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: #6bb3b3; /* Scrollbar color */
+  border-radius: 10px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  background: #287f7f; /* Scrollbar color on hover */
+  cursor: default;
+}

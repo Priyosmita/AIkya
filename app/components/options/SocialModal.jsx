@@ -52,28 +52,30 @@ const SocialModal = ({ isOpen, onClose, setPosts, posts }) => {
                     <h3 className="text-2xl font-semibold mb-2 text-[#6bb3b3]">Create Post</h3>
                 </div>
                 <div className='flex flex-row'>
-                    <div className='flex flex-col pr-72'>
+                    <div className='flex flex-col'>
                         <input
                             type="file"
                             accept="image/*"
                             onChange={handleImageUpload}
                             className="mb-2 p-2"
                         />
-                        {imagePreview && <img src={imagePreview} alt="Preview" className="mb-2 h-10 w-10 object-cover" />}
+                        {imagePreview && <img src={imagePreview} alt="Preview" className="mb-2 h-107 w-66 object-cover" />}
                     </div>
-                    <div>
-                        <input
+                    <div className='pl-3 pt-3'>
+                        <textarea
                             type="text"
-                            placeholder="Title"
+                            placeholder="Enter title here..."
                             value={newPost.title}
                             onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-                            className="mb-2 p-2 border rounded w-full"
+                            className="mb-1 p-2 border rounded-lg w-full bg-[#fbf0e9]"
+                            style={{ height: '7vh', overflowY: 'scroll', lineHeight: '20px' }} /* 2 lines */
                         />
                         <textarea
-                            placeholder="Description"
+                            placeholder="Enter description here..."
                             value={newPost.description}
                             onChange={(e) => setNewPost({ ...newPost, description: e.target.value })}
-                            className="mb-2 p-2 border rounded w-full h-24"
+                            className="mb-2 p-2 border rounded-lg w-full bg-[#fbf0e9]"
+                            style={{ height: '53vh', overflowY: 'scroll', lineHeight: '20px' }} /* 10 lines */
                         />
                     </div>
                 </div>
