@@ -140,6 +140,7 @@ const Chats = () => {
   const [messages, setMessages] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedReply, setSelectedReply] = useState(null);
+  
   useEffect(() => {
     if (selectedChat) {
       lockScroll();
@@ -195,11 +196,11 @@ const Chats = () => {
           placeholder="Search people, posts..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="shadow-lg pl-10 p-2 border rounded-full w-108"
+          className="shadow-lg pl-10 p-2 text-black border rounded-full w-108"
         />
       </div>
 
-      <div className='text-black pl-10 pr-10 pb-4  h-106 funding-container overflow-y-auto custom-scrollbar'>
+      <div className='text-black pl-10 pr-10 pb-4 h-106 funding-container overflow-y-auto custom-scrollbar'>
         <ul className='space-y-4'>
           {filteredChats.map(chat => (
             <li key={chat.id} className='h-16 flex items-center justify-between p-4 bg-white bg-opacity-50 shadow-lg rounded-lg'>
