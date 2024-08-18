@@ -9,10 +9,9 @@ import Following from './options/Following'
 import Chats from './options/Chats'
 import Donations from './options/Donations'
 import Funding from './options/Funding'
-import Search from './options/Search'
 import './components.css'
 
-const Window = ({ isMarketAnalysis, isSocialMedia, isSmartMatch, isFollowers, isFollowing, isChats, isDonations, isFunding, isSearch }) => {
+const Window = ({ isMarketAnalysis, isSocialMedia, isSmartMatch, isFollowers, isFollowing, isChats, isDonations, isFunding}) => {
   return (
     <div className='WindowWidth bg-white rounded-2xl h-101 bg-opacity-50 mr-4 mt-24 p-4 '>
       {isMarketAnalysis && <MarketAnalysis />}
@@ -26,7 +25,6 @@ const Window = ({ isMarketAnalysis, isSocialMedia, isSmartMatch, isFollowers, is
         {isDonations && <Donations />}
         {isFunding && <Funding />}
       </div>
-      {isSearch && <Search />}
     </div>
   );
 };

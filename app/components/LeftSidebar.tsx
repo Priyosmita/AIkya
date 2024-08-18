@@ -20,7 +20,6 @@ interface LeftSidebarProps {
     onChatsClick: () => void;
     onDonationsClick: () => void;
     onFundingClick: () => void;
-    onSearchClick: () => void;
 }
 
 const LeftSidebar: React.FC<LeftSidebarProps> = ({
@@ -32,8 +31,7 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
     onFollowingClick,
     onChatsClick,
     onDonationsClick,
-    onFundingClick,
-    onSearchClick,
+    onFundingClick
 }) => {
     const [selected, setSelected] = useState<string>('');
 
@@ -45,15 +43,6 @@ const LeftSidebar: React.FC<LeftSidebarProps> = ({
     return (
         <div className='LeftsidebarWidth w-80 bg-white rounded-2xl h-101 bg-opacity-50 mb-6 mr-4 mt-24 ml-3'>
             <nav className='flex flex-col gap-y-14'>
-                <div className='mt-12 ml-6 flex flex-row'>
-                    <button
-                        className={`flex flex-row transform transition duration-300 ${selected === 'search' ? 'text-[#e8b693]' : 'text-[#7ebaba]'} hover:scale-110`}
-                        onClick={() => handleClick('search', onSearchClick)}
-                    >
-                        <MdOutlineSearch style={{ width: '2.6em', height: '2.6em' }} />
-                        <h1 className='text-3xl ml-1'>Search</h1>
-                    </button>
-                </div>
                 <div className='ml-6 flex flex-row'>
                     <button
                         className={`flex flex-row transform transition duration-300 ${selected === 'social' ? 'text-[#e8b693]' : 'text-[#7ebaba]'} hover:scale-110`}

@@ -11,9 +11,9 @@ import { FaWhatsapp } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { FaSearch } from "react-icons/fa";
 import "../components.css";
 import "./options.css";
-import Search from "./Search";
 
 
 const initialPosts = [
@@ -45,7 +45,6 @@ const initialPosts = [
 const SocialMedia = () => {
   const [posts, setPosts] = useState(initialPosts);
   const [newPost, setNewPost] = useState({ title: '', description: '', image: '' });
-  const [searchResults, setSearchResults] = useState(initialPosts);
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
   const [selectedPostId, setSelectedPostId] = useState(null);
@@ -53,7 +52,7 @@ const SocialMedia = () => {
   const router = useRouter();
   const [showShareModal, setShowShareModal] = useState(false); // To manage share modal visibility
   const [currentPostId, setCurrentPostId] = useState(null); // To track the post ID for the share modal
-
+  const [searchQuery, setSearchQuery] = useState(''); // Search query state
 
   const handleReaction = (postId) => {
     setPosts(posts.map(post =>
@@ -139,15 +138,6 @@ const SocialMedia = () => {
     }
   };
 
-  const handleSearch = (query) => {
-    const results = posts.filter(post =>
-      post.title.toLowerCase().includes(query.toLowerCase()) ||
-      post.description.toLowerCase().includes(query.toLowerCase()) ||
-      post.name.toLowerCase().includes(query.toLowerCase())
-    );
-    setSearchResults(results);
-  };
-
   const openCommentModal = (postId) => {
     setSelectedPostId(postId);
   };
@@ -172,13 +162,32 @@ const SocialMedia = () => {
     setShowShareModal(false);
     setCurrentPostId(null);
   };
+  const filteredPosts = posts.filter(post =>
+    post.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    post.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
 
   return (
     <div className="SocialWidth h-104 text-black overflow-hidden flex flex-col">
 
       <div className="flex justify-between">
-        <Search onSearch={handleSearch} />  {/* Searching option */}
+        {/* Search bar */}
+        <div className="relative">
+          <button
+            className='pb-2 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'
+          >
+            <FaSearch />
+          </button>
+          <input
+            type="text"
+            placeholder="Search people, posts..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10 p-2 border rounded-full w-101"
+          />
+        </div>
+
         {/* add post or cancel post */}
         <div className="pt-4 mb-10">
           <button
@@ -188,15 +197,6 @@ const SocialMedia = () => {
             {showCreatePost ? 'Cancel Post' : 'Add Post'}
           </button>
         </div>
-      </div>
-
-      {/* Display posts based on search results */}
-      <div className="max-h-screen overflow-y-auto z-20">
-        {searchResults.map((post) => (
-          <div key={post.id} className="mb-4 p-4 border-black rounded bg-transparent">
-            {/* Post content */}
-          </div>
-        ))}
       </div>
 
 
@@ -233,8 +233,9 @@ const SocialMedia = () => {
       )}
 
 
+
       <div className="max-h-screen overflow-y-auto">
-        {posts.map((post) => (
+        {filteredPosts.map((post) => (
           <div key={post.id} className="mb-4 p-4 border-black rounded shadow-lg bg-transparent">
             <div className="flex items-center mb-2">
               <img src={post.profilePic} alt={`${post.name}'s profile`} className="w-12 h-12 rounded-full" />
@@ -305,6 +306,7 @@ const SocialMedia = () => {
           </div>
         ))}
       </div>
+
 
       {/* Commenting */}
       {selectedPostId !== null && (
