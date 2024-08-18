@@ -14,6 +14,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import "../components.css";
 import "./options.css";
+import SocialModal from "./SocialModal"
 
 
 const initialPosts = [
@@ -40,7 +41,6 @@ const initialPosts = [
     isLiked: false,
   },
 ];
-
 
 const SocialMedia = () => {
   const [posts, setPosts] = useState(initialPosts);
@@ -140,14 +140,14 @@ const SocialMedia = () => {
 
   const openCommentModal = (postId) => {
     setSelectedPostId(postId);
+    document.body.style.overflow = 'hidden'; // Disable scrolling
   };
-
 
   const closeCommentModal = () => {
     setSelectedPostId(null);
     setActiveReply(null);
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
   };
-
 
   const navigateToProfile = (username) => {
     router.push(`/profile/${username}`);
@@ -162,20 +162,20 @@ const SocialMedia = () => {
     setShowShareModal(false);
     setCurrentPostId(null);
   };
-  const filteredPosts = posts.filter(post =>
-    post.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    post.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
+  const filteredPosts = posts.filter(post =>
+    (post.name?.toLowerCase() || "").includes(searchQuery.toLowerCase()) ||
+    (post.title?.toLowerCase() || "").includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="SocialWidth h-104 text-black overflow-hidden flex flex-col">
 
-      <div className="flex justify-between">
+      <div className="flex justify-between pt-4">
         {/* Search bar */}
-        <div className="relative">
+        <div className="relative pl-4">
           <button
-            className='pb-2 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'
+            className='pb-10 pl-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'
           >
             <FaSearch />
           </button>
@@ -184,67 +184,40 @@ const SocialMedia = () => {
             placeholder="Search people, posts..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 p-2 border rounded-full w-101"
+            className="shadow-lg pl-10 p-2 border rounded-full w-101"
           />
         </div>
 
         {/* add post or cancel post */}
-        <div className="pt-4 mb-10">
-          <button
-            onClick={() => setShowCreatePost(!showCreatePost)}
-            className={`bg-[#7ebaba] text-white px-4 py-2 rounded-full transition-transform transform ${showCreatePost ? 'bg-red-500' : 'bg-[#7ebaba]'}`}
-          >
-            {showCreatePost ? 'Cancel Post' : 'Add Post'}
-          </button>
+        <div className="mb-10 pr-3">
+          <button className="transform transition duration-300 hover:scale-110 shadow-lg px-4 py-2 text-white rounded-full bg-[#7ebaba]" onClick={() => {
+            setShowCreatePost(true);
+            document.body.style.overflow = 'hidden';
+          }}>Create Post</button>
+          <SocialModal
+            isOpen={showCreatePost}
+            onClose={() => {
+              setShowCreatePost(false);
+              document.body.style.overflow = 'auto';
+            }}
+            setPosts={setPosts}
+            posts={posts}
+          />
         </div>
       </div>
-
-
-      {showCreatePost && (
-        <div className="mb-4 p-4 border rounded bg-white shadow-md overflow-y-auto">
-          <h3 className="text-2xl font-semibold mb-2">Create Post</h3>
-          <input
-            type="text"
-            placeholder="Title"
-            value={newPost.title}
-            onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-            className="mb-2 p-2 border rounded w-full"
-          />
-          <textarea
-            placeholder="Description"
-            value={newPost.description}
-            onChange={(e) => setNewPost({ ...newPost, description: e.target.value })}
-            className="mb-2 p-2 border rounded w-full h-24"
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="mb-2 p-2"
-          />
-          {imagePreview && <img src={imagePreview} alt="Preview" className="mb-2 w-full h-48 object-cover" />}
-          <button
-            onClick={handleCreatePost}
-            className="bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            Share
-          </button>
-        </div>
-      )}
-
 
 
       <div className="max-h-screen overflow-y-auto">
         {filteredPosts.map((post) => (
           <div key={post.id} className="mb-4 p-4 border-black rounded shadow-lg bg-transparent">
             <div className="flex items-center mb-2">
-              <img src={post.profilePic} alt={`${post.name}'s profile`} className="w-12 h-12 rounded-full" />
+              <img src={post.profilePic} alt={`${post.name || 'demo'}'s profile`} className="w-12 h-12 rounded-full" />
               <div className="ml-4 flex items-center">
                 <p
                   className="font-semibold cursor-pointer"
-                  onClick={() => navigateToProfile(post.name)}
+                  onClick={() => navigateToProfile(post.name || 'demo')}
                 >
-                  {post.name}
+                  {post.name || 'demo'}
                 </p>
               </div>
             </div>
@@ -306,6 +279,7 @@ const SocialMedia = () => {
           </div>
         ))}
       </div>
+
 
 
       {/* Commenting */}
