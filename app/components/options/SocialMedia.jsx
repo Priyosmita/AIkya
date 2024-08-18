@@ -284,7 +284,7 @@ const SocialMedia = () => {
 
       {/* Commenting */}
       {selectedPostId !== null && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center pt-16">
           <div className="bg-[#fedeca] bg-opacity-95 p-6 rounded-xl w-full max-w-3xl h-105">
             <div className="sticky top-0 z-50 flex flex-row justify-between p-2">
               <h3 className="text-2xl text-[#6bb3b3] font-semibold cursor-default">Comments</h3>

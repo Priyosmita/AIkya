@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const SocialModal = ({ isOpen, onClose, setPosts, posts }) => {
     const [newPost, setNewPost] = useState({ title: '', description: '', image: '', name: '' });
@@ -8,9 +8,9 @@ const SocialModal = ({ isOpen, onClose, setPosts, posts }) => {
 
     useEffect(() => {
         if (!isOpen) {
-          document.body.style.overflow = 'auto';
+            document.body.style.overflow = 'auto';
         }
-      }, [isOpen]);
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -43,40 +43,49 @@ const SocialModal = ({ isOpen, onClose, setPosts, posts }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <div className="bg-[#fedeca] bg-opacity-95 p-4 rounded-xl shadow-md w-full max-w-3xl h-105 relative">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center pt-16">
+            <div className="bg-[#fedeca] bg-opacity-95 p-4 rounded-xl shadow-md w-full max-w-5xl h-105 relative">
                 <div className='pt-2 pb-4'>
                     <button onClick={onClose} className="transform transition duration-300 hover:bg-[#c75757] shadow-lg px-4 py-2 text-white rounded-full bg-[#df7676] absolute right-2">
                         Cancel Post
                     </button>
                     <h3 className="text-2xl font-semibold mb-2 text-[#6bb3b3]">Create Post</h3>
                 </div>
-                <input
-                    type="text"
-                    placeholder="Title"
-                    value={newPost.title}
-                    onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-                    className="mb-2 p-2 border rounded w-full"
-                />
-                <textarea
-                    placeholder="Description"
-                    value={newPost.description}
-                    onChange={(e) => setNewPost({ ...newPost, description: e.target.value })}
-                    className="mb-2 p-2 border rounded w-full h-24"
-                />
-                <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="mb-2 p-2"
-                />
-                {imagePreview && <img src={imagePreview} alt="Preview" className="mb-2 w-full h-48 object-cover" />}
-                <button
-                    onClick={handleCreatePost}
-                    className="bg-blue-500 text-white px-4 py-2 rounded"
-                >
-                    Share
-                </button>
+                <div className='flex flex-row'>
+                    <div className='flex flex-col pr-72'>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageUpload}
+                            className="mb-2 p-2"
+                        />
+                        {imagePreview && <img src={imagePreview} alt="Preview" className="mb-2 h-10 w-10 object-cover" />}
+                    </div>
+                    <div>
+                        <input
+                            type="text"
+                            placeholder="Title"
+                            value={newPost.title}
+                            onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
+                            className="mb-2 p-2 border rounded w-full"
+                        />
+                        <textarea
+                            placeholder="Description"
+                            value={newPost.description}
+                            onChange={(e) => setNewPost({ ...newPost, description: e.target.value })}
+                            className="mb-2 p-2 border rounded w-full h-24"
+                        />
+                    </div>
+                </div>
+
+                <div className='flex justify-center'>
+                    <button
+                        onClick={handleCreatePost}
+                        className="bg-blue-500 text-white px-4 py-2 rounded-full"
+                    >
+                        Share
+                    </button>
+                </div>
             </div>
         </div>
     );
