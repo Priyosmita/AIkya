@@ -207,7 +207,7 @@ const SocialMedia = () => {
       </div>
 
 
-      <div className="max-h-screen overflow-y-auto">
+      <div className="max-h-screen overflow-y-auto custom-scrollbar">
         {filteredPosts.map((post) => (
           <div key={post.id} className="mb-4 p-4 border-black rounded shadow-lg bg-transparent">
             <div className="flex items-center mb-2">

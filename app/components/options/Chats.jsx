@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import "./options.css"
+import { FaSearch } from "react-icons/fa";
 
 
 // Sample static chat data with demo messages
@@ -50,7 +51,86 @@ const chatsData = [
       { text: 'Looking forward to it. When would be a good time?', sender: 'user' },
       { text: 'How about tomorrow morning?', sender: 'David Green' }
     ]
-  }
+  },
+  {
+    id: 4,
+    name: 'David Green',
+    profilePic: 'https://www.qtrainers.com/upload/profile/160/2020/02/profile_35405e4683b309238.jpg',
+    messages: [
+      { text: 'Hi David, just following up on our last discussion.', sender: 'user' },
+      { text: 'Hello! I’ve made some progress. Let’s discuss it.', sender: 'David Green' },
+      { text: 'Looking forward to it. When would be a good time?', sender: 'user' },
+      { text: 'How about tomorrow morning?', sender: 'David Green' }
+    ]
+  },
+  {
+    id: 4,
+    name: 'David Green',
+    profilePic: 'https://www.qtrainers.com/upload/profile/160/2020/02/profile_35405e4683b309238.jpg',
+    messages: [
+      { text: 'Hi David, just following up on our last discussion.', sender: 'user' },
+      { text: 'Hello! I’ve made some progress. Let’s discuss it.', sender: 'David Green' },
+      { text: 'Looking forward to it. When would be a good time?', sender: 'user' },
+      { text: 'How about tomorrow morning?', sender: 'David Green' }
+    ]
+  },
+  {
+    id: 4,
+    name: 'David Green',
+    profilePic: 'https://www.qtrainers.com/upload/profile/160/2020/02/profile_35405e4683b309238.jpg',
+    messages: [
+      { text: 'Hi David, just following up on our last discussion.', sender: 'user' },
+      { text: 'Hello! I’ve made some progress. Let’s discuss it.', sender: 'David Green' },
+      { text: 'Looking forward to it. When would be a good time?', sender: 'user' },
+      { text: 'How about tomorrow morning?', sender: 'David Green' }
+    ]
+  },
+  {
+    id: 4,
+    name: 'David Green',
+    profilePic: 'https://www.qtrainers.com/upload/profile/160/2020/02/profile_35405e4683b309238.jpg',
+    messages: [
+      { text: 'Hi David, just following up on our last discussion.', sender: 'user' },
+      { text: 'Hello! I’ve made some progress. Let’s discuss it.', sender: 'David Green' },
+      { text: 'Looking forward to it. When would be a good time?', sender: 'user' },
+      { text: 'How about tomorrow morning?', sender: 'David Green' }
+    ]
+  },
+  {
+    id: 4,
+    name: 'David Green',
+    profilePic: 'https://www.qtrainers.com/upload/profile/160/2020/02/profile_35405e4683b309238.jpg',
+    messages: [
+      { text: 'Hi David, just following up on our last discussion.', sender: 'user' },
+      { text: 'Hello! I’ve made some progress. Let’s discuss it.', sender: 'David Green' },
+      { text: 'Looking forward to it. When would be a good time?', sender: 'user' },
+      { text: 'How about tomorrow morning?', sender: 'David Green' }
+    ]
+  },
+  {
+    id: 4,
+    name: 'David Green',
+    profilePic: 'https://www.qtrainers.com/upload/profile/160/2020/02/profile_35405e4683b309238.jpg',
+    messages: [
+      { text: 'Hi David, just following up on our last discussion.', sender: 'user' },
+      { text: 'Hello! I’ve made some progress. Let’s discuss it.', sender: 'David Green' },
+      { text: 'Looking forward to it. When would be a good time?', sender: 'user' },
+      { text: 'How about tomorrow morning?', sender: 'David Green' }
+    ]
+  },
+  {
+    id: 4,
+    name: 'David Green',
+    profilePic: 'https://www.qtrainers.com/upload/profile/160/2020/02/profile_35405e4683b309238.jpg',
+    messages: [
+      { text: 'Hi David, just following up on our last discussion.', sender: 'user' },
+      { text: 'Hello! I’ve made some progress. Let’s discuss it.', sender: 'David Green' },
+      { text: 'Looking forward to it. When would be a good time?', sender: 'user' },
+      { text: 'How about tomorrow morning?', sender: 'David Green' }
+    ]
+  },
+  
+
 ];
 
 const Chats = () => {
@@ -82,17 +162,24 @@ const Chats = () => {
   );
 
   return (
-    <div className='text-black p-10 h-104 funding-container overflow-y-auto '>
+    <>
+    {/* Search Bar */}
+    <div className="relative pl-9 pb-7 pt-4">
+        <button
+          className='pl-9 pt-4 pb-7 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'
+        >
+          <FaSearch />
+        </button>
+        <input
+          type="text"
+          placeholder="Search people, posts..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="shadow-lg pl-10 p-2 border rounded-full w-108"
+        />
+      </div>
 
-      {/* Search Bar */}
-      <input
-        type="text"
-        placeholder="Search chats..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="border border-gray-300 p-2 rounded-xl mb-4 w-full"
-      />
-
+      <div className='text-black p-10 h-104 funding-container overflow-y-auto'>
       <ul className='space-y-4'>
         {filteredChats.map(chat => (
           <li key={chat.id} className='h-16 flex items-center justify-between p-4 bg-white bg-opacity-50 shadow-lg rounded-lg'>
@@ -164,6 +251,7 @@ const Chats = () => {
         </Modal>
       )}
     </div>
+    </>
   );
 };
 
