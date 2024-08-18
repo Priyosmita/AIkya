@@ -179,7 +179,7 @@ const Chats = () => {
         />
       </div>
 
-      <div className='text-black p-10 h-104 funding-container overflow-y-auto'>
+      <div className='text-black pl-10 pr-10 pb-4 h-106 funding-container overflow-y-auto custom-scrollbar'>
       <ul className='space-y-4'>
         {filteredChats.map(chat => (
           <li key={chat.id} className='h-16 flex items-center justify-between p-4 bg-white bg-opacity-50 shadow-lg rounded-lg'>
