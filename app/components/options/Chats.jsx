@@ -95,7 +95,7 @@ const Chats = () => {
 
       <ul className='space-y-4'>
         {filteredChats.map(chat => (
-          <li key={chat.id} className='flex items-center justify-between p-4 bg-white bg-opacity-50 shadow-lg rounded-lg'>
+          <li key={chat.id} className='h-16 flex items-center justify-between p-4 bg-white bg-opacity-50 shadow-lg rounded-lg'>
             <div className='flex items-center'>
               <img src={chat.profilePic} alt={`${chat.name}'s profile`} className='w-12 h-12 rounded-full' />
               <div className='ml-4'>
@@ -103,7 +103,7 @@ const Chats = () => {
               </div>
             </div>
             <button
-              className='bg-[#7ebaba] hover:bg-[#f8b891] font-bold hover:scale-110 transition duration-300 text-white px-4 py-2 rounded'
+              className='bg-[#7ebaba] hover:bg-[#f8b891] font-bold hover:scale-110 transition duration-300 text-white px-4 py-1 rounded-full'
               onClick={() => openChat(chat)}
             >
               Chat
