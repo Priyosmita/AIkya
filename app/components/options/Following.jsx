@@ -62,34 +62,44 @@ const Following = () => {
   const [selectedFollowerId, setSelectedFollowerId] = useState(null);
 
   useEffect(() => {
-    if (selectedProfile, showUnfollowModal) {
+    if (selectedProfile) {
       lockScroll();
     } else {
       unlockScroll();
     }
 
     return () => unlockScroll(); // Ensure scroll is unlocked on unmount
-  }, [selectedProfile, showUnfollowModal]);
+  }, [selectedProfile]);
 
   useEffect(() => {
-    if (selectedProfile, showReportModal) {
+    if (showUnfollowModal) {
       lockScroll();
     } else {
       unlockScroll();
     }
 
     return () => unlockScroll(); // Ensure scroll is unlocked on unmount
-  }, [selectedProfile, showReportModal]);
+  }, [showUnfollowModal]);
 
   useEffect(() => {
-    if (selectedProfile, showBlockModal) {
+    if (showReportModal) {
       lockScroll();
     } else {
       unlockScroll();
     }
 
     return () => unlockScroll(); // Ensure scroll is unlocked on unmount
-  }, [selectedProfile, showBlockModal]);
+  }, [showReportModal]);
+
+  useEffect(() => {
+    if (showBlockModal) {
+      lockScroll();
+    } else {
+      unlockScroll();
+    }
+
+    return () => unlockScroll(); // Ensure scroll is unlocked on unmount
+  }, [showBlockModal]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -196,6 +206,7 @@ const Following = () => {
                   See Full Profile
                 </button>
 
+                {/* 3 dots */}
                 <div className='relative'>
                   <button
                     className='text-gray-400 hover:text-gray-600'
@@ -203,9 +214,8 @@ const Following = () => {
                   >
                     <FaEllipsisV />
                   </button>
-
                   {openMenu === person.id && (
-                    <div ref={menuRef} className='absolute right-0 mt-2 w-48 bg-[#fedeca] rounded-lg shadow-lg z-20'>
+                    <div ref={menuRef} className='absolute right-0 mt-2 mr-3 w-48 bg-[#fedeca] rounded-lg shadow-lg'>
                       <button
                         className='block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#fac9aa] rounded-lg'
                         onClick={() => handleUnfollow(person)}

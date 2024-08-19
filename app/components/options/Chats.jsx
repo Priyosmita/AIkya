@@ -114,7 +114,7 @@ const Chats = () => {
         </button>
         <input
           type="text"
-          placeholder="Search people, posts..."
+          placeholder="Search chats..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="shadow-lg pl-10 p-2 text-black border rounded-full w-108"
@@ -132,7 +132,7 @@ const Chats = () => {
                 </div>
               </div>
               <button
-                className='bg-[#7ebaba] hover:bg-[#f8b891] font-bold hover:scale-110 transition duration-300 text-white px-4 py-1 rounded-full'
+                className='bg-[#7ebaba] hover:bg-[#f8b891] font-bold hover:scale-110 transition duration-150 text-white px-4 py-1 rounded-full'
                 onClick={() => openChat(chat)}
               >
                 Chat
