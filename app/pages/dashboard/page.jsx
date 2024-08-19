@@ -115,7 +115,7 @@ const DashboardPage= () => {
   return (
     <>
       <Header />
-      <div className='min-h-screen bgGradient flex flex-row'>
+      <div className='max-h-screen bgGradient flex flex-row'>
         <LeftSidebar 
           onMarketAnalysisClick={handleMarketAnalysisClick} 
           onSocialMediaClick={handleSocialMediaClick} 
