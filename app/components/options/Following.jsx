@@ -62,14 +62,34 @@ const Following = () => {
   const [selectedFollowerId, setSelectedFollowerId] = useState(null);
 
   useEffect(() => {
-    if (selectedProfile, setShowUnfollowModal, setShowReportModal, setShowBlockModal) {
+    if (selectedProfile, showUnfollowModal) {
       lockScroll();
     } else {
       unlockScroll();
     }
 
     return () => unlockScroll(); // Ensure scroll is unlocked on unmount
-  }, [selectedProfile, setShowUnfollowModal, setShowReportModal, setShowBlockModal]);
+  }, [selectedProfile, showUnfollowModal]);
+
+  useEffect(() => {
+    if (selectedProfile, showReportModal) {
+      lockScroll();
+    } else {
+      unlockScroll();
+    }
+
+    return () => unlockScroll(); // Ensure scroll is unlocked on unmount
+  }, [selectedProfile, showReportModal]);
+
+  useEffect(() => {
+    if (selectedProfile, showBlockModal) {
+      lockScroll();
+    } else {
+      unlockScroll();
+    }
+
+    return () => unlockScroll(); // Ensure scroll is unlocked on unmount
+  }, [selectedProfile, showBlockModal]);
 
   useEffect(() => {
     function handleClickOutside(event) {

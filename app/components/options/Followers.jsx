@@ -56,17 +56,37 @@ const Followers = () => {
   const [selectedFollowerId, setSelectedFollowerId] = useState(null);
   const [selectedReason, setSelectedReason] = useState('');
   const [otherReason, setOtherReason] = useState('');
+  const [showRemoveFollowerModal, setShowRemoveFollowerModal] = useState(false);
   const menuRef = useRef(null);
 
   useEffect(() => {
-    if (selectedProfile) {
+    if (selectedProfile, showReportModal) {
       lockScroll();
     } else {
       unlockScroll();
     }
 
     return () => unlockScroll(); // Ensure scroll is unlocked on unmount
-  }, [selectedProfile]);
+  }, [selectedProfile, showReportModal]);
+
+  useEffect(() => {
+    if (showBlockModal) {
+      lockScroll();
+    } else {
+      unlockScroll();
+    }
+
+    return () => unlockScroll(); // Ensure scroll is unlocked on unmount
+  }, [showBlockModal]);
+  useEffect(() => {
+    if (showRemoveFollowerModal) {
+      lockScroll();
+    } else {
+      unlockScroll();
+    }
+
+    return () => unlockScroll(); // Ensure scroll is unlocked on unmount
+  }, [showRemoveFollowerModal]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -119,7 +139,12 @@ const Followers = () => {
   };
 
   const handleRemoveFollower = (id) => {
-    setFollowers(followers.filter(follower => follower.id !== id));
+    setSelectedFollowerId(id);
+    setShowRemoveFollowerModal(true);
+  };
+  const confirmRemoveFollower = () => {
+    setFollowers(followers.filter(follower => follower.id !== selectedFollowerId));
+    setShowRemoveFollowerModal(false);
   };
 
 
@@ -344,6 +369,29 @@ const Followers = () => {
                   }}
                 >
                   Block
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        {/* Removefollower modal */}
+        {showRemoveFollowerModal && (
+          <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
+            <div className='relative bg-[#fedeca] bg-opacity-85 p-6 rounded-xl shadow-lg w-[90%] max-w-md'>
+              <button
+                className="absolute top-4 right-4 text-2xl text-[#6bb3b3] hover:text-[#1f6262] transform transition duration-110"
+                onClick={() => setShowRemoveFollowerModal(false)}
+              >
+                <IoCloseSharp />
+              </button>
+              <h3 className='flex justify-center font-semibold text-2xl text-[#378e8e] mb-2'>Remove this follower</h3>
+              <p className='text-center text-lg text-[#378e8e] mb-4'>Are you sure you want to remove this follower? They will no longer see your posts and will be unfollowed.</p>
+              <div className='flex justify-center'>
+                <button
+                  className='text-white bg-[#df7676] hover:bg-[#c75757] transform transition duration-150 rounded-full px-4 py-2'
+                  onClick={confirmRemoveFollower}
+                >
+                  Remove Follower
                 </button>
               </div>
             </div>
