@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState,useEffect } from 'react';
-import { FaSearch } from "react-icons/fa";
+import React, { useState, useEffect, useRef } from 'react';
+import { FaSearch, FaEllipsisV } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import { lockScroll, unlockScroll } from '../../utils/scrollLock';
 
@@ -26,54 +26,6 @@ const followingData = [
     profilePic: 'https://www.nicesnippets.com/demo/following1.jpg'
   },
   {
-    id: 3,
-    name: 'Grace Lee',
-    industry: 'Food',
-    profilePic: 'https://www.nicesnippets.com/demo/following1.jpg'
-  },
-  {
-    id: 3,
-    name: 'Grace Lee',
-    industry: 'Food',
-    profilePic: 'https://www.nicesnippets.com/demo/following1.jpg'
-  },
-  {
-    id: 3,
-    name: 'Grace Lee',
-    industry: 'Food',
-    profilePic: 'https://www.nicesnippets.com/demo/following1.jpg'
-  },
-  {
-    id: 3,
-    name: 'Grace Lee',
-    industry: 'Food',
-    profilePic: 'https://www.nicesnippets.com/demo/following1.jpg'
-  },
-  {
-    id: 3,
-    name: 'Grace Lee',
-    industry: 'Food',
-    profilePic: 'https://www.nicesnippets.com/demo/following1.jpg'
-  },
-  {
-    id: 3,
-    name: 'Grace Lee',
-    industry: 'Food',
-    profilePic: 'https://www.nicesnippets.com/demo/following1.jpg'
-  },
-  {
-    id: 3,
-    name: 'Grace Lee',
-    industry: 'Food',
-    profilePic: 'https://www.nicesnippets.com/demo/following1.jpg'
-  },
-  {
-    id: 3,
-    name: 'Grace Lee',
-    industry: 'Food',
-    profilePic: 'https://www.nicesnippets.com/demo/following1.jpg'
-  },
-  {
     id: 4,
     name: 'Henry Wilson',
     industry: 'Health',
@@ -85,6 +37,8 @@ const Following = () => {
   const [following, setFollowing] = useState(followingData);
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [openMenu, setOpenMenu] = useState(null);
+  const menuRef = useRef(null);
 
   useEffect(() => {
     if (selectedProfile) {
@@ -95,6 +49,20 @@ const Following = () => {
 
     return () => unlockScroll(); // Ensure scroll is unlocked on unmount
   }, [selectedProfile]);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setOpenMenu(null);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const filteredFollowing = following.filter(person =>
     person.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -111,6 +79,10 @@ const Following = () => {
 
   const handleCloseProfile = () => {
     setSelectedProfile(null);
+  };
+
+  const toggleMenu = (id) => {
+    setOpenMenu(openMenu === id ? null : id);
   };
 
   return (
@@ -149,18 +121,42 @@ const Following = () => {
                 >
                   See Full Profile
                 </button>
-                <button
-                  className='bg-[#f8b891] hover:bg-[#f09e6c] text-white px-4 py-1 rounded-full  font-bold hover:scale-110 transition duration-200'
-                  onClick={() => handleRemove(person.id)}
-                >
-                  Remove
-                </button>
+                <div className='relative'>
+                  <button
+                    className='text-gray-400 hover:text-gray-600'
+                    onClick={() => toggleMenu(person.id)}
+                  >
+                    <FaEllipsisV />
+                  </button>
+
+                  {openMenu === person.id && (
+                    <div ref={menuRef} className='absolute right-0 mt-2 w-48 bg-[#fedeca] rounded-lg shadow-lg z-20'>
+                      <button
+                        className='block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#fac9aa] rounded-lg'
+                        onClick={() => handleRemove(person.id)}
+                      >
+                        Unfollow
+                      </button>
+                      <button
+                        className='block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#fac9aa] rounded-lg'
+                        onClick={() => alert('Report follow?')}
+                      >
+                        Report
+                      </button>
+                      <button
+                        className='block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#fac9aa] rounded-lg'
+                        onClick={() => alert('Block follow?')}
+                      >
+                        Block
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </li>
           ))}
         </ul>
 
-        {/* Profile Popup */}
         {/* Profile Popup */}
         {selectedProfile && (
           <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
