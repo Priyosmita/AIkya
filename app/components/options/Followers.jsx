@@ -152,8 +152,8 @@ const Followers = () => {
   return (
     <>
       {/* Search Bar */}
-      <div className="relative pl-9 pb-7 pt-4">
-        <button className='pl-9 pt-4 pb-7 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'>
+      <div className="relative pl-11 pb-7 pt-4">
+        <button className='pl-11 pt-4 pb-7 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'>
           <FaSearch />
         </button>
         <input
@@ -165,7 +165,7 @@ const Followers = () => {
         />
       </div>
 
-      <div className='text-black pl-10 pr-10 pb-4 h-106 overflow-y-auto custom-scrollbar'>
+      <div className='text-black pl-12 mr-6 pb-4 h-106 overflow-y-auto custom-scrollbar'>
         <ul className='space-y-4'>
           {filteredFollowers.map(follower => (
             <li key={follower.id} className='flex items-center justify-between h-16 p-4 bg-white shadow-lg rounded-lg bg-opacity-50'>

@@ -106,9 +106,9 @@ const Chats = () => {
   return (
     <>
       {/* Search Bar */}
-      <div className="relative pl-9 pb-7 pt-4">
+      <div className="relative pl-11 pb-7 pt-4">
         <button
-          className='pl-9 pt-4 pb-7 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'
+          className='pl-11 pt-4 pb-7 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'
         >
           <FaSearch />
         </button>
@@ -121,10 +121,10 @@ const Chats = () => {
         />
       </div>
 
-      <div className='text-black pl-10 pr-10 pb-4 h-106 funding-container overflow-y-auto custom-scrollbar'>
+      <div className='text-black pl-12 pb-4 h-106 funding-container overflow-y-auto custom-scrollbar'>
         <ul className='space-y-4'>
           {filteredChats.map(chat => (
-            <li key={chat.id} className='h-16 flex items-center justify-between p-4 bg-white bg-opacity-50 shadow-lg rounded-lg'>
+            <li key={chat.id} className='h-16 flex w-108 items-center justify-between p-4 bg-white bg-opacity-50 shadow-lg rounded-lg'>
               <div className='flex items-center'>
                 <img src={chat.profilePic} alt={`${chat.name}'s profile`} className='w-12 h-12 rounded-full' />
                 <div className='ml-4'>
