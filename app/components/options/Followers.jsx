@@ -190,7 +190,7 @@ const Followers = () => {
 
               <div className='flex items-center space-x-4'>
                 <button
-                  className='font-bold bg-[#7ebaba] hover:bg-[#559393] text-white px-4 py-1 rounded-full hover:scale-105 transition duration-200'
+                  className='font-bold bg-[#7ebaba] hover:bg-[#559393] text-white px-4 py-1 rounded-full hover:scale-105 transition duration-150'
                   onClick={() => handleViewProfile(follower)}
                 >
                   See Full Profile
@@ -386,7 +386,7 @@ const Followers = () => {
             </div>
           </div>
         )}
-        
+
         {/* Removefollower modal */}
         {showRemoveFollowerModal && (
           <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>

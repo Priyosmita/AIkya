@@ -1,9 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import "./options.css"
 import "../components.css"
+import { FaSearch } from "react-icons/fa";
+import { IoCloseSharp } from "react-icons/io5";
+import { lockScroll, unlockScroll } from '../../utils/scrollLock';
 
 // Sample data for startups
 const startupsData = [
@@ -31,62 +34,6 @@ const startupsData = [
     details: 'HealthNext develops innovative health tech products.',
     valuation: '$80M',
   },
-  {
-    id: 4,
-    image: 'https://www.avanse.com/blogs/images/10feb-blog-2023.jpg',
-    name: 'EduTech',
-    industry: 'Education',
-    details: 'EduTech offers advanced e-learning solutions.',
-    valuation: '$20M',
-  },
-  {
-    id: 5,
-    image: 'https://www.eatingwell.com/thmb/m5xUzIOmhWSoXZnY-oZcO9SdArQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/article_291139_the-top-10-healthiest-foods-for-kids_-02-4b745e57928c4786a61b47d8ba920058.jpg',
-    name: 'FoodFuture',
-    industry: 'Food',
-    details: 'FoodFuture is creating sustainable food production technologies.',
-    valuation: '$40M',
-  },
-  {
-    id: 5,
-    image: 'https://www.eatingwell.com/thmb/m5xUzIOmhWSoXZnY-oZcO9SdArQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/article_291139_the-top-10-healthiest-foods-for-kids_-02-4b745e57928c4786a61b47d8ba920058.jpg',
-    name: 'FoodFuture',
-    industry: 'Food',
-    details: 'FoodFuture is creating sustainable food production technologies.',
-    valuation: '$40M',
-  },
-  {
-    id: 5,
-    image: 'https://www.eatingwell.com/thmb/m5xUzIOmhWSoXZnY-oZcO9SdArQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/article_291139_the-top-10-healthiest-foods-for-kids_-02-4b745e57928c4786a61b47d8ba920058.jpg',
-    name: 'FoodFuture',
-    industry: 'Food',
-    details: 'FoodFuture is creating sustainable food production technologies.',
-    valuation: '$40M',
-  },
-  {
-    id: 5,
-    image: 'https://www.eatingwell.com/thmb/m5xUzIOmhWSoXZnY-oZcO9SdArQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/article_291139_the-top-10-healthiest-foods-for-kids_-02-4b745e57928c4786a61b47d8ba920058.jpg',
-    name: 'FoodFuture',
-    industry: 'Food',
-    details: 'FoodFuture is creating sustainable food production technologies.',
-    valuation: '$40M',
-  },
-  {
-    id: 5,
-    image: 'https://www.eatingwell.com/thmb/m5xUzIOmhWSoXZnY-oZcO9SdArQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/article_291139_the-top-10-healthiest-foods-for-kids_-02-4b745e57928c4786a61b47d8ba920058.jpg',
-    name: 'FoodFuture',
-    industry: 'Food',
-    details: 'FoodFuture is creating sustainable food production technologies.',
-    valuation: '$40M',
-  },
-  {
-    id: 5,
-    image: 'https://www.eatingwell.com/thmb/m5xUzIOmhWSoXZnY-oZcO9SdArQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/article_291139_the-top-10-healthiest-foods-for-kids_-02-4b745e57928c4786a61b47d8ba920058.jpg',
-    name: 'FoodFuture',
-    industry: 'Food',
-    details: 'FoodFuture is creating sustainable food production technologies.',
-    valuation: '$40M',
-  },
 ];
 
 const Donations = () => {
@@ -94,6 +41,36 @@ const Donations = () => {
   const [selectedStartup, setSelectedStartup] = useState(null);
   const [showDonatePopup, setShowDonatePopup] = useState(false);
   const [donationAmount, setDonationAmount] = useState('');
+
+  useEffect(() => {
+    if (donationAmount) {
+      lockScroll();
+    } else {
+      unlockScroll();
+    }
+
+    return () => unlockScroll(); // Ensure scroll is unlocked on unmount
+  }, [donationAmount]);
+
+  useEffect(() => {
+    if (showDonatePopup) {
+      lockScroll();
+    } else {
+      unlockScroll();
+    }
+
+    return () => unlockScroll(); // Ensure scroll is unlocked on unmount
+  }, [showDonatePopup]);
+
+  useEffect(() => {
+    if (selectedStartup) {
+      lockScroll();
+    } else {
+      unlockScroll();
+    }
+
+    return () => unlockScroll(); // Ensure scroll is unlocked on unmount
+  }, [selectedStartup]);
 
   const filteredStartups = startupsData.filter(startup =>
     startup.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -126,104 +103,113 @@ const Donations = () => {
   };
 
   return (
-    <div className='donations-container p-4 text-black  flex justify-center flex-col h-104 items-center'>
-      <input
-        type="text"
-        placeholder="Search startups..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="mb-4 p-2 border rounded w-full"
-      />
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 overflow-auto">
-        {filteredStartups.map(startup => (
-          <div key={startup.id} className="p-4 bg-white shadow-lg rounded-lg bg-opacity-30">
-            <img src={startup.image} alt={startup.name} className="w-full h-64 object-cover mb-2 rounded" />
-            <h3 className="text-xl font-semibold mb-2">{startup.name}</h3>
-            <p className="mb-2 text-gray-600">{startup.industry}</p>
-            <button
-              className="bg-[#7ebaba] hover:scale-110 transition duration-300 text-white px-4 py-2 rounded-full mr-2"
-              onClick={() => openDonatePopup(startup)}
-            >
-              Donate
+    <>
+      <div className='flex flex-col'>
+        {/* Search Bar */}
+        <div className="relative pr-2 pl-7 pt-4">
+            <button className='pl-7 pt-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400'>
+              <FaSearch />
             </button>
-            <button
-              className="bg-[#f8b891] hover:scale-110 transition duration-300 text-white px-4 py-2 rounded-full"
-              onClick={() => openDetailsModal(startup)}
-            >
-              View Details
-            </button>
-          </div>
-        ))}
-      </div>
-
-      {/* Details Modal */}
-      {selectedStartup && !showDonatePopup && (
-        <Modal
-          isOpen={!!selectedStartup}
-          onRequestClose={closeDetailsModal}
-          contentLabel="Details Modal"
-          className="fixed inset-0 flex flex-col items-center justify-center p-4 text-black"
-          overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50"
-        >
-          <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-md relative max-h-[80vh] overflow-auto">
-            <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
-              onClick={closeDetailsModal}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-            <div className="flex items-center mb-4">
-              <img src={selectedStartup.image} alt={selectedStartup.name} className="w-12 h-12 rounded-full" />
-              <div className="ml-4">
-                <p className="text-xl font-semibold">{selectedStartup.name}</p>
-                <p className="text-gray-600">{selectedStartup.industry}</p>
-              </div>
-            </div>
-            <p className="mb-2">Details: {selectedStartup.details}</p>
-            <p>Valuation: {selectedStartup.valuation}</p>
-          </div>
-        </Modal>
-      )}
-
-      {/* Donate Popup */}
-      {showDonatePopup && (
-        <Modal
-          isOpen={showDonatePopup}
-          onRequestClose={closeDonatePopup}
-          contentLabel="Donate Popup"
-          className="fixed inset-0 flex flex-col items-center justify-center p-4 text-black"
-          overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50"
-        >
-          <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-md relative max-h-[80vh] overflow-auto">
-            <button
-              className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
-              onClick={closeDonatePopup}
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            </button>
-            <h3 className="text-2xl font-semibold mb-4">Donate to {selectedStartup?.name}</h3>
             <input
-              type="number"
-              value={donationAmount}
-              onChange={(e) => setDonationAmount(e.target.value)}
-              placeholder="Enter amount"
-              className="mb-4 p-2 border rounded w-full"
+              type="text"
+              placeholder="Search startups..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="shadow-lg pl-10 text-black p-2 border rounded-full w-108"
             />
-            <button
-              onClick={handleDonate}
-              className="bg-[#7ebaba] hover:scale-110 transition duration-300 text-white px-4 py-2 rounded"
-            >
-              Donate
-            </button>
           </div>
-        </Modal>
-      )}
-    </div>
+        <div className='donations-container pl-7 pr-4 pb-44 text-black flex justify-center flex-col h-106'>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 overflow-auto custom-scrollbar">
+            {filteredStartups.map(startup => (
+              <div key={startup.id} className="p-4 bg-white shadow-lg rounded-lg bg-opacity-50">
+                <img src={startup.image} alt={startup.name} className="w-full h-64 object-cover mb-2 rounded" />
+                <h3 className="text-xl font-semibold mb-2 text-center">{startup.name}</h3>
+                <p className="mb-2 text-gray-600 text-center">{startup.industry}</p>
+                <div className='flex justify-center'>
+                  <button
+                    className="font-bold bg-[#7ebaba] hover:bg-[#559393] text-white px-4 py-1 rounded-full hover:scale-105 transition duration-150 mr-2"
+                    onClick={() => openDonatePopup(startup)}
+                  >
+                    Donate
+                  </button>
+                  <button
+                    className="bg-[#f8b891] hover:bg-[#eda071] text-white px-4 py-1 rounded-full font-bold hover:scale-105 transition duration-150"
+                    onClick={() => openDetailsModal(startup)}
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Details Modal */}
+          {selectedStartup && !showDonatePopup && (
+            <Modal
+              isOpen={!!selectedStartup}
+              onRequestClose={closeDetailsModal}
+              contentLabel="Details Modal"
+              className="fixed inset-0 flex flex-col items-center justify-center p-4 text-black"
+              overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50"
+            >
+              <div className="bg-[#fedeca] bg-opacity-95 p-6 rounded-xl shadow-lg relative w-[90%] max-w-md custom-scrollbar">
+                <button
+                  className="absolute top-4 right-4 text-[#6bb3b3] text-2xl rounded-full transform transition duration-150 hover:text-[#1f6262]"
+                  onClick={closeDetailsModal}
+                >
+                  <IoCloseSharp />
+                </button>
+                <div className="flex items-center mb-4">
+                  <img src={selectedStartup.image} alt={selectedStartup.name} className="w-12 h-12 rounded-full" />
+                  <div className="ml-4">
+                    <p className="cursor-default font-semibold text-2xl text-[#378e8e]">{selectedStartup.name}</p>
+                    <p className="cursor-default font-semibold text-xl text-[#378e8e]">{selectedStartup.industry}</p>
+                  </div>
+                </div>
+                <p className="cursor-default mb-2 text-lg text-[#378e8e]">Details: {selectedStartup.details}</p>
+                <p className="cursor-default text-lg text-[#378e8e]">Valuation: {selectedStartup.valuation}</p>
+              </div>
+            </Modal>
+          )}
+
+          {/* Donate Popup */}
+          {showDonatePopup && (
+            <Modal
+              isOpen={showDonatePopup}
+              onRequestClose={closeDonatePopup}
+              contentLabel="Donate Popup"
+              className="fixed inset-0 flex flex-col items-center justify-center p-4 text-black"
+              overlayClassName="fixed inset-0 bg-gray-800 bg-opacity-50"
+            >
+              <div className="bg-[#fedeca] bg-opacity-95 p-6 rounded-xl shadow-lg relative w-[90%] max-w-md overflow-auto custom-scrollbar">
+                <button
+                  className="absolute top-4 right-4 text-[#6bb3b3] text-2xl rounded-full transform transition duration-150 hover:text-[#1f6262]"
+                  onClick={closeDonatePopup}
+                >
+                  <IoCloseSharp />
+                </button>
+                <h3 className="cursor-default font-semibold text-2xl text-[#378e8e] mb-4">Donate to {selectedStartup?.name}</h3>
+                <input
+                  type="number"
+                  value={donationAmount}
+                  onChange={(e) => setDonationAmount(e.target.value)}
+                  placeholder="Enter amount"
+                  className="mb-4 p-2 border rounded-xl w-full"
+                />
+                <div className='flex justify-center pt-2'>
+                  <button
+                    onClick={handleDonate}
+                    className="font-bold text-lg bg-[#7ebaba] hover:bg-[#559393] text-white px-4 py-2 rounded-full hover:scale-105 transition duration-150"
+                  >
+                    Donate
+                  </button>
+                </div>
+              </div>
+            </Modal>
+          )}
+        </div>
+      </div>
+    </>
   );
 };
 
