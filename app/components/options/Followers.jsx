@@ -33,11 +33,35 @@ const followersData = [
   }
 ];
 
+const ConfirmationModal = ({ action, onConfirm, onCancel }) => (
+  <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
+    <div className='bg-white p-8 rounded-lg shadow-lg max-w-sm w-full'>
+      <p className='text-xl mb-4'>{`Are you sure you want to ${action}?`}</p>
+      <div className='flex justify-end space-x-4'>
+        <button
+          className='px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700'
+          onClick={onConfirm}
+        >
+          Yes
+        </button>
+        <button
+          className='px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400'
+          onClick={onCancel}
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </div>
+);
+
 const Followers = () => {
   const [followers, setFollowers] = useState(followersData);
   const [selectedProfile, setSelectedProfile] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [openMenu, setOpenMenu] = useState(null);
+  const [confirmAction, setConfirmAction] = useState(null);
+  const [selectedFollowerId, setSelectedFollowerId] = useState(null);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -71,6 +95,7 @@ const Followers = () => {
 
   const handleRemove = (id) => {
     setFollowers(followers.filter(follower => follower.id !== id));
+    setConfirmAction(null);
   };
 
   const handleViewProfile = (profile) => {
@@ -83,6 +108,28 @@ const Followers = () => {
 
   const toggleMenu = (id) => {
     setOpenMenu(openMenu === id ? null : id);
+  };
+
+  const handleAction = (action, id) => {
+    setSelectedFollowerId(id);
+    setConfirmAction(action);
+  };
+
+  const handleConfirmAction = () => {
+    switch (confirmAction) {
+      case 'remove this follower':
+        handleRemove(selectedFollowerId);
+        break;
+      case 'report this follower':
+        alert('Follower reported.');
+        break;
+      case 'block this follower':
+        alert('Follower blocked.');
+        break;
+      default:
+        break;
+    }
+    setConfirmAction(null);
   };
 
   return (
@@ -114,6 +161,7 @@ const Followers = () => {
                   <p className='text-sm text-gray-500'>{follower.industry}</p>
                 </div>
               </div>
+              
               <div className='flex items-center space-x-4'>
                 <button
                   className='font-bold bg-[#7ebaba] hover:bg-[#559393] text-white px-4 py-1 rounded-full hover:scale-105 transition duration-200'
@@ -133,19 +181,19 @@ const Followers = () => {
                     <div ref={menuRef} className='absolute right-0 mt-2 w-48 bg-[#fedeca] rounded-lg shadow-lg z-20'>
                       <button
                         className='block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#fac9aa] rounded-lg'
-                        onClick={() => handleRemove(follower.id)}
+                        onClick={() => handleAction('remove this follower', follower.id)}
                       >
                         Remove Follower
                       </button>
                       <button
                         className='block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#fac9aa] rounded-lg'
-                        onClick={() => alert('Report follower?')}
+                        onClick={() => handleAction('report this follower', follower.id)}
                       >
                         Report
                       </button>
                       <button
                         className='block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#fac9aa] rounded-lg'
-                        onClick={() => alert('Block follower?')}
+                        onClick={() => handleAction('block this follower', follower.id)}
                       >
                         Block
                       </button>
@@ -171,19 +219,27 @@ const Followers = () => {
                 <img src={selectedProfile.profilePic} alt={`${selectedProfile.name}'s profile`} className='w-32 h-32 rounded-full' />
                 <div className='ml-4'>
                   <p className='text-2xl font-semibold'>{selectedProfile.name}</p>
-                  <p className='text-lg text-gray-500'>{selectedProfile.industry}</p>
+                  <p className='text-lg text-gray-600'>{selectedProfile.industry}</p>
                 </div>
               </div>
-              <p className='text-gray-700'>
-                <p>Industry: {selectedProfile.industry}</p>
-                <p>About: An enthusiastic person in the {selectedProfile.industry} industry.</p>
+              <p className='text-gray-800'>
+                {/* Placeholder for additional profile information */}
+                This is a detailed profile view of {selectedProfile.name} who works in the {selectedProfile.industry} industry.
               </p>
             </div>
           </div>
         )}
+
+        {/* Confirmation Modal */}
+        {confirmAction && (
+          <ConfirmationModal
+            action={confirmAction}
+            onConfirm={handleConfirmAction}
+            onCancel={() => setConfirmAction(null)}
+          />
+        )}
       </div>
     </>
-
   );
 };
 

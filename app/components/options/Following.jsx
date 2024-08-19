@@ -39,6 +39,10 @@ const Following = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [openMenu, setOpenMenu] = useState(null);
   const menuRef = useRef(null);
+  const [showUnfollowModal, setShowUnfollowModal] = useState(false);
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [showBlockModal, setShowBlockModal] = useState(false);
+  const [targetPerson, setTargetPerson] = useState(null);
 
   useEffect(() => {
     if (selectedProfile) {
@@ -85,6 +89,29 @@ const Following = () => {
     setOpenMenu(openMenu === id ? null : id);
   };
 
+  const handleUnfollow = (person) => {
+    setTargetPerson(person);
+    setShowUnfollowModal(true);
+  };
+
+  const handleReport = (person) => {
+    setTargetPerson(person);
+    setShowReportModal(true);
+  };
+
+  const handleBlock = (person) => {
+    setTargetPerson(person);
+    setShowBlockModal(true);
+  };
+
+  const closeModal = () => {
+    setShowUnfollowModal(false);
+    setShowReportModal(false);
+    setShowBlockModal(false);
+    setTargetPerson(null);
+  };
+
+
   return (
     <>
       {/* Search Bar */}
@@ -121,6 +148,7 @@ const Following = () => {
                 >
                   See Full Profile
                 </button>
+
                 <div className='relative'>
                   <button
                     className='text-gray-400 hover:text-gray-600'
@@ -133,19 +161,19 @@ const Following = () => {
                     <div ref={menuRef} className='absolute right-0 mt-2 w-48 bg-[#fedeca] rounded-lg shadow-lg z-20'>
                       <button
                         className='block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#fac9aa] rounded-lg'
-                        onClick={() => handleRemove(person.id)}
+                        onClick={() => handleUnfollow(person)}
                       >
                         Unfollow
                       </button>
                       <button
                         className='block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#fac9aa] rounded-lg'
-                        onClick={() => alert('Report follow?')}
+                        onClick={() => handleReport(person)}
                       >
                         Report
                       </button>
                       <button
                         className='block w-full text-left px-4 py-2 text-gray-700 hover:bg-[#fac9aa] rounded-lg'
-                        onClick={() => alert('Block follow?')}
+                        onClick={() => handleBlock(person)}
                       >
                         Block
                       </button>
@@ -157,31 +185,113 @@ const Following = () => {
           ))}
         </ul>
 
-        {/* Profile Popup */}
-        {selectedProfile && (
-          <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
-            <div className='relative bg-[#fedeca] bg-opacity-95 p-8 rounded-xl shadow-lg w-[90%] max-w-2xl h-auto'>
-              <button
-                className="absolute top-4 right-4 text-[#6bb3b3] text-3xl rounded-full transform transition duration-150 hover:text-[#1f6262]"
-                onClick={handleCloseProfile}
-              >
-                <IoCloseSharp />
-              </button>
-              <div className='flex items-center mb-4'>
-                <img src={selectedProfile.profilePic} alt={`${selectedProfile.name}'s profile`} className='w-32 h-32 rounded-full' />
-                <div className='ml-4'>
-                  <p className='text-2xl font-semibold'>{selectedProfile.name}</p>
-                  <p className='text-lg text-gray-500'>{selectedProfile.industry}</p>
-                </div>
+        {/* Unfollow Modal */}
+        {showUnfollowModal && targetPerson && (
+          <div className='fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50'>
+            <div className='bg-white p-4 rounded-lg shadow-lg'>
+              <p>Are you sure you want to unfollow {targetPerson.name}?</p>
+              <div className='flex justify-end mt-4'>
+                <button
+                  className='px-4 py-2 bg-gray-300 rounded-lg mr-2'
+                  onClick={closeModal}
+                >
+                  Cancel
+                </button>
+                <button
+                  className='px-4 py-2 bg-red-500 text-white rounded-lg'
+                  onClick={() => {
+                    handleRemove(targetPerson.id);
+                    closeModal();
+                  }}
+                >
+                  Unfollow
+                </button>
               </div>
-              <p className='text-gray-700'>
-                <p>Industry: {selectedProfile.industry}</p>
-                <p>About: An enthusiastic person in the {selectedProfile.industry} industry.</p>
-              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Report Modal */}
+        {showReportModal && targetPerson && (
+          <div className='fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50'>
+            <div className='bg-white p-4 rounded-lg shadow-lg'>
+              <p>Are you sure you want to report {targetPerson.name}?</p>
+              <div className='flex justify-end mt-4'>
+                <button
+                  className='px-4 py-2 bg-gray-300 rounded-lg mr-2'
+                  onClick={closeModal}
+                >
+                  Cancel
+                </button>
+                <button
+                  className='px-4 py-2 bg-red-500 text-white rounded-lg'
+                  onClick={() => {
+                    alert(`${targetPerson.name} reported!`);
+                    closeModal();
+                  }}
+                >
+                  Report
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Block Modal */}
+        {showBlockModal && targetPerson && (
+          <div className='fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50'>
+            <div className='bg-white p-4 rounded-lg shadow-lg'>
+              <p>Are you sure you want to block {targetPerson.name}?</p>
+              <div className='flex justify-end mt-4'>
+                <button
+                  className='px-4 py-2 bg-gray-300 rounded-lg mr-2'
+                  onClick={closeModal}
+                >
+                  Cancel
+                </button>
+                <button
+                  className='px-4 py-2 bg-red-500 text-white rounded-lg'
+                  onClick={() => {
+                    alert(`${targetPerson.name} blocked!`);
+                    closeModal();
+                  }}
+                >
+                  Block
+                </button>
+              </div>
             </div>
           </div>
         )}
       </div>
+
+      {/* Profile Modal */}
+      {selectedProfile && (
+        <div className='fixed inset-0 z-30 flex items-center justify-center bg-black bg-opacity-50'>
+          <div className='bg-white p-8 rounded-lg shadow-lg w-full max-w-md'>
+            <div className='flex justify-end'>
+              <button onClick={handleCloseProfile}>
+                <IoCloseSharp className='text-gray-400 hover:text-gray-600' />
+              </button>
+            </div>
+            <h2 className='text-2xl font-bold mb-4'>{selectedProfile.name}</h2>
+            <img
+              src={selectedProfile.profilePic}
+              alt={`${selectedProfile.name}'s profile`}
+              className='w-32 h-32 rounded-full mx-auto mb-4'
+            />
+            <p><strong>Industry:</strong> {selectedProfile.industry}</p>
+            {/* Add more profile details here as needed */}
+            <div className='flex justify-end mt-6'>
+              <button
+                className='font-bold bg-[#7ebaba] hover:bg-[#559393] text-white px-4 py-2 rounded-full  hover:scale-105 transition duration-200'
+                onClick={handleCloseProfile}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
