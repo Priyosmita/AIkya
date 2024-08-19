@@ -46,12 +46,7 @@ const ProjectForm = () => {
     useEffect(() => {
         const fetchProfileAndProjects = async () => {
           try {
-            const profileResponse = await axios.get(
-              "http://localhost:5000/api/profile"
-            );
-            if (profileResponse.data) {
-              setFormData(profileResponse.data);
-            }
+            
             const projectResponse = await axios.get(
               "http://localhost:5000/api/projects"
             );

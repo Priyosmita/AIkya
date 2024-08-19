@@ -19,67 +19,70 @@ const ProfileForm = () => {
   useEffect(() => {
     const fetchProfileAndProjects = async () => {
       try {
-        const profileResponse = await axios.get("http://localhost:5000/api/profile");
+        const userId = "validUserId123"; // Replace with the actual userId you want to fetch
+        const profileResponse = await axios.get(
+          `http://localhost:5000/api/profile?userId=${userId}`
+        );
         if (profileResponse.data) {
           setFormData((prevData) => ({
             ...prevData,
             ...profileResponse.data,
-            profilePicturePreview: profileResponse.data.profilePicture ? `http://localhost:5000/${profileResponse.data.profilePicture}` : ""
+            profilePicturePreview: profileResponse.data.profilePicture
+              ? `http://localhost:5000/${profileResponse.data.profilePicture}`
+              : "",
           }));
         }
-        const projectResponse = await axios.get("http://localhost:5000/api/projects");
-        setProjects(projectResponse.data);
       } catch (error) {
-        console.error("There was an error fetching profile and projects!", error);
+        console.error(
+          "There was an error fetching profile and projects!",
+          error
+        );
       }
     };
     fetchProfileAndProjects();
   }, []);
-  
 
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
     const form = new FormData();
-  
+
     form.append("name", formData.name);
     form.append("about", formData.about);
     form.append("experience", formData.experience);
-    
+
     // Convert skills array to JSON string before sending
     form.append("skills", JSON.stringify(formData.skills));
-    
+
     if (formData.profilePicture) {
       form.append("profilePicture", formData.profilePicture);
     }
-  
+
     formData.certifications.forEach((cert, index) => {
       form.append(`certifications[${index}]`, cert.file);
       form.append(`certificationsText[${index}]`, cert.text);
     });
-  
+
     try {
       const response = await axios.post(
         "http://localhost:5000/api/profile",
         form,
-        { headers: { 'Content-Type': 'multipart/form-data' } }
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
       console.log(response.data);
     } catch (error) {
       console.error("There was an error!", error);
     }
   };
-  
 
   const handleProfilePictureUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       setFormData((prevData) => ({
         ...prevData,
-        profilePicture: file
+        profilePicture: file,
       }));
     }
   };
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -207,36 +210,35 @@ const ProfileForm = () => {
         </div>
 
         <div>
-  <label className="block text-[#6a9696] text-2xl mb-2">Skills</label>
-  <div className="flex flex-col gap-2">
-    <input
-      type="text"
-      value={skillInput}
-      onChange={(e) => setSkillInput(e.target.value)}
-      onKeyDown={handleSkillKeyDown}
-      placeholder="Type a skill and press Enter"
-      className="p-2 h-14 focus:outline-none rounded text-black"
-    />
-    <div className="border rounded p-2 flex flex-wrap gap-2 mt-2">
-      {formData.skills.map((skill, index) => (
-        <div
-          key={index}
-          className="bg-[#f8c3a2] text-white py-1 px-2 rounded flex items-center"
-        >
-          <span>{skill}</span>
-          <button
-            type="button"
-            onClick={() => handleRemoveSkill(index)}
-            className="ml-2 text-lg"
-          >
-            &times;
-          </button>
+          <label className="block text-[#6a9696] text-2xl mb-2">Skills</label>
+          <div className="flex flex-col gap-2">
+            <input
+              type="text"
+              value={skillInput}
+              onChange={(e) => setSkillInput(e.target.value)}
+              onKeyDown={handleSkillKeyDown}
+              placeholder="Type a skill and press Enter"
+              className="p-2 h-14 focus:outline-none rounded text-black"
+            />
+            <div className="border rounded p-2 flex flex-wrap gap-2 mt-2">
+              {formData.skills.map((skill, index) => (
+                <div
+                  key={index}
+                  className="bg-[#f8c3a2] text-white py-1 px-2 rounded flex items-center"
+                >
+                  <span>{skill}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveSkill(index)}
+                    className="ml-2 text-lg"
+                  >
+                    &times;
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</div>
-
 
         <button
           type="submit"
