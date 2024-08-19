@@ -82,8 +82,9 @@ const Followers = () => {
     };
   }, [setOpenMenu]);
 
-  const handleReasonChange = (e) => {
-    setSelectedReason(e.target.value);
+  const handleReasonChange = (event) => {
+    const value = event.target.value;
+    setSelectedReason(prev => prev === value ? '' : value);
   };
 
   const handleOtherReasonChange = (e) => {
@@ -120,6 +121,8 @@ const Followers = () => {
   const handleRemoveFollower = (id) => {
     setFollowers(followers.filter(follower => follower.id !== id));
   };
+
+
 
   return (
     <>
@@ -193,54 +196,58 @@ const Followers = () => {
         </ul>
 
         {/* Profile Popup */}
-{selectedProfile && (
-  <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
-    <div className='relative bg-[#fedeca] bg-opacity-95 p-8 rounded-xl shadow-lg w-[90%] max-w-2xl h-auto'>
-      <button
-        className="absolute top-4 right-4 text-[#6bb3b3] text-3xl rounded-full transform transition duration-150 hover:text-[#1f6262]"
-        onClick={handleCloseProfile}
-      >
-        <IoCloseSharp />
-      </button>
-      <div className='flex items-center mb-4'>
-        <img src={selectedProfile.profilePic} alt={`${selectedProfile.name}'s profile`} className='w-32 h-32 rounded-full' />
-        <div className='ml-4'>
-          <p className='text-2xl font-semibold'>{selectedProfile.name}</p>
-          <p className='text-lg text-gray-600'>{selectedProfile.industry}</p>
-        </div>
-      </div>
-      <p className='text-gray-800 mb-2'>
-        <span className='font-semibold'>About:</span> {selectedProfile.about}
-      </p>
-      <p className='text-gray-800 mb-2'>
-        <span className='font-semibold'>Experience:</span> {selectedProfile.experience}
-      </p>
-      <div className='text-gray-800'>
-        <span className='font-semibold'>Skills:</span>
-        <div className='flex flex-wrap gap-2 mt-2'>
-          {selectedProfile.skills.map((skill, index) => (
-            <span key={index} className='bg-[#6bb3b3] text-white px-3 py-1 rounded-full text-sm'>
-              {skill}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  </div>
-)}
+        {selectedProfile && (
+          <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
+            <div className='relative bg-[#fedeca] bg-opacity-95 p-8 rounded-xl shadow-lg w-[90%] max-w-2xl h-auto'>
+              <button
+                className="absolute top-4 right-4 text-[#6bb3b3] text-3xl rounded-full transform transition duration-150 hover:text-[#1f6262]"
+                onClick={handleCloseProfile}
+              >
+                <IoCloseSharp />
+              </button>
+              <div className='flex items-center mb-4'>
+                <img src={selectedProfile.profilePic} alt={`${selectedProfile.name}'s profile`} className='w-32 h-32 rounded-full' />
+                <div className='ml-4'>
+                  <p className='text-2xl font-semibold'>{selectedProfile.name}</p>
+                  <p className='text-lg text-gray-600'>{selectedProfile.industry}</p>
+                </div>
+              </div>
+              <p className='text-gray-800 mb-2'>
+                <span className='font-semibold'>About:</span> {selectedProfile.about}
+              </p>
+              <p className='text-gray-800 mb-2'>
+                <span className='font-semibold'>Experience:</span> {selectedProfile.experience}
+              </p>
+              <div className='text-gray-800'>
+                <span className='font-semibold'>Skills:</span>
+                <div className='flex flex-wrap gap-2 mt-2'>
+                  {selectedProfile.skills.map((skill, index) => (
+                    <span key={index} className='bg-[#6bb3b3] text-white px-3 py-1 rounded-full text-sm'>
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
 
         {/* Report Modal */}
         {showReportModal && (
           <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
-            <div className='relative bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md'>
+            <div className='bg-[#fedeca] bg-opacity-85 p-6 rounded-xl shadow-lg relative w-[90%] max-w-md'>
               <button
-                className="absolute top-4 right-4 text-gray-600 text-2xl"
-                onClick={() => setShowReportModal(false)}
+                className="absolute top-4 right-4 text-2xl text-[#6bb3b3] hover:text-[#1f6262] transform transition duration-110"
+                onClick={() => {
+                  setShowReportModal(false);
+                  setSelectedReason('');  // Reset selected reason
+                  setOtherReason('');     // Reset other reason
+                }}
               >
                 <IoCloseSharp />
               </button>
-              <h3 className='text-xl font-semibold mb-4'>Why are you reporting this account?</h3>
+              <h3 className='font-semibold text-2xl text-[#378e8e] pt-4 pb-4'>Why are you reporting this account?</h3>
               <div className='space-y-4'>
                 <label className='flex items-center'>
                   <input
@@ -291,46 +298,54 @@ const Followers = () => {
                   />
                 )}
               </div>
-              <button
-                className='mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700'
-                onClick={() => {
-                  // Handle reporting logic
-                  console.log(`Reported user ID ${selectedFollowerId} for reason: ${selectedReason}. Additional details: ${otherReason}`);
 
-                  // Show alert after submitting the report
-                  alert('Report submitted');
+              <div className='flex justify-center'>
+                <button
+                  className='mt-4 px-4 py-2 text-white bg-[#df7676] hover:bg-[#c75757] transform transition duration-150 rounded-full'
+                  onClick={() => {
+                    // Handle reporting logic
+                    console.log(`Reported user ID ${selectedFollowerId} for reason: ${selectedReason}. Additional details: ${otherReason}`);
 
-                  // Close the modal
-                  setShowReportModal(false);
-                }}
-              >
-                Report
-              </button>
+                    // Show alert after submitting the report
+                    alert('Report submitted');
+
+                    // Close the modal and reset state
+                    setShowReportModal(false);
+                    setSelectedReason('');  // Reset selected reason
+                    setOtherReason('');     // Reset other reason
+                  }}
+                >
+                  Report
+                </button>
+              </div>
             </div>
           </div>
         )}
+
         {/* Block Modal */}
         {showBlockModal && (
           <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
-            <div className='relative bg-white p-6 rounded-lg shadow-lg w-[90%] max-w-md'>
+            <div className='relative bg-[#fedeca] bg-opacity-85 p-6 rounded-xl shadow-lg w-[90%] max-w-md'>
               <button
-                className="absolute top-4 right-4 text-gray-600 text-2xl"
+                className="absolute top-4 right-4 text-2xl text-[#6bb3b3] hover:text-[#1f6262] transform transition duration-110"
                 onClick={() => setShowBlockModal(false)}
               >
                 <IoCloseSharp />
               </button>
-              <h3 className='text-xl font-semibold mb-4'>Block this user</h3>
-              <p className='mb-4'>Are you sure you want to block this user? You will no longer see their posts and they will not be able to interact with you.</p>
-              <button
-                className='bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700'
-                onClick={() => {
-                  // Handle blocking logic
-                  console.log(`Blocked user ID ${selectedFollowerId}`);
-                  setShowBlockModal(false);
-                }}
-              >
-                Block
-              </button>
+              <h3 className='flex justify-center font-semibold text-2xl text-[#378e8e] mb-2'>Block this user</h3>
+              <p className='text-center text-lg text-[#378e8e] mb-4'>Are you sure you want to block this user? You will no longer see their posts and they will not be able to interact with you.</p>
+              <div className='flex justify-center'>
+                <button
+                  className='text-white bg-[#df7676] hover:bg-[#c75757] transform transition duration-150 rounded-full px-4 py-2'
+                  onClick={() => {
+                    // Handle blocking logic
+                    console.log(`Blocked user ID ${selectedFollowerId}`);
+                    setShowBlockModal(false);
+                  }}
+                >
+                  Block
+                </button>
+              </div>
             </div>
           </div>
         )}

@@ -281,7 +281,6 @@ const SocialMedia = () => {
       </div>
 
 
-
       {/* Commenting */}
       {selectedPostId !== null && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center pt-16">
@@ -290,7 +289,7 @@ const SocialMedia = () => {
               <h3 className="text-2xl text-[#6bb3b3] font-semibold cursor-default">Comments</h3>
               <button
                 onClick={closeCommentModal}
-                className="text-[#6bb3b3] text-3xl rounded-full transform transition duration-150 hover:text-[#1f6262]"
+                className="text-[#6bb3b3] text-3xl rounded-full transform transition duration-110 hover:text-[#1f6262]"
               >
                 <IoCloseSharp />
               </button>

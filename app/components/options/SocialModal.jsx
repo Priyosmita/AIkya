@@ -32,13 +32,13 @@ const SocialModal = ({ isOpen, onClose, setPosts, posts }) => {
 
     const handleCreatePost = () => {
         const { title, description, image } = newPost;
-    
+
         // Check if all fields are empty
         if (!title && !description && !image) {
             alert('Please fill in at least one field before sharing your post.');
             return; // Prevent the share action
         }
-    
+
         const newPostData = {
             ...newPost,
             id: posts.length + 1,
@@ -53,19 +53,19 @@ const SocialModal = ({ isOpen, onClose, setPosts, posts }) => {
         setImagePreview('');
         onClose(); // Close the modal after creating the post
     };
-    
+
 
     const handleCancelPost = () => {
         setNewPost({ title: '', description: '', image: '' });
         setImagePreview('');
         setShowCreatePost(false);
         setFileName(false);
-      };
+    };
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center pt-16">
             <div className="bg-[#fedeca] bg-opacity-95 p-4 rounded-xl shadow-md w-full max-w-5xl h-105 relative">
-                
+
                 <div className='pt-2 pb-4'>
                     <button onClick={() => { handleCancelPost(); onClose(); }} className="transform transition duration-150 hover:bg-[#c75757] shadow-lg px-4 py-2 text-white rounded-full bg-[#df7676] absolute right-2">
                         Cancel Post
@@ -75,7 +75,7 @@ const SocialModal = ({ isOpen, onClose, setPosts, posts }) => {
 
                 <div className="grid grid-cols-10">
                     <div className="col-span-7 flex flex-col">
-                        <div className="flex flex-row pb-4"> 
+                        <div className="flex flex-row pb-4">
                             <label className="w-1/5 py-2 transform transition duration-150 hover:bg-[#569c9c] bg-[#6bb3b3] text-white rounded-full cursor-pointer text-center">
                                 Choose File
                                 <input
