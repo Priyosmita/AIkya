@@ -132,13 +132,13 @@ const Followers = () => {
               </div>
               <div className='flex items-center space-x-4'>
                 <button
-                  className='font-bold bg-[#7ebaba] hover:bg-[#6cbaba] text-white px-4 py-2 rounded-full hover:scale-110 transition duration-200'
+                  className='font-bold bg-[#7ebaba] hover:bg-[#559393] text-white px-4 py-1 rounded-full hover:scale-105 transition duration-200'
                   onClick={() => handleViewProfile(follower)}
                 >
                   See Full Profile
                 </button>
                 <button
-                  className='bg-[#f8b891] text-white px-4 py-2 rounded-full  font-bold hover:scale-110 transition duration-200'
+                  className='bg-[#f8b891] hover:bg-[#f09e6c] text-white px-4 py-1 rounded-full font-bold hover:scale-110 transition duration-200'
                   onClick={() => handleRemove(follower.id)}
                 >
                   Remove
