@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import React from 'react'
 import CustomModal from '../CustomModal';
 import axios from "axios";
@@ -48,6 +48,8 @@ const ProjectForm = () => {
     debtCurrency: "USD",
   });
 
+  const dropdownRef = useRef(null);
+
   useEffect(() => {
     if (modalIsOpen) {
       lockScroll();
@@ -57,6 +59,13 @@ const ProjectForm = () => {
 
     return () => unlockScroll(); // Ensure scroll is unlocked on unmount
   }, [modalIsOpen]);
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchProfileAndProjects = async () => {
@@ -75,10 +84,18 @@ const ProjectForm = () => {
     };
     fetchProfileAndProjects();
   }, []);
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownIndex(null); // Close the dropdown if clicked outside
+    }
+  };
+
   const handleProjectChange = (e) => {
     const { name, value } = e.target;
     setProjectData((prevData) => ({ ...prevData, [name]: value }));
   };
+
   const handleCheckboxChange = (e) => {
     const { checked } = e.target;
     setProjectData((prevData) => ({
@@ -87,6 +104,7 @@ const ProjectForm = () => {
       debtAmount: checked ? prevData.debtAmount : "",
     }));
   };
+
   const handleCurrencyChange = (e) => {
     const { name, value } = e.target;
     setProjectData((prevData) => ({ ...prevData, [name]: value }));
@@ -242,25 +260,30 @@ const ProjectForm = () => {
             <div className="flex justify-end">
               <button
                 className='text-gray-400 hover:text-gray-600 transition duration-100'
-                onClick={() => toggleDropdown(index)}
+                onClick={() => setDropdownIndex(dropdownIndex === index ? null : index)}
               >
                 <FaEllipsisV />
               </button>
             </div>
 
             {dropdownIndex === index && (
-              <div className="absolute top-8 right-2 w-20 bg-[#fedeca] rounded-lg shadow-lg">
-                <div
-                  className="p-2 cursor-pointer text-gray-700 hover:bg-[#fac9aa] rounded-lg"
-                  onClick={() => handleEditProject(index)}
-                >
-                  Edit
-                </div>
-                <div
-                  className="p-2 cursor-pointer text-gray-700 hover:bg-[#fac9aa] rounded-lg"
-                  onClick={() => handleDeleteProject(index)}
-                >
-                  Delete
+              <div
+                ref={dropdownRef}
+                className="absolute top-1 right-2 w-20 bg-[#fedeca] rounded-lg shadow-lg"
+              >
+                <div className="absolute top-8 right-2 w-20 bg-[#fedeca] rounded-lg shadow-lg">
+                  <div
+                    className="p-2 cursor-pointer text-gray-700 hover:bg-[#fac9aa] rounded-lg"
+                    onClick={() => handleEditProject(index)}
+                  >
+                    Edit
+                  </div>
+                  <div
+                    className="p-2 cursor-pointer text-gray-700 hover:bg-[#fac9aa] rounded-lg"
+                    onClick={() => handleDeleteProject(index)}
+                  >
+                    Delete
+                  </div>
                 </div>
               </div>
             )}
