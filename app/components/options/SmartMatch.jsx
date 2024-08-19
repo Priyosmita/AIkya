@@ -67,6 +67,9 @@ const SmartMatch = () => {
   const [reportModalOpen, setReportModalOpen] = useState(false);
   const [reportReason, setReportReason] = useState('');
   const [showTextArea, setShowTextArea] = useState(false);
+  const [showBlockModal, setShowBlockModal] = useState(false);
+  const [profileToBlock, setProfileToBlock] = useState(null);
+
 
   useEffect(() => {
     if (selectedProfile) {
@@ -115,12 +118,20 @@ const SmartMatch = () => {
   };
 
 
-  const blockProfile = (id) => {
-    setBlockedProfiles((prevStatus) => ({
-      ...prevStatus,
-      [id]: !prevStatus[id]
-    }));
+  const blockProfile = (profile) => {
+    setProfileToBlock(profile);
     setMenuOpen(null);
+    setShowBlockModal(true);
+  };
+  const confirmBlock = () => {
+    if (profileToBlock) {
+      setBlockedProfiles((prevStatus) => ({
+        ...prevStatus,
+        [profileToBlock.id]: true
+      }));
+      setProfileToBlock(null);
+      setShowBlockModal(false);
+    }
   };
 
 
@@ -141,6 +152,7 @@ const SmartMatch = () => {
     alert('Your report has been submitted successfully');
     closeReportModal();
   };
+  
 
 
   return (
@@ -204,7 +216,7 @@ const SmartMatch = () => {
                 {menuOpen === profile.id && (
                   <div className="absolute right-0 mt-2 w-36 bg-[#fedeca] rounded-lg shadow-lg">
                     <button
-                      onClick={() => blockProfile(profile.id)}
+                      onClick={() => blockProfile(profile)}
                       className="block px-4 py-2 text-sm text-left w-full text-gray-700 hover:bg-[#fac9aa] rounded-lg"
                     >
                       {blockedProfiles[profile.id] ? 'Unblock' : 'Block'}
@@ -265,7 +277,7 @@ const SmartMatch = () => {
           </Modal>
         )}
 
-
+        
         {/* Report Modal */}
         {reportModalOpen && (
           <Modal
@@ -339,18 +351,42 @@ const SmartMatch = () => {
                   />
                 )}
 
-
               </div>
               <div className="flex justify-center mt-4">
                 <button
                   onClick={handleReportSubmit}
                   className="text-white bg-[#df7676] hover:bg-[#c75757] transform transition duration-150 rounded-full px-4 py-2"
                 >
-                  Submit
+                  Report
                 </button>
               </div>
             </div>
           </Modal>
+          
+        )}
+
+        {/* Block Modal */}
+        {showBlockModal && (
+          <div className='fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50'>
+            <div className='relative bg-[#fedeca] bg-opacity-90 p-6 rounded-xl shadow-lg w-[90%] max-w-md'>
+              <button
+                className="absolute top-4 right-4 text-2xl text-[#6bb3b3] hover:text-[#1f6262] transform transition duration-110"
+                onClick={() => setShowBlockModal(false)}
+              >
+                <IoCloseSharp />
+              </button>
+              <h3 className='flex justify-center font-semibold text-2xl text-[#378e8e] mb-2'>Block this user</h3>
+              <p className='text-center text-lg text-[#378e8e] mb-4'>Are you sure you want to block this user? You will no longer see their posts and they will not be able to interact with you.</p>
+              <div className='flex justify-center'>
+                <button
+                  className='text-white bg-[#df7676] hover:bg-[#c75757] transform transition duration-150 rounded-full px-4 py-2'
+                  onClick={confirmBlock}
+                >
+                  Block
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </>
