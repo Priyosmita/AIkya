@@ -220,11 +220,11 @@ const ProfileForm = () => {
               placeholder="Type a skill and press Enter"
               className="p-2 h-14 focus:outline-none rounded text-black"
             />
-            <div className="border rounded p-2 flex flex-wrap gap-2 mt-2">
+            <div className="border border-gray-100 rounded-lg p-2 flex flex-wrap gap-2 mt-2">
               {formData.skills.map((skill, index) => (
                 <div
                   key={index}
-                  className="bg-[#f8c3a2] text-white py-1 px-2 rounded flex items-center"
+                  className="bg-[#f9bf9a] text-white text-lg py-1 px-2 rounded-xl flex items-center"
                 >
                   <span>{skill}</span>
                   <button
@@ -242,7 +242,7 @@ const ProfileForm = () => {
 
         <button
           type="submit"
-          className="bg-[#7ebaba] text-white font-bold py-2 px-4 rounded hover:bg-[#f9bf9a] hover:scale-110 transform transition duration-300"
+          className="bg-[#7ebaba] text-xl text-white font-bold py-2 px-4 rounded-full hover:bg-[#f9bf9a] hover:scale-110 transform transition duration-200"
           onClick={saveChanges}
         >
           Save Changes
