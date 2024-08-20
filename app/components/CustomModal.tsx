@@ -26,5 +26,4 @@ const CustomModal: React.FC<CustomModalProps> = ({ isOpen, onClose, children }) 
   );
 };
 
-
 export default CustomModal;

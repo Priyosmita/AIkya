@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useAuth, useUser, useClerk } from "@clerk/nextjs";
@@ -14,6 +14,26 @@ const Header: React.FC = () => {
   const { isSignedIn } = useAuth();
   const { user } = useUser();
   const { signOut } = useClerk();
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setDropdownOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    if (dropdownOpen) {
+      document.addEventListener("click", handleClickOutside);
+    } else {
+      document.removeEventListener("click", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [dropdownOpen]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -84,9 +104,8 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`bg-[#ffffff] w-full flex flex-row justify-between top-0 z-10 fixed transition-transform duration-300 ${
-        hidden ? "-translate-y-full" : "translate-y-0"
-      }`}
+      className={`bg-[#ffffff] w-full flex flex-row justify-between top-0 z-10 fixed transition-transform duration-300 ${hidden ? "-translate-y-full" : "translate-y-0"
+        }`}
     >
       <div className="flex items-center gap-7">
         <Link href="/">
@@ -119,7 +138,7 @@ const Header: React.FC = () => {
           </Link>
 
           {isSignedIn && (
-            <div className="relative">
+            <div className="relative" ref={dropdownRef}>
               <div
                 className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer transform transition duration-300 hover:scale-110"
                 onClick={toggleDropdown}
@@ -127,16 +146,15 @@ const Header: React.FC = () => {
                 {formData.profilePicturePreview ? (
                   <img
                     src={formData.profilePicturePreview}
-                    alt="Profile"
+                    alt="Profile Pic"
                     className="object-cover w-full h-full rounded-full"
                   />
                 ) : (
                   <label className="flex flex-col items-center justify-center cursor-pointer">
-                    <span className="text-4xl text-[#6a9696]">+</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="absolute inset-0 opacity-0 cursor-pointer"
+                    <img
+                      src={"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
+                      alt="Profile"
+                      className="object-cover w-full h-full rounded-full"
                     />
                   </label>
                 )}
