@@ -187,7 +187,7 @@ const ProfileForm = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full p-2 border rounded-xl text-black focus:outline-none"
+            className="w-full p-2 border rounded-lg text-black focus:outline-none"
           />
         </div>
         <div>
