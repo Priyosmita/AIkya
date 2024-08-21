@@ -3,7 +3,7 @@
 import { AiOutlineLike, AiFillLike } from "react-icons/ai";
 import { IoShareSocial } from "react-icons/io5";
 import { FaRegComment } from "react-icons/fa";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { IoCloseSharp } from "react-icons/io5";
 import { FaLink } from "react-icons/fa";
@@ -15,6 +15,7 @@ import { FaSearch } from "react-icons/fa";
 import "../components.css";
 import "./options.css";
 import SocialModal from "./SocialModal"
+import axios from "axios";
 
 
 const initialPosts = [
@@ -43,7 +44,7 @@ const initialPosts = [
 ];
 
 const SocialMedia = () => {
-  const [posts, setPosts] = useState(initialPosts);
+  const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState({ title: '', description: '', image: '' });
   const [showCreatePost, setShowCreatePost] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
@@ -53,6 +54,20 @@ const SocialMedia = () => {
   const [showShareModal, setShowShareModal] = useState(false); // To manage share modal visibility
   const [currentPostId, setCurrentPostId] = useState(null); // To track the post ID for the share modal
   const [searchQuery, setSearchQuery] = useState(''); // Search query state
+  useEffect(() => {
+    // Fetch the posts from the database
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/posts'); // Adjust the URL to match your endpoint
+        setPosts(response.data);
+        console.log("yay");
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   const handleReaction = (postId) => {
     setPosts(posts.map(post =>
@@ -244,7 +259,7 @@ const SocialMedia = () => {
                   >
                     <FaRegComment />
                   </button>
-                  <p className="text-[#6bb3b3] text-xl">{post.comments.length}</p>
+                  {/* <p className="text-[#6bb3b3] text-xl">{post.comments.length}</p> */}
                 </div>
                 <button className="text-[#6bb3b3] text-2xl" onClick={() => handleShareClick(post.id)}>
                   <IoShareSocial />
@@ -252,7 +267,7 @@ const SocialMedia = () => {
               </div>
             </div>
 
-            <div className="mb-2">
+            {/* <div className="mb-2">
               {post.comments.slice(0, 2).map((comment, index) => (
                 <p key={index} className="mb-1 border-t pt-1 text-gray-600">{comment.text}</p>
               ))}
@@ -275,7 +290,7 @@ const SocialMedia = () => {
                 }}
                 className="p-2 border rounded w-full"
               />
-            </div>
+            </div> */}
           </div>
         ))}
       </div>

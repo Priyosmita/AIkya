@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useState, useEffect, useRef } from "react";
 import React from 'react'
 import CustomModal from '../CustomModal';
@@ -8,7 +9,9 @@ import { FaEllipsisV } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import { lockScroll, unlockScroll } from '../../utils/scrollLock';
 
+
 const ProjectForm = () => {
+  const fileInputRef = useRef(null);
   const [formData, setFormData] = useState({
     name: "",
     about: "",
@@ -49,7 +52,9 @@ const ProjectForm = () => {
     debtCurrency: "USD",
   });
 
+
   const dropdownRef = useRef(null);
+
 
   useEffect(() => {
     if (modalIsOpen) {
@@ -58,8 +63,10 @@ const ProjectForm = () => {
       unlockScroll();
     }
 
+
     return () => unlockScroll(); // Ensure scroll is unlocked on unmount
   }, [modalIsOpen]);
+
 
   useEffect(() => {
     if (isModalOpen) {
@@ -68,8 +75,10 @@ const ProjectForm = () => {
       unlockScroll();
     }
 
+
     return () => unlockScroll(); // Ensure scroll is unlocked on unmount
   }, [isModalOpen]);
+
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -78,9 +87,11 @@ const ProjectForm = () => {
     };
   }, []);
 
+
   useEffect(() => {
     const fetchProfileAndProjects = async () => {
       try {
+
 
         const projectResponse = await axios.get(
           "http://localhost:5000/api/projects"
@@ -96,16 +107,19 @@ const ProjectForm = () => {
     fetchProfileAndProjects();
   }, []);
 
+
   const handleClickOutside = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setDropdownIndex(null); // Close the dropdown if clicked outside
     }
   };
 
+
   const handleProjectChange = (e) => {
     const { name, value } = e.target;
     setProjectData((prevData) => ({ ...prevData, [name]: value }));
   };
+
 
   const handleCheckboxChange = (e) => {
     const { checked } = e.target;
@@ -116,10 +130,12 @@ const ProjectForm = () => {
     }));
   };
 
+
   const handleCurrencyChange = (e) => {
     const { name, value } = e.target;
     setProjectData((prevData) => ({ ...prevData, [name]: value }));
   };
+
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
@@ -132,57 +148,40 @@ const ProjectForm = () => {
     }
   };
 
+
   const handleProjectSubmit = async (e) => {
     e.preventDefault();
+  
+    const formData = new FormData();
+    for (const key in projectData) {
+      formData.append(key, projectData[key]);
+    }
+  
+    if (fileInputRef.current?.files[0]) {
+      formData.append('images', fileInputRef.current.files[0]);
+    }
+  
     try {
       if (isEditing) {
-        console.log("Updating project:", projectData); // Debugging line
-        const response = await axios.put(
-          `http://localhost:5000/api/project/${projects[editIndex]._id}`,
-          projectData
-        );
-        const updatedProject = response.data;
-
-        // Update the state with the edited project
-        setProjects((prevProjects) =>
-          prevProjects.map((proj, index) =>
-            index === editIndex ? updatedProject : proj
-          )
-        );
+        await axios.put(`http://localhost:5000/api/project/${projects[editIndex]._id}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
       } else {
-        console.log("Creating new project:", projectData); // Debugging line
-        const response = await axios.post(
-          "http://localhost:5000/api/project",
-          projectData
-        );
-        const newProject = response.data;
-        setProjects((prevProjects) => [...prevProjects, newProject]);
+        await axios.post("http://localhost:5000/api/project", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
       }
-      setProjectData({
-        name: "",
-        website: "",
-        type: "",
-        industry: "",
-        details: "",
-        startedIn: "",
-        yearlyRevenue: "",
-        monthlySales: "",
-        grossMargin: "",
-        netMargin: "",
-        ebitda: "",
-        skus: "",
-        originalAsk: "",
-        equityOffered: "",
-        debtAmount: "",
-        images: null,
-      });
-      setModalIsOpen(false);
-      setIsEditing(false);
-      setEditIndex(null);
+      resetForm();
     } catch (error) {
       console.error("There was an error!", error);
     }
   };
+  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -190,6 +189,7 @@ const ProjectForm = () => {
     console.log("Project data submitted:", projectData);
     // Optionally close the modal or reset form here
   };
+
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => {
@@ -215,6 +215,7 @@ const ProjectForm = () => {
     });
   };
 
+
   const handleEditProject = (index) => {
     setEditIndex(index);
     setProjectData(projects[index]);
@@ -222,6 +223,7 @@ const ProjectForm = () => {
     setModalIsOpen(true);
     setDropdownIndex(null);
   };
+
 
   const handleDeleteProject = async (index) => {
     try {
@@ -235,9 +237,11 @@ const ProjectForm = () => {
     }
   };
 
+
   const toggleDropdown = (index) => {
     setDropdownIndex(dropdownIndex === index ? null : index);
   };
+
 
   const handleDeleteAccount = () => {
     if (inputUsername === username) {
@@ -249,18 +253,22 @@ const ProjectForm = () => {
     }
   };
 
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
+
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedProjectIndex(null); // Clear selected project index when closing
   };
 
+
   // Delete Modal
   const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
     if (!isOpen) return null;
+
 
     return (
       <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
@@ -287,10 +295,13 @@ const ProjectForm = () => {
   };
 
 
+
+
   const handleDeleteClick = (index) => {
     setSelectedProjectIndex(index);
     setIsModalOpen(true);
   };
+
 
   const handleConfirmDelete = async () => {
     try {
@@ -305,6 +316,7 @@ const ProjectForm = () => {
     }
   };
 
+
   return (
     <>
       <h2 className="text-[#7ebaba] text-4xl mt-12 mb-6">Projects</h2>
@@ -315,6 +327,7 @@ const ProjectForm = () => {
             className="relative bg-white bg-opacity-50 rounded-lg shadow-md p-4"
           >
 
+
             {/* 3 dots */}
             <div className="flex justify-end">
               <button
@@ -324,6 +337,7 @@ const ProjectForm = () => {
                 <FaEllipsisV />
               </button>
             </div>
+
 
             {dropdownIndex === index && (
               <div
@@ -367,6 +381,7 @@ const ProjectForm = () => {
           <span className="text-3xl text-[#6a9696]">+</span>
         </div>
       </div>
+
 
       <CustomModal isOpen={modalIsOpen} onClose={closeModal}>
         <form onSubmit={handleProjectSubmit}>
@@ -438,6 +453,7 @@ const ProjectForm = () => {
               <option value="children">Children</option>
               <option value="others">Others</option>
             </select>
+
 
             {projectData.industry === "others" && (
               <input
@@ -671,6 +687,7 @@ const ProjectForm = () => {
         </form>
       </CustomModal>
 
+
       {/* Deletion confirmation */}
       <ConfirmationModal
         isOpen={isModalOpen}
@@ -680,5 +697,6 @@ const ProjectForm = () => {
     </>
   )
 }
+
 
 export default ProjectForm

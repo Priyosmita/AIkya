@@ -6,8 +6,6 @@ const SocialModal = ({ isOpen, onClose, setPosts, posts }) => {
     const [newPost, setNewPost] = useState({ title: '', description: '', image: '', name: '' });
     const [imagePreview, setImagePreview] = useState('');
     const [fileName, setFileName] = useState(''); // State to store the file name
-    const [showCreatePost, setShowCreatePost] = useState(false);
-
 
     useEffect(() => {
         if (!isOpen) {
@@ -30,7 +28,7 @@ const SocialModal = ({ isOpen, onClose, setPosts, posts }) => {
         }
     };
 
-    const handleCreatePost = () => {
+    const handleCreatePost = async () => {
         const { title, description, image } = newPost;
 
         // Check if all fields are empty
@@ -39,27 +37,50 @@ const SocialModal = ({ isOpen, onClose, setPosts, posts }) => {
             return; // Prevent the share action
         }
 
-        const newPostData = {
-            ...newPost,
-            id: posts.length + 1,
-            image: imagePreview,
-            reactions: 0,
-            comments: [],
-            isLiked: false,
-            name: newPost.name || 'demo', // Use "demo" if name is not provided
-        };
-        setPosts([...posts, newPostData]);
-        setNewPost({ title: '', description: '', image: '', name: '' });
-        setImagePreview('');
-        onClose(); // Close the modal after creating the post
-    };
+        // Prepare the form data to send to the backend
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('description', description);
+        if (imagePreview) {
+            formData.append('image', dataURItoBlob(imagePreview), fileName);
+        }
 
+        try {
+            const response = await fetch('http://localhost:5000/api/posts', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (response.ok) {
+                const createdPost = await response.json();
+                setPosts([...posts, createdPost]);
+                setNewPost({ title: '', description: '', image: '', name: '' });
+                setImagePreview('');
+                onClose(); // Close the modal after creating the post
+            } else {
+                alert('Failed to create post');
+            }
+        } catch (error) {
+            console.error('Error creating post:', error);
+        }
+    };
 
     const handleCancelPost = () => {
         setNewPost({ title: '', description: '', image: '' });
         setImagePreview('');
-        setShowCreatePost(false);
-        setFileName(false);
+        setFileName('');
+        onClose();
+    };
+
+    const dataURItoBlob = (dataURI) => {
+        const byteString = atob(dataURI.split(',')[1]);
+        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        return new Blob([ab], { type: mimeString });
     };
 
     return (
@@ -67,7 +88,7 @@ const SocialModal = ({ isOpen, onClose, setPosts, posts }) => {
             <div className="bg-[#fedeca] bg-opacity-95 p-4 rounded-xl shadow-md w-full max-w-5xl h-105 relative">
 
                 <div className='pt-2 pb-4'>
-                    <button onClick={() => { handleCancelPost(); onClose(); }} className="transform transition duration-150 hover:bg-[#c75757] shadow-lg px-4 py-2 text-white rounded-full bg-[#df7676] absolute right-2">
+                    <button onClick={handleCancelPost} className="transform transition duration-150 hover:bg-[#c75757] shadow-lg px-4 py-2 text-white rounded-full bg-[#df7676] absolute right-2">
                         Cancel Post
                     </button>
                     <h3 className="text-2xl font-semibold mb-2 text-[#59a4a4]">Create Post</h3>

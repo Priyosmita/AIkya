@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../globals.css";
 
+
 const ProfileForm = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -15,6 +16,7 @@ const ProfileForm = () => {
   });
   const [projects, setProjects] = useState([]);
   const [skillInput, setSkillInput] = useState("");
+
 
   useEffect(() => {
     const fetchProfileAndProjects = async () => {
@@ -42,25 +44,31 @@ const ProfileForm = () => {
     fetchProfileAndProjects();
   }, []);
 
+
   const handleProfileSubmit = async (e) => {
     e.preventDefault();
     const form = new FormData();
+
 
     form.append("name", formData.name);
     form.append("about", formData.about);
     form.append("experience", formData.experience);
 
+
     // Convert skills array to JSON string before sending
     form.append("skills", JSON.stringify(formData.skills));
+
 
     if (formData.profilePicture) {
       form.append("profilePicture", formData.profilePicture);
     }
 
+
     formData.certifications.forEach((cert, index) => {
       form.append(`certifications[${index}]`, cert.file);
       form.append(`certificationsText[${index}]`, cert.text);
     });
+
 
     try {
       const response = await axios.post(
@@ -74,6 +82,7 @@ const ProfileForm = () => {
     }
   };
 
+
   const handleProfilePictureUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -84,10 +93,12 @@ const ProfileForm = () => {
     }
   };
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
+
 
   const handleCertificationUpload = (e) => {
     const files = Array.from(e.target.files);
@@ -107,6 +118,7 @@ const ProfileForm = () => {
     });
   };
 
+
   const handleCertificationTextChange = (index, text) => {
     const updatedCertifications = [...formData.certifications];
     updatedCertifications[index].text = text;
@@ -116,11 +128,13 @@ const ProfileForm = () => {
     }));
   };
 
+
   const handleSaveCertification = (index) => {
     const certification = formData.certifications[index];
     setSavedCertifications((prevCerts) => [...prevCerts, certification]);
     removeCertification(index);
   };
+
 
   const removeCertification = (index) => {
     const updatedCertifications = formData.certifications.filter(
@@ -132,9 +146,11 @@ const ProfileForm = () => {
     }));
   };
 
+
   const handleSkillsChange = (skills) => {
     setFormData((prevData) => ({ ...prevData, skills }));
   };
+
 
   const handleSkillKeyDown = (e) => {
     if (e.key === "Enter" && skillInput.trim()) {
@@ -144,13 +160,16 @@ const ProfileForm = () => {
     }
   };
 
+
   const handleRemoveSkill = (index) => {
     handleSkillsChange(formData.skills.filter((_, i) => i !== index));
   };
 
+
   const saveChanges = () => {
     alert("Changes saved successfully!");
   };
+
 
   return (
     <>
@@ -180,6 +199,7 @@ const ProfileForm = () => {
           </div>
         </div>
 
+
         <div>
           <label className="block text-[#6a9696] text-2xl">Name</label>
           <input
@@ -187,7 +207,7 @@ const ProfileForm = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full p-2 border rounded-lg text-black focus:outline-none"
+            className="w-full p-2 border rounded text-black focus:outline-none"
           />
         </div>
         <div>
@@ -196,7 +216,7 @@ const ProfileForm = () => {
             name="about"
             value={formData.about}
             onChange={handleChange}
-            className="w-full p-2 border rounded-xl text-black focus:outline-none"
+            className="w-full p-2 border rounded text-black focus:outline-none"
           ></textarea>
         </div>
         <div>
@@ -205,9 +225,10 @@ const ProfileForm = () => {
             name="experience"
             value={formData.experience}
             onChange={handleChange}
-            className="w-full p-2 border rounded-xl text-black focus:outline-none"
+            className="w-full p-2 border rounded text-black focus:outline-none"
           ></textarea>
         </div>
+
 
         <div>
           <label className="block text-[#6a9696] text-2xl mb-2">Skills</label>
@@ -218,7 +239,7 @@ const ProfileForm = () => {
               onChange={(e) => setSkillInput(e.target.value)}
               onKeyDown={handleSkillKeyDown}
               placeholder="Type a skill and press Enter"
-              className="p-2 h-14 focus:outline-none rounded-xl text-black"
+              className="p-2 h-14 focus:outline-none rounded text-black"
             />
             <div className="border border-gray-100 rounded-lg p-2 flex flex-wrap gap-2 mt-2">
               {formData.skills.map((skill, index) => (
@@ -240,6 +261,7 @@ const ProfileForm = () => {
           </div>
         </div>
 
+
         <button
           type="submit"
           className="bg-[#7ebaba] text-xl text-white font-bold py-2 px-4 rounded-full hover:bg-[#f9bf9a] hover:scale-110 transform transition duration-200"
@@ -252,4 +274,5 @@ const ProfileForm = () => {
   );
 };
 
-export default ProfileForm;
+
+export default ProfileForm
