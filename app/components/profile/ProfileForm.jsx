@@ -17,6 +17,8 @@ const ProfileForm = () => {
   const [projects, setProjects] = useState([]);
   const [skillInput, setSkillInput] = useState("");
 
+  
+
 
   useEffect(() => {
     const fetchProfileAndProjects = async () => {
