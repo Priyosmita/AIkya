@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import "./options.css"
 import { FaSearch } from "react-icons/fa";
 import { lockScroll, unlockScroll } from '../../utils/scrollLock';
+import { FaVideo } from "react-icons/fa6";
 
 
 // Sample static chat data with demo messages
@@ -12,7 +13,7 @@ const chatsData = [
   {
     id: 1,
     name: 'Rijuraj Datta',
-    profilePic: 'https://ashallendesign.ams3.cdn.digitaloceanspaces.com/rMbsGOyK6i1KjNkbXff8qLohzM1nWQA8HNGwHF0J.png',
+    profilePic: '/assets/rijuraj.jpeg',
     messages: [
       { text: 'Hello! How are you?', sender: 'user' },
       { text: 'Hi there! I am good, thanks for asking. How about you?', sender: 'Rijuraj Datta' },
@@ -22,8 +23,8 @@ const chatsData = [
   },
   {
     id: 2,
-    name: 'Bob Brown',
-    profilePic: 'https://cambridgesmiles.ca/wp-content/uploads/2016/10/dentalia-demo-deoctor-3-1-750x750-1.jpg',
+    name: 'Sayan Ghosh',
+    profilePic: 'https://www.shutterstock.com/image-photo/portrait-handsome-young-indian-man-260nw-1927008089.jpg',
     messages: [
       { text: 'Good morning! Did you receive my email?', sender: 'user' },
       { text: 'Good morning! Yes, I received it. I will review it today.', sender: 'Bob Brown' },
@@ -33,10 +34,10 @@ const chatsData = [
   },
   {
     id: 3,
-    name: 'Carol White',
-    profilePic: 'https://img.freepik.com/photos-gratuite/gros-plan-belle-jeune-femme-brune-habillee-haut-raye-se-detendre-dans-pepiniere-pendant-journee-profiter-air-frais-concept-personnes-nature-verdure-agriculture-jardinage-fraicheur_343059-209.jpghttps://img.freepik.com/free-photo/portrait-happy-young-woman-looking-camera_23-2147892777.jpg',
+    name: 'Suresh Das',
+    profilePic: 'https://i0.wp.com/pixahive.com/wp-content/uploads/2021/02/An-Indian-boy-375075-pixahive.jpg?fit=1702%2C2560&ssl=1',
     messages: [
-      { text: 'Hi Carol, can we schedule a call?', sender: 'user' },
+      { text: 'Hi Suresh, can we schedule a call?', sender: 'user' },
       { text: 'Hello! Yes, we can. What time works for you?', sender: 'Carol White' },
       { text: 'How about 3 PM today?', sender: 'user' },
       { text: 'That works for me. I will send you a calendar invite.', sender: 'Carol White' }
@@ -44,10 +45,10 @@ const chatsData = [
   },
   {
     id: 4,
-    name: 'David Green',
-    profilePic: 'https://www.qtrainers.com/upload/profile/160/2020/02/profile_35405e4683b309238.jpg',
+    name: 'Rahul Banerjee',
+    profilePic: 'https://img.freepik.com/free-photo/indian-stylish-man-black-traditional-clothes-with-white-scarf-posed-outdoor_627829-12675.jpg?size=626&ext=jpg',
     messages: [
-      { text: 'Hi David, just following up on our last discussion.', sender: 'user' },
+      { text: 'Hi Rahul, just following up on our last discussion.', sender: 'user' },
       { text: 'Hello! I’ve made some progress. Let’s discuss it.', sender: 'David Green' },
       { text: 'Looking forward to it. When would be a good time?', sender: 'user' },
       { text: 'How about tomorrow morning?', sender: 'David Green' }
@@ -131,12 +132,15 @@ const Chats = () => {
                   <p className='font-semibold'>{chat.name}</p>
                 </div>
               </div>
+              <div className='flex flex-row'>
               <button
                 className='bg-[#7ebaba] hover:bg-[#f8b891] font-bold hover:scale-110 transition duration-150 text-white px-4 py-1 rounded-full'
                 onClick={() => openChat(chat)}
               >
                 Chat
               </button>
+              <FaVideo className='text-3xl ml-4 text-[#7ebaba] hover:text-[#f8b891] hover:scale-110 transition duration-150'/></div>
+              
             </li>
           ))}
         </ul>

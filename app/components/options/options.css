@@ -81,3 +81,61 @@ textarea::-webkit-scrollbar-thumb:hover {
   background: #287f7f; /* Scrollbar color on hover */
   cursor: default;
 }
+
+/* styles.css */
+
+/* Container for meeting controls */
+.meeting-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.meeting-controls button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.meeting-controls button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.meeting-controls input {
+  margin: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 300px;
+}
+
+.meeting-controls input::placeholder {
+  color: #999;
+}
+
+.meeting-controls .error {
+  color: red;
+  margin-top: 10px;
+}
+
+/* styles.css */
+
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.input_width {
+  width: 42%;
+}
+

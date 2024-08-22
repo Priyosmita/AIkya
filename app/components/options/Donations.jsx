@@ -16,7 +16,7 @@ const startupsData = [
     name: 'Tech Innovators',
     industry: 'Technology',
     details: 'Tech Innovators is working on cutting-edge AI solutions.',
-    valuation: '$50M',
+    valuation: '5000000 rs',
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const startupsData = [
     name: 'Green Ventures',
     industry: 'Environmental',
     details: 'Green Ventures focuses on sustainable energy solutions.',
-    valuation: '$30M',
+    valuation: '10000000 rs',
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ const startupsData = [
     name: 'HealthNext',
     industry: 'Healthcare',
     details: 'HealthNext develops innovative health tech products.',
-    valuation: '$80M',
+    valuation: '8000000 rs',
   },
 ];
 

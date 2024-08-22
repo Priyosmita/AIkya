@@ -11,34 +11,34 @@ const followersData = [
     id: 1,
     name: 'Rijuraj Datta',
     industry: 'Tech',
-    profilePic: 'https://ashallendesign.ams3.cdn.digitaloceanspaces.com/rMbsGOyK6i1KjNkbXff8qLohzM1nWQA8HNGwHF0J.png',
+    profilePic: '/assets/rijuraj.jpeg',
     about: 'Passionate tech enthusiast with a focus on AI and software development.',
     experience: '5 years in software engineering at various tech companies.',
     skills: ['JavaScript', 'React', 'Node.js']
   },
   {
     id: 2,
-    name: 'Priyosmita Das',
+    name: 'Sayan Ghosh',
     industry: 'Finance',
-    profilePic: 'https://media.licdn.com/dms/image/D4E03AQF994QfoNMUBA/profile-displayphoto-shrink_200_200/0/1706964303726?e=2147483647&v=beta&t=kvqaovcfqEGsj35xJaAo6o6MSmvuvn_mThbzHTFyy3U',
+    profilePic: 'https://www.shutterstock.com/image-photo/portrait-handsome-young-indian-man-260nw-1927008089.jpg',
     about: 'Financial analyst with extensive experience in investment and risk management.',
     experience: '7 years in financial consulting and analysis.',
     skills: ['Financial Modeling', 'Investment Analysis', 'Risk Management']
   },
   {
     id: 3,
-    name: 'Carol White',
+    name: 'Suresh Das',
     industry: 'Food',
-    profilePic: 'https://img.freepik.com/photos-gratuite/gros-plan-belle-jeune-femme-brune-habillee-haut-raye-se-detendre-dans-pepiniere-pendant-journee-profiter-air-frais-concept-personnes-nature-verdure-agriculture-jardinage-fraicheur_343059-209.jpg',
+    profilePic: 'https://i0.wp.com/pixahive.com/wp-content/uploads/2021/02/An-Indian-boy-375075-pixahive.jpg?fit=1702%2C2560&ssl=1',
     about: 'Food critic and blogger with a love for culinary arts and gastronomy.',
     experience: '10 years of experience in food critique and blogging.',
     skills: ['Food Criticism', 'Culinary Arts', 'Food Photography']
   },
   {
     id: 4,
-    name: 'David Green',
+    name: 'Rahul Banerjee',
     industry: 'Health',
-    profilePic: 'https://www.qtrainers.com/upload/profile/160/2020/02/profile_35405e4683b309238.jpg',
+    profilePic: 'https://img.freepik.com/free-photo/indian-stylish-man-black-traditional-clothes-with-white-scarf-posed-outdoor_627829-12675.jpg?size=626&ext=jpg',
     about: 'Healthcare professional specializing in public health and wellness.',
     experience: '8 years in public health research and clinical practice.',
     skills: ['Public Health', 'Clinical Research', 'Wellness Coaching']

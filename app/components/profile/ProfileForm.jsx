@@ -209,7 +209,7 @@ const ProfileForm = () => {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full p-2 border rounded text-black focus:outline-none"
+            className="w-full p-2 border rounded-lg text-black focus:outline-none"
           />
         </div>
         <div>
@@ -218,7 +218,7 @@ const ProfileForm = () => {
             name="about"
             value={formData.about}
             onChange={handleChange}
-            className="w-full p-2 border rounded text-black focus:outline-none"
+            className="w-full p-2 border rounded-lg text-black focus:outline-none"
           ></textarea>
         </div>
         <div>
@@ -227,7 +227,7 @@ const ProfileForm = () => {
             name="experience"
             value={formData.experience}
             onChange={handleChange}
-            className="w-full p-2 border rounded text-black focus:outline-none"
+            className="w-full p-2 border rounded-lg text-black focus:outline-none"
           ></textarea>
         </div>
 
@@ -241,7 +241,7 @@ const ProfileForm = () => {
               onChange={(e) => setSkillInput(e.target.value)}
               onKeyDown={handleSkillKeyDown}
               placeholder="Type a skill and press Enter"
-              className="p-2 h-14 focus:outline-none rounded text-black"
+              className="p-2 h-14 focus:outline-none rounded-lg text-black"
             />
             <div className="border border-gray-100 rounded-lg p-2 flex flex-wrap gap-2 mt-2">
               {formData.skills.map((skill, index) => (

@@ -5,6 +5,7 @@ import Footer from "@/app/components/Footer";
 import "../../globals.css";
 import ProfileForm from "../../components/profile/ProfileForm";
 import ProjectForm from "../../components/profile/ProjectForm";
+import SocialPostControl from "../../components/profile/SocialPostControl";
 
 const ProfileDetailsPage = () => {
   return (
@@ -14,6 +15,7 @@ const ProfileDetailsPage = () => {
         <div className="bg-white bg-opacity-0 rounded-2xl p-8 w-3/4 pt-32 gap-y-7">
           <ProfileForm />
           <ProjectForm />
+          <SocialPostControl />
         </div>
       </div>
       <Footer />

@@ -10,41 +10,41 @@ import { lockScroll, unlockScroll } from '../../utils/scrollLock';
 const profiles = [
   {
     id: 1,
-    photo: 'https://ashallendesign.ams3.cdn.digitaloceanspaces.com/rMbsGOyK6i1KjNkbXff8qLohzM1nWQA8HNGwHF0J.png',
-    name: 'John Doe',
+    photo: 'https://static.vecteezy.com/system/resources/thumbnails/023/467/287/small_2x/portrait-of-a-indian-girl-against-the-background-of-spikelets-of-wheat-neural-network-ai-generated-photo.jpg',
+    name: 'Krittika Patra',
     industry: 'Tech',
     tag: 'Entrepreneur',
-    about: 'About John Doe',
+    about: 'passionate business woman',
     experience: '5 years in Tech industry',
     skills: 'JavaScript, React, Node.js'
   },
   {
     id: 2,
-    photo: 'https://wildlifefilmnetwork.com/wp-content/uploads/pmpro-register-helper/Demo%20-%20Admin%20Page/Demo%20Page%20Profile%20Photo.jpg',
-    name: 'Jane Smith',
+    photo: 'https://wallpapercave.com/wp/wp6558834.jpg',
+    name: 'Swastik Paul',
     industry: 'Beauty',
     tag: 'Investor',
-    about: 'About Jane Smith',
+    about: 'hobby photographer',
     experience: '10 years in Beauty industry',
     skills: 'Marketing, Sales, Product Development'
   },
   {
     id: 3,
-    photo: 'https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg',
-    name: 'Alice Johnson',
+    photo: 'https://t4.ftcdn.net/jpg/06/04/66/55/360_F_604665506_enQwoqx6UAJkx6EeTcdDlBQEJT2pJhVc.jpg',
+    name: 'Trisha Shil',
     industry: 'Food',
     tag: 'Entrepreneur',
-    about: 'About Alice Johnson',
+    about: 'Foody and moody',
     experience: '7 years in Food industry',
     skills: 'Cooking, Recipe Development, Nutrition'
   },
   {
     id: 4,
-    photo: 'https://cambridgesmiles.ca/wp-content/uploads/2016/10/dentalia-demo-deoctor-3-1-750x750-1.jpg',
-    name: 'Bob Brown',
+    photo: 'https://media.istockphoto.com/id/1395880805/photo/indoor-close-up-portrait-of-beauty-asian-indian-serene-young-woman-sitting-near-the-window.webp?b=1&s=170667a&w=0&k=20&c=23cY1qNv9mkjccMZktuioagykwi2npP9wF8MWxzRK00=',
+    name: 'Shalini Acharya',
     industry: 'Tech',
     tag: 'Investor',
-    about: 'About Bob Brown',
+    about: 'Looking for talents',
     experience: '15 years in Tech industry',
     skills: 'Investing, Startups, Venture Capital'
   },
@@ -189,6 +189,9 @@ const SmartMatch = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {filteredProfiles.map(profile => (
             <div key={profile.id} className="relative p-4 border shadow-lg rounded-xl bg-opacity-30 bg-white text-black">
+              <div className="absolute top-2 left-2 bg-[#e1a1a1] text-white text-xs font-bold px-2 py-1 rounded-full">
+    Suggested
+  </div>
               <img src={profile.photo} alt={profile.name} className="w-24 h-24 rounded-full mx-auto mb-2" />
               <h3 className="text-xl text-center mb-1">{profile.name}</h3>
               <p className="text-center text-gray-600 mb-1">{profile.industry}</p>
