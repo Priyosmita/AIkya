@@ -10,7 +10,7 @@
 
 ## [🎥 Click to watch Prototype Video](https://drive.google.com/file/d/1nTvQC54-6vt-Oz5gCmzo9n-h-oUUXmzM/view)
 
-### [Backend Link](https://github.com/Priyosmita/AIkya-Backend) 
+### [Backend Link](https://github.com/Priyosmita/Aikya-Backend-New) 
 
 ### [Colab Link](https://colab.research.google.com/drive/1LP2ho6sZWbomqCZbT73VXBKmWvNEXbjk?usp=sharing)
 
