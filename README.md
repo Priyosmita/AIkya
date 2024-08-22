@@ -76,6 +76,14 @@ Micro and nano entrepreneurs drive growth and innovation but struggle with fundi
     <figcaption>AIkya's About Page</figcaption>
   </figure>
 </div>
+
+## 💸 Business Model
+AIkya sets itself apart with its seamless integration of AI-driven matchmaking and real-time collaboration tools. 
+- Since AIkya is currently targeting only micro and nano entrepreneurs, we plan to keep the first three investment connects in the entrepreneur side and first three rate of returns in the investor side chargeless, and then on will be charging a minimal fee per investment and return.
+- This system can further be refined by offering Connection Bundles where users would get a set of free connections per month or year and additional connections beyond the quota would be chargeable. 
+- Another package could be made for providing enhanced visibility to entrepreneurs whereby they will get priority matching, visibility to high-profile investors and highlighted profile for crowd funding.
+- Bulk Purchase Discounts would be made available, encouraging users to purchase premium packages.
+
  
 ## 💫 In a nutshell
 AIkya transforms the entrepreneurial landscape by connecting entrepreneurs with investors using cutting-edge smart AI matchmaking. With seamless chat, crowd funding, and real-time market insights, AIkya boosts access to funding, expertise, and community support, fueling innovation and economic growth.<br/> AIkya, with its name reflecting unity and innovation, is your gateway to unlocking potential and driving success in the entrepreneurial world.
