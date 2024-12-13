@@ -13,7 +13,7 @@ const Page = () => {
           <div className='text-xl mt-5 flex justify-center'>Where Ideas Create Impact</div>
           <div className='flex justify-center pt-80'>
             <GradientButton gradientColors={["#ff99a7", "#9bd4c3"]} className=''>
-              <p className=''>Dashboard</p>
+              <p className='text-center text-2xl'>Dashboard</p>
             </GradientButton>
           </div>
         </div>

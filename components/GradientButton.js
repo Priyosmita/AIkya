@@ -28,7 +28,7 @@ const GradientButton = ({ children, gradientColors }) => {
       ? `linear-gradient(${angle}deg, ${gradientColors[0]}, ${gradientColors[1]})` 
       : 'transparent',
     color: 'white',
-    padding: '5px 10px', // Reduced padding for smaller size
+    padding: '15px 100px 15px 100px', // Reduced padding for smaller size
     cursor: 'pointer',
     transition: 'all 0.3s ease-in-out',
     maxWidth: '150px', // Limit the maximum width of the button
