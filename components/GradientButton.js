@@ -50,7 +50,7 @@ const GradientButton = ({ children, gradientColors }) => {
         ${isHovered ? "" : "bg-transparent"}
       `}
       style={{
-        borderColor: gradientColors[0],
+        // borderColor: [gradientColors[0],gradientColors[1]],
         background: isHovered
           ? `linear-gradient(${angle}deg, ${gradientColors[0]}, ${gradientColors[1]})`
           : "transparent",
