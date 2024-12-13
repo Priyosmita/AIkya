@@ -1,5 +1,5 @@
-"use client"
-import React, { useState, useRef, useEffect } from 'react';
+"use client";
+import React, { useState, useRef } from "react";
 
 const GradientButton = ({ children, gradientColors }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -16,28 +16,36 @@ const GradientButton = ({ children, gradientColors }) => {
     cancelAnimationFrame(animationRef.current);
   };
 
+  // hover gradient animation
   const animate = () => {
-    setAngle((prevAngle) => (prevAngle + 1) % 360); // Smaller increment for smoother animation
-    animationRef.current = requestAnimationFrame(animate); 
-  };
-
-  const buttonStyles = {
-    borderRadius: '999px', // For pill shape
-    border: `2px solid ${gradientColors[0]}`,
-    background: isHovered 
-      ? `linear-gradient(${angle}deg, ${gradientColors[0]}, ${gradientColors[1]})` 
-      : 'transparent',
-    color: 'white',
-    padding: '15px 100px 15px 100px', // Reduced padding for smaller size
-    cursor: 'pointer',
-    transition: 'all 0.3s ease-in-out',
-    maxWidth: '150px', // Limit the maximum width of the button
+    setAngle((prevAngle) => (prevAngle + 1.5) % 360); 
+    animationRef.current = requestAnimationFrame(animate);
   };
 
   return (
-    <button 
-      style={buttonStyles} 
-      onMouseEnter={handleMouseEnter} 
+    <button
+      className={`
+        rounded-full
+        border-2
+        hover:border-none
+        px-14
+        py-3
+        text-white
+        transition-all
+        duration-300
+        ease-in-out
+        cursor-pointer
+        max-w-md
+        hover:scale-110
+        ${isHovered ? "" : "bg-transparent"}
+      `}
+      style={{
+        borderColor: gradientColors[0],
+        background: isHovered
+          ? `linear-gradient(${angle}deg, ${gradientColors[0]}, ${gradientColors[1]})`
+          : "transparent",
+      }}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {children}

@@ -11,7 +11,7 @@ const Page = () => {
         <div className='absolute inset-0 flex flex-col text-white'>
           <div className='text-9xl flex justify-center pt-36'>AIkya</div>
           <div className='text-xl mt-5 flex justify-center'>Where Ideas Create Impact</div>
-          <div className='flex justify-center pt-80'>
+          <div className='flex justify-center pt-96 mt-16'>
             <GradientButton gradientColors={["#ff99a7", "#9bd4c3"]} className=''>
               <p className='text-center text-2xl'>Dashboard</p>
             </GradientButton>
