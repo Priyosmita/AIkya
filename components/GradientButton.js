@@ -6,10 +6,20 @@ const GradientButton = ({ children, gradientColors }) => {
   const [angle, setAngle] = useState(0);
   const animationRef = useRef(null);
 
-  const handleMouseEnter = () => {
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
+
+  const handleMouseEnter = debounce(() => { 
     setIsHovered(true);
     animationRef.current = requestAnimationFrame(animate);
-  };
+  }, 50); // Adjust delay as needed
 
   const handleMouseLeave = () => {
     setIsHovered(false);
