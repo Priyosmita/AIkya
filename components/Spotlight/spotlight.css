@@ -1,0 +1,145 @@
+.spotlight {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0) 80%);
+    transform: translateX(-50%);
+    clip-path: polygon(20% 0%, 0% 100%, 100% 100%, 80% 0%); /* Trapezoidal shape with flat top */
+    animation: spotlight-animation 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards; /* 0.5s duration with cubic-bezier easing */
+    pointer-events: none; /* Prevent interaction with the spotlight */
+    box-shadow: 0 0 250px rgba(255, 255, 255, 0.7); /* Glow effect */
+}
+
+
+@keyframes spotlight-animation {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0;
+        box-shadow: 0 0 250px rgba(255, 255, 255, 0.3); /* Soft glow */
+    }
+    5% {
+        width: 50px;
+        height: 5vh;
+        opacity: 0.2;
+        box-shadow: 0 0 250px rgba(255, 255, 255, 0.3);
+    }
+    10% {
+        width: 100px;
+        height: 10vh;
+        opacity: 0.3;
+        box-shadow: 0 0 300px rgba(255, 255, 255, 0.35);
+    }
+    15% {
+        width: 150px;
+        height: 15vh;
+        opacity: 0.4;
+        box-shadow: 0 0 350px rgba(255, 255, 255, 0.4);
+    }
+    20% {
+        width: 200px;
+        height: 20vh;
+        opacity: 0.5;
+        box-shadow: 0 0 400px rgba(255, 255, 255, 0.45);
+    }
+    25% {
+        width: 250px;
+        height: 25vh;
+        opacity: 0.6;
+        box-shadow: 0 0 450px rgba(255, 255, 255, 0.5);
+    }
+    30% {
+        width: 300px;
+        height: 30vh;
+        opacity: 0.7;
+        box-shadow: 0 0 500px rgba(255, 255, 255, 0.55);
+    }
+    35% {
+        width: 350px;
+        height: 35vh;
+        opacity: 0.75;
+        box-shadow: 0 0 550px rgba(255, 255, 255, 0.6);
+    }
+    40% {
+        width: 400px;
+        height: 40vh;
+        opacity: 0.8;
+        box-shadow: 0 0 600px rgba(255, 255, 255, 0.65);
+    }
+    45% {
+        width: 450px;
+        height: 45vh;
+        opacity: 0.85;
+        box-shadow: 0 0 650px rgba(255, 255, 255, 0.7);
+    }
+    50% {
+        width: 500px;
+        height: 50vh;
+        opacity: 0.9;
+        box-shadow: 0 0 700px rgba(255, 255, 255, 0.75);
+    }
+    55% {
+        width: 550px;
+        height: 55vh;
+        opacity: 0.9;
+        box-shadow: 0 0 750px rgba(255, 255, 255, 0.8);
+    }
+    60% {
+        width: 600px;
+        height: 60vh;
+        opacity: 0.9;
+        box-shadow: 0 0 800px rgba(255, 255, 255, 0.85);
+    }
+    65% {
+        width: 650px;
+        height: 65vh;
+        opacity: 0.85;
+        box-shadow: 0 0 850px rgba(255, 255, 255, 0.9);
+    }
+    70% {
+        width: 700px;
+        height: 70vh;
+        opacity: 0.8;
+        box-shadow: 0 0 900px rgba(255, 255, 255, 0.9);
+    }
+    75% {
+        width: 750px;
+        height: 75vh;
+        opacity: 0.75;
+        box-shadow: 0 0 950px rgba(255, 255, 255, 0.9);
+    }
+    80% {
+        width: 800px;
+        height: 80vh;
+        opacity: 0.7;
+        box-shadow: 0 0 1000px rgba(255, 255, 255, 0.9);
+    }
+    85% {
+        width: 850px;
+        height: 85vh;
+        opacity: 0.7;
+        box-shadow: 0 0 1050px rgba(255, 255, 255, 0.9);
+    }
+    90% {
+        width: 900px;
+        height: 90vh;
+        opacity: 0.7;
+        box-shadow: 0 0 1100px rgba(255, 255, 255, 0.9);
+    }
+    95% {
+        width: 950px;
+        height: 95vh;
+        opacity: 0.7;
+        box-shadow: 0 0 1150px rgba(255, 255, 255, 0.9);
+    }
+    100% {
+        width: 1000px;
+        height: 100vh;
+        opacity: 0.7;
+        box-shadow: 0 0 1200px rgba(255, 255, 255, 1); /* Max blur */
+    }
+}
+
+
