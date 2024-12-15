@@ -39,7 +39,7 @@ const Carousel3D = ({ items }) => {
   );
 
   return (
-    <div className="flex items-center justify-center w-full h-screen ">
+    <div className="flex items-center justify-center w-full h-auto">
       <div className="relative w-[80%] h-[500px] perspective-1000 flex justify-center items-center">
         {springs.map((styles, index) => (
           <animated.div
