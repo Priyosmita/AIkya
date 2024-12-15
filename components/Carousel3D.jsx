@@ -28,9 +28,9 @@ const Carousel3D = ({ items }) => {
         transform: isFront
           ? `translateX(0%) translateZ(100px) scale(1.2)` // Middle card pops forward
           : isLeft
-          ? `translateX(-120%) translateZ(0px) scale(0.9)` // Left card
+          ? `translateX(-110%) translateZ(0px) scale(0.9)` // Left card (reduced horizontal gap)
           : isRight
-          ? `translateX(120%) translateZ(0px) scale(0.9)` // Right card
+          ? `translateX(110%) translateZ(0px) scale(0.9)` // Right card (reduced horizontal gap)
           : `translateX(200%) translateZ(-200px) scale(0.6)`, // Cards not visible
         opacity: isFront || isLeft || isRight ? 1 : 0, // Only visible cards have opacity
         config: { mass: 1, tension: 200, friction: 30 },
@@ -45,18 +45,18 @@ const Carousel3D = ({ items }) => {
           <animated.div
             key={index}
             style={styles}
-            className={`absolute w-[300px] h-[400px] bg-white shadow-xl flex flex-col items-center justify-start rounded-lg overflow-hidden transition-all duration-500`}
+            className={`absolute w-[250px] h-[350px] bg-white bg-opacity-30 backdrop-blur-md shadow-xl flex flex-col items-center justify-start rounded-lg overflow-hidden transition-all duration-500`}
           >
             <img
               src={items[index].image}
               alt={items[index].title}
-              className="w-full h-2/3 object-cover"
+              className="w-[90%] h-1/2 object-cover rounded-lg mt-2"
             />
             <div className="p-4 text-center">
-              <h3 className="text-lg font-semibold text-gray-800">
+              <h3 className="text-lg font-semibold text-white">
                 {items[index].title}
               </h3>
-              <p className="text-sm text-gray-600 mt-2">
+              <p className="text-sm text-white mt-2">
                 {items[index].description}
               </p>
             </div>
