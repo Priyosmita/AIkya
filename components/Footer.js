@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
-            <a href="/" className="flex items-center">
+            <a href="https://github.com/Priyosmita/AIkya-Backend" className="flex items-center">
               <img
                 src="/assets/logo.png"
                 className="h-28 me-3"
