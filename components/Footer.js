@@ -24,14 +24,14 @@ const Footer = () => {
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-[#bdbdbd] hover:text-[#e4e3e3]">
+              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-[#696868]">
                 Contact Us
               </h2>
-              <ul className="text-gray-500 dark:text-gray-400 font-medium">
+              <ul className="text-gray-500 dark:text-[#696868] font-medium">
                 <li className="mb-4">
                   <a
                     href="https://github.com/themesberg/flowbite"
-                    className="hover:underline "
+                    className="hover:text-[#b6b4b4] transition duration-150  "
                   >
                     rijurajdatta8@gmail.com
                   </a>
@@ -39,7 +39,7 @@ const Footer = () => {
                 <li>
                   <a
                     href="https://discord.gg/4eeurUVvTy"
-                    className="hover:underline"
+                    className="hover:text-[#b6b4b4] transition duration-150"
                   >
                     +91-8100316911
                   </a>
@@ -47,17 +47,17 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-[#bdbdbd] hover:text-[#e4e3e3]">
+              <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-[#696868]">
                 Legal
               </h2>
-              <ul className="text-gray-500 dark:text-gray-400 font-medium">
+              <ul className="text-gray-500 dark:text-[#696868] font-medium">
                 <li className="mb-4">
-                  <a href="#" className="hover:underline">
+                  <a href="#" className="hover:text-[#b6b4b4] transition duration-150">
                     Privacy Policy
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:underline">
+                  <a href="#" className="hover:text-[#b6b4b4] transition duration-150">
                     Terms &amp; Conditions
                   </a>
                 </li>
@@ -75,10 +75,10 @@ const Footer = () => {
             . All Rights Reserved.
           </span>
           <div className="flex mt-4 sm:justify-center sm:mt-0 gap-x-6">
-            <FaFacebookF className="scale-125" />
-            <FaLinkedinIn className="scale-150" />
-            <FaInstagram className="scale-150" />
-            <FaXTwitter className="scale-150" />
+            <FaFacebookF className="scale-125 dark:text-[#696868] hover:text-[#b6b4b4] transition duration-150" />
+            <FaLinkedinIn className="scale-150 dark:text-[#696868] hover:text-[#b6b4b4] transition duration-150" />
+            <FaInstagram className="scale-150 dark:text-[#696868] hover:text-[#b6b4b4] transition duration-150" />
+            <FaXTwitter className="scale-150 dark:text-[#696868] hover:text-[#b6b4b4] transition duration-150" />
           </div>
         </div>
       </div>
