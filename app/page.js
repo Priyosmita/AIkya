@@ -1,4 +1,4 @@
-
+import React from 'react';
 import GradientButton from '@/components/GradientButton';
 import Carousel3D from '@/components/Carousel3D';
 import { AuroraBackground } from '@/components/aurora-background';
