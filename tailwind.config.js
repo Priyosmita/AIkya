@@ -14,11 +14,7 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
-      animation: {
-        spotlight: "spotlight 2s ease .75s 1 forwards",
-        aurora: "aurora 60s linear infinite",
-        slideUp: 'slideUp 1s ease-out',
-      },
+      // aurora background
       keyframes: {
         slideUp: {
           '0%': { transform: 'translateY(100%)', opacity: '0' },
@@ -44,7 +40,32 @@ module.exports = {
           },
         },
       },
-      
+
+      // fade in animation of website intro
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: 0 },
+          '50%': { opacity: 0.5 }, // Stay at opacity 0 for 2 seconds
+          '100%': { opacity: 1 }, // Fade in to opacity 1
+        },
+        aurora: {
+          from: {
+            backgroundPosition: "50% 50%, 50% 50%",
+          },
+          to: {
+            backgroundPosition: "350% 50%, 350% 50%",
+          },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 2s ease-out',
+        slideUp: 'slideUp 1s ease-out',
+        aurora: "aurora 60s linear infinite",
+      },
 
     },
   },

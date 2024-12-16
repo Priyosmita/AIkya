@@ -67,18 +67,18 @@ const Page = () => {
         <AuroraBackground className="h-screen" />
 
         {/* Hand image with animation */}
-        <div className="absolute bottom-0 left-0 w-full">
+        <div className="absolute top-0 left-0 w-full">
           <img
             src="/assets/hand.png"
-            className="w-full animate-slideUp"
+            className="w-full top-0 animate-slideUp"
             alt="Hand"
           />
         </div>
 
         {/* Main content */}
         <div className="absolute inset-0 flex flex-col text-white">
-          <div className="text-9xl flex justify-center pt-36">AIkya</div>
-          <div className="text-xl mt-5 flex justify-center">Where Ideas Create Impact</div>
+          <div className="text-9xl flex justify-center pt-36 animate-fadeIn">AIkya</div>
+          <div className="text-xl mt-5 flex justify-center animate-fadeIn">Where Ideas Create Impact</div>
           <div className="flex justify-center pt-96 mt-16">
             <GradientButton gradientColors={["#ff99a7", "#9bd4c3"]} className="absolute">
               <p className="text-center text-2xl">Dashboard</p>
@@ -86,7 +86,7 @@ const Page = () => {
           </div>
 
           {/* Carousel Section */}
-          <div className="flex justify-center">
+          <div className="flex justify-center pb-28 pt-10">
             <Carousel3D items={items} />
           </div>
 
